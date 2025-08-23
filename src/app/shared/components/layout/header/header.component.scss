@@ -1,0 +1,61 @@
+.container {
+  width: 1300px;
+  margin: 0 auto;
+}
+.header-top {
+  background-color: var(--dark-blue-color);
+  height: 52px;
+}
+.header-top-menu {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-direction: row;
+  gap: 24px;
+  color: var(--white-color);
+  padding: 8px 0;
+}
+.log-in-btn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 70px;
+  height: 36px;
+  cursor: pointer;
+}
+.header-h3 {
+  font-family: 'Roboto-Regular', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.create-ad {
+  padding: 12px 6px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 32px;
+  width: 180px;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: var(--primary-color);
+  color: var(--white-color);
+}
+
+.header-svg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+}
+
+
+.header-bottom {
+  border-bottom: 1px solid var;
+}
