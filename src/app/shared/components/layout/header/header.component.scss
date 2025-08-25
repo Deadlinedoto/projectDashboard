@@ -1,37 +1,31 @@
-.layout-header {
+.header {
   &__top {
     background-color: var(--dark-blue-color);
     padding: 8px 0;
   }
-
   &__top-buttons {
     display: flex;
     justify-content: flex-end;
     gap: 24px;
   }
-
   &__bottom {
     width: 100%;
     padding: 24px 0;
     border-bottom: 1px solid var(--light-grey-color);
   }
-
   &__bottom-menu {
     display: flex;
     gap: 16px;
   }
-
   &__bottom-wrapper {
     display: flex;
     gap: 12px;
     flex: 1;
   }
-
   &__input-zone {
     width: 100%;
     display: flex;
   }
-
   &__input {
     flex: 1;
     width: 100%;
