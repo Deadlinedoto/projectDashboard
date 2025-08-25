@@ -1,13 +1,11 @@
-@import "app/styles/reset.scss";
-@import "app/styles/fonts.scss";
-@import "app/styles/margins.scss";
+@use "app/styles/reset";
+@use "app/styles/global";
+
+@use "app/styles/fonts";
+@use "app/styles/margins";
+@use "app/styles/colors";
+@use "app/styles/mixins";
+@use "app/styles/typography";
 
 
-:root {
-  --dark-color: #000000;
-  --white-color: #FFFFFF;
-  --dark-blue-color: #1E293B;
-  --primary-color: #3B82F6;
-  --grey-color: #64748B;
-  --red-color: #EF4444
-}
+@use "app/styles/ui/buttons";

@@ -1,13 +1,13 @@
 import { Routes } from '@angular/router';
 import {MainLayoutComponent} from './shared/components/layout/main-layout/main-layout.component';
-import {HomeComponent} from './pages/home/home.component';
+import {AllAds} from './pages/all-ads/all-ads';
 
 export const routes: Routes = [
   {
     path: '',
     component: MainLayoutComponent,
     children: [
-      {path: '', component: HomeComponent}
+      {path: '', component: AllAds}
     ]
   }
 ];

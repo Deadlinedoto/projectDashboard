@@ -1,48 +1,41 @@
 .post {
   display: flex;
   flex-direction: column;
-  gap: 8px;
   width: 306px;
   height: 360px;
-}
-.post--img{
-  height: 240px;
-  width: 100%;
-  border-radius: 5px;
-  cursor: pointer;
+  &__img {
+    height: 240px;
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  &__name {
+    font-family: 'Roboto-SemiBold', sans-serif;
+    font-size: 18px;
+    line-height: 24px;
+    color: var(--primary-color);
+    cursor: pointer;
+
+    &:hover {
+      color: #cf3434;
+    }
+  }
+  &__price {
+    font-family: 'Roboto-SemiBold', sans-serif;
+    font-size: 18px;
+    color: var(--dark-blue-color);
+  }
+  &__address {
+    font-family: 'Roboto-Regular', sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--grey-color);
+  }
+  &__date {
+    font-family: 'Roboto-Regular', sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--grey-color);
+  }
 }
 
-.name {
-  font-family: 'Roboto-SemiBold', sans-serif;
-  font-size: 18px;
-  line-height: 24px;
-  color: var(--primary-color);
-  cursor: pointer;
-}
-.name:hover {
-  color: #cf3434;
-}
-
-.price{
-  font-family: 'Roboto-SemiBold', sans-serif;
-  font-size: 18px;
-  color: var(--dark-blue-color);
-}
-
-.address{
-  font-family: 'Roboto-Regular', sans-serif;
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--grey-color);
-}
-
-.date{
-  font-family: 'Roboto-Regular', sans-serif;
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--grey-color);
-}
-
-span {
-  margin-left: 7px;
-}

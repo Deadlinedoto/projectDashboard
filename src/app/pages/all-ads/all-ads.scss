@@ -1,0 +1,16 @@
+.all-ads {
+  height: 100%;
+
+  &__label {
+    font-family: 'Roboto-SemiBold', sans-serif;
+    font-size: 24px;
+    line-height: 32px;
+    color: var(--dark-blue-color);
+  }
+
+  &__wrapper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 32px 24px;
+  }
+}

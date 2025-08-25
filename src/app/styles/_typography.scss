@@ -1,0 +1,16 @@
+:root {
+  --regulal-font: 'Roboto-Regular', sans-serif;
+  --normal-font: 'Roboto-Normal', sans-serif;
+  --semibold-font: 'Roboto-SemiBold', sans-serif;
+  --bold-font: 'Roboto-Bold', sans-serif;
+
+  --h1: 30px/36px var(--bold-font);
+  --ph: 14px/20px var(--regulal-font);
+
+}
+
+
+h1 {
+  font: var(--h1);
+  color: var(--dark-blue-color)
+}

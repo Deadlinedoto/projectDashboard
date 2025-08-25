@@ -3,14 +3,14 @@ import {PostComponent} from '../../shared/components/post/post.component';
 import {NgForOf} from '@angular/common';
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-all-ads',
   imports: [
     PostComponent,
     NgForOf
   ],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  templateUrl: './all-ads.html',
+  styleUrl: './all-ads.scss'
 })
-export class HomeComponent {
+export class AllAds {
 
 }
