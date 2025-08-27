@@ -5,12 +5,37 @@
   --bold-font: 'Roboto-Bold', sans-serif;
 
   --h1: 30px/36px var(--bold-font);
-  --ph: 14px/20px var(--regulal-font);
+  --h2: 30px/36px var(--semibold-font);
+  --h3: 30px/32px var(--semibold-font);
+  --h4: 24px/32px var(--semibold-font);
+  --h5: 18px/24px var(--regulal-font);
+  --h6: 16px/24px var(--regulal-font);
 
+
+  --ph: 14px/20px var(--regulal-font);
 }
 
 
 h1 {
   font: var(--h1);
+  color: var(--dark-blue-color);
+  cursor: pointer;
+}
+h2 {
+  font: var(--h2);
   color: var(--dark-blue-color)
+}
+h3 {
+  font: var(--h3);
+  color: var(--dark-blue-color);
+}
+h4 {
+  font: var(--h4);
+  color: var(--dark-blue-color);
+}
+h5 {
+  font: var(--h5);
+}
+h6 {
+  font: var(--h6);
 }

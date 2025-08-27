@@ -1,0 +1,32 @@
+.all-products {
+  height: 100%;
+
+  &_label {
+    font-family: 'Roboto-SemiBold', sans-serif;
+    font-size: 24px;
+    line-height: 32px;
+    color: var(--dark-blue-color);
+  }
+
+  &_wrapper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 32px 24px;
+  }
+
+}
+
+.card {
+  margin-top: 20px;
+
+  // Стили для PrimeNG кнопки
+  p-button {
+    background: #3B82F6;
+    border-color: #3B82F6;
+
+    &:hover {
+      background: #2563EB;
+      border-color: #2563EB;
+    }
+  }
+}

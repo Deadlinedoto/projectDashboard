@@ -1,0 +1,27 @@
+<p-dialog
+  (onHide)="onHide()"
+  header="Пользователь"
+  [(visible)]="visible"
+  [modal]="true"
+  [draggable]="false"
+>
+  <div class="show-number">
+    <a
+      href="tel:+79789876543"
+    >
+      <h2 class="show-number_number">+7 (978) 987-65-43</h2></a>
+    <hr>
+    <ul class="show-number_info">
+      <h5 class="show-number_info_label">Правила безопасных сделок</h5>
+      <li>
+        <h5>Храните в тайне почту, данные паспорта и код с карты</h5>
+      </li>
+      <li>
+        <h5>Игнорируйте ссылки на оплату, которые присылает собеседник</h5>
+      </li>
+      <li>
+        <h5>Никому не говорите коды из смс и пуш-уведомлений</h5>
+      </li>
+    </ul>
+  </div>
+</p-dialog>

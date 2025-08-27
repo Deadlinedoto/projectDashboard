@@ -1,0 +1,14 @@
+.breadcrumbs {
+  &_menu {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--grey-color);
+  }
+  li {
+    cursor: pointer;
+    &:hover {
+      color: var(--primary-color);
+    }
+  }
+}

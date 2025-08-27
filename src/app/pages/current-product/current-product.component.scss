@@ -1,0 +1,27 @@
+.current-product {
+  width: 100%;
+  display: flex;
+  gap: 24px;
+
+  &_img {
+    width: 856px;
+  }
+  &_info {
+    max-width: 416px;
+  }
+  &_info_address {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  &_open-map {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    color: var(--primary-color);
+    cursor: pointer;
+    &:hover {
+      color: var(--red-color);
+    }
+  }
+}

@@ -1,32 +1,32 @@
 .header {
-  &__top {
+  &_top {
     background-color: var(--dark-blue-color);
     padding: 8px 0;
   }
-  &__top-buttons {
+  &_top-buttons {
     display: flex;
     justify-content: flex-end;
     gap: 24px;
   }
-  &__bottom {
+  &_bottom {
     width: 100%;
     padding: 24px 0;
     border-bottom: 1px solid var(--light-grey-color);
   }
-  &__bottom-menu {
+  &_bottom_menu {
     display: flex;
-    gap: 16px;
+    gap: 24px;
   }
-  &__bottom-wrapper {
+  &_bottom-wrapper {
     display: flex;
     gap: 12px;
     flex: 1;
   }
-  &__input-zone {
+  &_bottom-input-zone {
     width: 100%;
     display: flex;
   }
-  &__input {
+  &_bottom-input {
     flex: 1;
     width: 100%;
     border: 1px solid var(--border-input-color);
@@ -34,7 +34,7 @@
     padding: 8px 12px;
     font: var(--ph);
   }
-  &__search-button {
+  &_bottom-search-button {
     flex: 0
   }
 }

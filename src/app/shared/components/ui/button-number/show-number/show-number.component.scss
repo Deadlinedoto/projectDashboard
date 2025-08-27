@@ -1,0 +1,35 @@
+:host::ng-deep .p-dialog {
+  &-content {
+    max-width: 516px;
+  }
+  &-title {
+    font-family: 'Roboto-SemiBold', sans-serif;
+    font-size: 24px;
+    line-height: 32px;
+  }
+  &-close-button {
+    padding: 15px;
+  }
+}
+.show-number {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  &_number {
+    font-family: Roboto-Regular, sans-serif;
+    color: var(--primary-color);
+    cursor: pointer;
+  }
+  &_info {
+    list-style-type: disc;
+    margin-left: 25px;
+    &_label {
+      margin-left: -25px;
+    }
+  }
+  hr {
+    border: 0;
+    height: 1px;
+    background: var(--light-grey-color);
+  }
+}
