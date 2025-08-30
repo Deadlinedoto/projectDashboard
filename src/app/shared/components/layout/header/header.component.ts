@@ -1,14 +1,27 @@
 import { Component } from '@angular/core';
 import {RouterLink} from '@angular/router';
+import {ButtonComponent} from '../../ui/button/button.component';
+import {AuthComponent} from '../../../../features/auth/components/auth/auth.component';
 
 @Component({
   selector: 'app-header',
   imports: [
-    RouterLink
+    RouterLink,
+    ButtonComponent,
+    AuthComponent
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
+  public isVisiblePopupLogin: boolean = false;
+
+  showVisiblePopupLogin() {
+    this.isVisiblePopupLogin = !this.isVisiblePopupLogin;
+  }
+  closePopupLogin(value: boolean) {
+    this.isVisiblePopupLogin = value;
+  }
+
 
 }

@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {AllProductsInterface} from '../../interfaces/all-products.interface';
+import {AllProductsInterface} from '../../../features/products/services/all-products.interface';
 import {Observable} from 'rxjs';
 
 

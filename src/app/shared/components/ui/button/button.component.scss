@@ -1,0 +1,32 @@
+:host ::ng-deep .p-button {
+  display: flex;
+  font-family: 'Roboto-Regular', sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+
+  &_create-product {
+    flex-direction: row-reverse;
+    padding: 6px 12px;
+    gap: 9px;
+    .pi {
+      width: 20px;
+      height: 20px;
+      font-size: 0.7rem;
+    }
+  }
+  &_log-in {
+    padding: 7px 0;
+    gap: 9px;
+    background: none;
+    border: none;
+    &:hover:not(.p-disabled) {
+      border: none;
+      background: none;
+      color: var(--red-color);
+    }
+    .pi {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}

@@ -2,12 +2,16 @@
   display: flex;
   flex-direction: column;
   width: 306px;
-  height: 360px;
+  height: 100%;
+
   &__img {
     height: 240px;
     width: 100%;
     border-radius: 5px;
     cursor: pointer;
+
+    &:hover {
+    }
   }
   &__name {
     font-family: 'Roboto-SemiBold', sans-serif;
