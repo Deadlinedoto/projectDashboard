@@ -1,0 +1,53 @@
+:host ::ng-deep .p-dialog {
+  max-width: 418px;
+  .p-checkbox-box {
+    width: 16px;
+    height: 16px;
+  }
+  .p-checkbox-box-input {
+    font-size: 10px;
+  }
+  &-title {
+    font-family: 'Roboto-SemiBold', sans-serif;
+    font-size: 24px;
+    color: var(--dark-blue-color);
+  }
+  &-close-button {
+    color: var(--dark-blue-color);
+  }
+  &-header {
+    padding: 24px;
+  }
+  &-content {
+    padding: 0 24px;
+  }
+}
+.auth-form {
+  &_auth-input {
+    padding: 12px;
+    height: 48px;
+    width: 100%;
+    border: 1px solid var(--light-grey-color);
+    border-radius: 4px;
+
+  }
+  &_password-menu {
+    display: flex;
+    justify-content: space-between;
+    &_forgot {
+      color: var(--primary-color);
+      &:hover {
+        cursor: pointer;
+        color: var(--red-color);
+        transition: 0.3s;
+      }
+    }
+
+  }
+  &_field-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+}

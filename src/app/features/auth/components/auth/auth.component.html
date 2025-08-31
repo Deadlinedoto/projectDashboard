@@ -5,5 +5,42 @@
   [modal]="true"
   [draggable]="false"
 >
-  <div></div>
+  <form
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+    class="auth-form auth-font"
+  >
+    <input
+      formControlName="login"
+      class="auth-form_auth-input"
+      type="tel"
+      placeholder="Номер телефона"
+    >
+    <input
+      formControlName="password"
+      class="auth-form_auth-input mt16"
+      type="password"
+      placeholder="Пароль"
+    >
+    <div class="auth-form_password-menu mt8">
+      <div class="auth-form_field-checkbox">
+        <p-checkbox
+          [binary]="true"
+          [(ngModel)]="rememberMe"
+          [ngModelOptions]="{standalone: true}"
+          inputId="remember"
+          name="remember"
+        ></p-checkbox>
+        <label for="remember" class="auth-form_field-checkbox_label">Запомнить меня</label>
+      </div>
+      <span class="auth-form_password-menu_forgot">Забыли пароль?</span>
+    </div>
+    <app-button
+      label="Войти"
+      customClass="p-button_auth"
+      type="sumbit"
+      (click)="onSubmit()"
+    >
+    </app-button>
+  </form>
 </p-dialog>
