@@ -1,14 +1,16 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {AuthInterface} from './auth.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  http = inject(HttpClient)
+  baseApiUrl: string = 'http://dzitskiy.ru:5000/'
 
-  // login(login: string, password: string): {
-  //
-  // }
+  getAuth(payload: {login: string, password: string}):Observable<AuthInterface> {
+    return this.http.post<AuthInterface>(`${this.baseApiUrl}Auth/Login`, payload)
+  }
 }

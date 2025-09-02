@@ -1,8 +1,9 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, inject, Input, Output} from '@angular/core';
 import {Dialog} from 'primeng/dialog';
 import {Checkbox} from 'primeng/checkbox';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ButtonComponent} from '../../../../shared/components/ui/button/button.component';
+import {AuthService} from '../../../../core/services/auth/auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -17,13 +18,14 @@ import {ButtonComponent} from '../../../../shared/components/ui/button/button.co
   styleUrl: './auth.component.scss'
 })
 export class AuthComponent {
-  @Input() visible: boolean = false;
+  @Input() visible = false;
   @Output() closeShowPopupLogin = new EventEmitter();
+
+  authService = inject(AuthService)
 
   rememberMe: boolean = false;
 
   onHide(): void {
-    this.visible = false;
     this.closeShowPopupLogin.emit(this.visible);
   }
 
@@ -33,9 +35,16 @@ export class AuthComponent {
   })
 
   onSubmit() {
-    console.log("Форма отпрвалена")
+    console.log("Форма отправлена")
     if (this.form.valid) {
       console.log(this.form.value);
+      //@ts-ignore
+      this.authService.getAuth(this.form.value)
+        .subscribe(res => {
+        console.log(res);
+      })
+
+
     }
   }
 }

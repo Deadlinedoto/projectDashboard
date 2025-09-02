@@ -1,0 +1,38 @@
+<p-dialog
+  header="Регистрация"
+  (onHide)="onHide()"
+  [(visible)]="visible"
+  [modal]="true"
+  [draggable]="false"
+  class="login-modal"
+>
+  <form
+    [formGroup]="form"
+    class="register-form auth-font"
+  >
+    <input
+      formControlName="login"
+      type="tel"
+      placeholder="Телефонный номер"
+    >
+    <input
+      formControlName="name"
+      placeholder="Имя"
+      type="text"
+      class="mt16">
+    <input
+      formControlName="password"
+      placeholder="Пароль"
+      type="text"
+      class="mt16"
+    >
+    <app-button
+      label="Зарегистрироваться"
+      customClass="p-button_login"
+      type="submit"
+      (click)="onSubmit()"
+
+    >
+    </app-button>
+  </form>
+</p-dialog>

@@ -10,6 +10,13 @@
         >
         </app-button>
         <app-button
+          label="Регистрация"
+          customClass="p-button_log-in"
+          (click)="showVisiblePopupRegister()"
+        >
+
+        </app-button>
+        <app-button
           icon="pi pi-plus"
           label="Новое объявление"
           customClass="p-button_create-product"
@@ -53,3 +60,8 @@
   [visible]='isVisiblePopupLogin'
   (closeShowPopupLogin)=closePopupLogin($event)
 ></app-auth>
+<app-register
+  [visible]="isVisiblePopupRegister"
+  (closeShowPopupRegister)="closePopupRegister($event)"
+>
+</app-register>

@@ -4,6 +4,7 @@
   [(visible)]="visible"
   [modal]="true"
   [draggable]="false"
+  class="login-modal"
 >
   <form
     [formGroup]="form"
@@ -37,10 +38,11 @@
     </div>
     <app-button
       label="Войти"
-      customClass="p-button_auth"
+      customClass="p-button_login"
       type="sumbit"
       (click)="onSubmit()"
     >
     </app-button>
+
   </form>
 </p-dialog>
