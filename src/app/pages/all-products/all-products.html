@@ -1,9 +1,14 @@
 <div class="all-products mb100">
   <h4 class="all-products mb24">Рекомендации для вас</h4>
   <div class="all-products_wrapper">
-  <app-product *ngFor="let post of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]"
-    [routerLink]= "['current-product']"
-  ></app-product>
+    <div
+      *ngFor="let product of products"
+    >
+      <app-product
+        [product]="product"
+        [routerLink]="['current-product/' + product.id]"
+      ></app-product>
+    </div>
   </div>
 </div>
 

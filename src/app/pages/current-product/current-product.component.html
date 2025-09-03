@@ -1,15 +1,18 @@
+@if (selectedProduct) {
 <app-breadcrumbs></app-breadcrumbs>
 <div class="current-product">
   <div class="current-product_img">
-    <h2>Macbook pro 13 2020 m1 8/256</h2>
+    <h2>{{ selectedProduct.name }}</h2>
   </div>
   <div class="current-product_info">
-    <h2>80 000 ₽</h2>
-    <app-button-number></app-button-number>
+    <h2>{{ selectedProduct.cost | price}}</h2>
+    <app-button-number
+      [product]="selectedProduct"
+    ></app-button-number>
     <div class="mt40">
       <h4>Адрес</h4>
       <div class="current-product_info_address mt8">
-        <h6>Севастополь, ул. Гоголя, 33Б</h6>
+        <h6>{{ selectedProduct.location }}</h6>
         <a href="" class="current-product_open-map">
           <h6>Открыть на карте</h6>
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -20,7 +23,11 @@
     </div>
     <div class="current-product_info_description mt32">
       <h4>Описание</h4>
-      <h6 class="mt8">Продается MacBook Pro 13 8/256 Сам ноутбук в отличном состоянии, количество циклов перезарядки 123, в комплекте: коробка, ноутбук, блок, кабель и чек!</h6>
+      <h6 class="mt8">{{ selectedProduct.description }}</h6>
     </div>
   </div>
 </div>
+} @else {
+  <h1>Загрузка...</h1>
+}
+

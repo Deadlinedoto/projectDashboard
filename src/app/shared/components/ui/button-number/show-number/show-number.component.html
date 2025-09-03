@@ -1,15 +1,15 @@
 <p-dialog
   (onHide)="onHide()"
-  header="Пользователь"
+  [header]="product?.user?.name"
   [(visible)]="visible"
   [modal]="true"
   [draggable]="false"
 >
   <div class="show-number">
     <a
-      href="tel:+79789876543"
+      href="tel:"
     >
-      <h2 class="show-number_number">+7 (978) 987-65-43</h2></a>
+      <h2 class="show-number_number">{{ product?.phone | telephone }}</h2></a>
     <hr>
     <ul class="show-number_info">
       <h5 class="show-number_info_label">Правила безопасных сделок</h5>

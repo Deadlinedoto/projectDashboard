@@ -1,15 +1,19 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Dialog} from 'primeng/dialog';
+import {ProductInterface} from '../../../../../features/products/services/product-interface';
+import {TelephonePipe} from '../../../../pipes/telephone.pipe';
 
 @Component({
   selector: 'app-show-number',
   imports: [
-    Dialog
+    Dialog,
+    TelephonePipe
   ],
   templateUrl: './show-number.component.html',
   styleUrl: './show-number.component.scss'
 })
 export class ShowNumberComponent {
+  @Input() product?: ProductInterface;
   @Input() visible: boolean = false;
   @Output() closeShowPopup = new EventEmitter();
 

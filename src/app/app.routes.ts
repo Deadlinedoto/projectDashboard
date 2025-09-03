@@ -9,7 +9,7 @@ export const routes: Routes = [
     component: MainLayoutComponent,
     children: [
       {path: '', component: AllProductsComponent},
-      {path: 'current-product', component: CurrentProductComponent}
+      {path: 'current-product/:id', component: CurrentProductComponent}
     ]
   }
 ];

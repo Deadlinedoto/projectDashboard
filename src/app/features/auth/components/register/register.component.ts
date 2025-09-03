@@ -1,6 +1,5 @@
 import {Component, EventEmitter, inject, Input, Output} from '@angular/core';
 import {ButtonComponent} from '../../../../shared/components/ui/button/button.component';
-import {Checkbox} from 'primeng/checkbox';
 import {Dialog} from 'primeng/dialog';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {RegisterService} from '../../../../core/services/register/register.service';
@@ -9,7 +8,6 @@ import {RegisterService} from '../../../../core/services/register/register.servi
   selector: 'app-register',
   imports: [
     ButtonComponent,
-    Checkbox,
     Dialog,
     ReactiveFormsModule
   ],
@@ -31,25 +29,25 @@ export class RegisterComponent {
     name: new FormControl<string | null>(null, Validators.required),
     password: new FormControl<string | null>(null, Validators.required),
   })
-  // onSubmit() {
-  //   if(this.form.valid) {
-  //     const {login, name, password} = this.form.value;
-  //     if(login && name && password) {
-  //       console.log(this.form.value);
-  //       this.registerService.register({
-  //         login, name, password
-  //         })
-  //     }
-  //   }
-  // }
   onSubmit() {
-    if (this.form.valid) {
-      console.log(this.form.value);
-      //@ts-ignore
-      this.registerService.getRegister(this.form.value)
-        .subscribe(res => {
-          console.log(res);
-        })
+    if(this.form.valid) {
+      const {login, name, password} = this.form.value;
+      if(login && name && password) {
+        console.log(this.form.value);
+        this.registerService.getRegister({
+          login, name, password
+          }).subscribe(res => {console.log(res)})
+      }
     }
   }
+  // onSubmit() {
+  //   if (this.form.valid) {
+  //     console.log(this.form.value);
+  //     //@ts-ignore
+  //     this.registerService.getRegister(this.form.value)
+  //       .subscribe(res => {
+  //         console.log(res);
+  //       })
+  //   }
+  // }
 }
