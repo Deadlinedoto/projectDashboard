@@ -1,13 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {BreadcrumbsComponent} from './components/breadcrumbs/breadcrumbs.component';
 import {ShowPhoneComponent} from './components/show-phone/show-phone-component';
-import {ProductInterface} from '../../features/products/services/product-interface';
+import {CurrentProductInterface} from './current-product-interface';
 import {ApiService} from '../../core/services/http/api.service';
 import {ActivatedRoute} from '@angular/router';
 import {PricePipe} from '../../shared/pipes/price.pipe';
 
 @Component({
-  selector: 'app-current-product',
+  selector: 'app-current-product-mini-card',
   imports: [
     BreadcrumbsComponent,
     ShowPhoneComponent,
@@ -18,7 +18,7 @@ import {PricePipe} from '../../shared/pipes/price.pipe';
 })
 export class CurrentProductComponent implements OnInit {
 
-  public selectedProduct!: ProductInterface;
+  public selectedProduct!: CurrentProductInterface;
   public idSelectAdd!: string
 
   constructor(private apiService: ApiService, private _route: ActivatedRoute ) {

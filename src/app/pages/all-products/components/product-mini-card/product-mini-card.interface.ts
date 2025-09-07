@@ -1,4 +1,4 @@
-export interface AllProductsInterface {
+export interface ProductMiniCardInterface {
   id: string;
   name: string;
   location: string;

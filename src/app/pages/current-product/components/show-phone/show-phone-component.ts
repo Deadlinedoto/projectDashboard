@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import {ShowPhoneDialogComponent} from '../show-phone-dialog/show-phone-dialog-component';
-import {ProductInterface} from '../../../../features/products/services/product-interface';
+import {CurrentProductInterface} from '../../current-product-interface';
 
 @Component({
   selector: 'app-show-phone',
@@ -14,7 +14,7 @@ import {ProductInterface} from '../../../../features/products/services/product-i
   styleUrl: './show-phone-component.scss'
 })
 export class ShowPhoneComponent {
-  @Input() product!: ProductInterface;
+  @Input() product!: CurrentProductInterface;
   public isVisiblePopup = false;
 
   constructor() {

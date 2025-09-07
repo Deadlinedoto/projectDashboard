@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {NgForOf} from '@angular/common';
 import {RouterLink} from '@angular/router';
-import {ProductComponent} from '../../features/products/components/product/product.component';
+import {ProductMiniCardComponent} from './components/product-mini-card/product-mini-card.component';
 import {ApiService} from '../../core/services/http/api.service';
 
 @Component({
@@ -9,7 +9,7 @@ import {ApiService} from '../../core/services/http/api.service';
   imports: [
     NgForOf,
     RouterLink,
-    ProductComponent,
+    ProductMiniCardComponent,
   ],
   templateUrl: './all-products.html',
   styleUrl: './all-products.scss'

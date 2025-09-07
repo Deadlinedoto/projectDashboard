@@ -1,4 +1,4 @@
-export interface ProductInterface {
+export interface CurrentProductInterface {
   id: string,
   user:
     {

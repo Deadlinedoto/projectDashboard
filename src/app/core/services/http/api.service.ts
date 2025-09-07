@@ -1,8 +1,8 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {AllProductsInterface} from '../../../features/products/services/all-products.interface';
+import {ProductMiniCardInterface} from '../../../pages/all-products/components/product-mini-card/product-mini-card.interface';
 import {Observable} from 'rxjs';
-import {ProductInterface} from '../../../features/products/services/product-interface';
+import {CurrentProductInterface} from '../../../pages/current-product/current-product-interface';
 
 
 @Injectable({
@@ -13,10 +13,10 @@ export class ApiService {
   baseApiUrl: string = 'http://dzitskiy.ru:5000/';
 
 
-  getAllProducts(): Observable<AllProductsInterface[]> {
-    return this.http.post<AllProductsInterface[]>(`${this.baseApiUrl}Advert/search`, {});
+  getAllProducts(): Observable<ProductMiniCardInterface[]> {
+    return this.http.post<ProductMiniCardInterface[]>(`${this.baseApiUrl}Advert/search`, {});
   }
-  getSelectedProduct(id: string): Observable<ProductInterface> {
-    return this.http.get<ProductInterface>(`${this.baseApiUrl}Advert/` + id);
+  getSelectedProduct(id: string): Observable<CurrentProductInterface> {
+    return this.http.get<CurrentProductInterface>(`${this.baseApiUrl}Advert/` + id);
   }
 }

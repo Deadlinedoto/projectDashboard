@@ -3,7 +3,7 @@ import {Dialog} from 'primeng/dialog';
 import {Checkbox} from 'primeng/checkbox';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ButtonComponent} from '../../../../shared/components/ui/button/button.component';
-import {AuthService} from '../../../../core/services/auth/auth.service';
+import {AuthService} from './auth.service';
 
 @Component({
   selector: 'app-auth',

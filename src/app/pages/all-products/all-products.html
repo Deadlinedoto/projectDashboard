@@ -5,10 +5,10 @@
     <div
       *ngFor="let product of products"
     >
-      <app-product
+      <app-product-mini-card
         [product]="product"
-        [routerLink]="['current-product/' + product.id]"
-      ></app-product>
+        [routerLink]="['current-product-mini-card/' + product.id]"
+      ></app-product-mini-card>
     </div>
   </div>
 </div>

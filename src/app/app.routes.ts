@@ -9,7 +9,7 @@ export const routes: Routes = [
         component: AllProductsComponent
       },
       {
-        path: 'current-product/:id',
+        path: 'current-product-mini-card/:id',
         component: CurrentProductComponent
       },
 

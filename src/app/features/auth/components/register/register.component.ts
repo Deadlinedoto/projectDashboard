@@ -2,7 +2,7 @@ import {Component, EventEmitter, inject, Input, Output} from '@angular/core';
 import {ButtonComponent} from '../../../../shared/components/ui/button/button.component';
 import {Dialog} from 'primeng/dialog';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {RegisterService} from '../../../../core/services/register/register.service';
+import {RegisterService} from './register.service';
 
 @Component({
   selector: 'app-register',
