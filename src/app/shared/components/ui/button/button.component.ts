@@ -3,6 +3,7 @@ import {Button} from 'primeng/button';
 
 @Component({
   selector: 'app-button',
+  standalone: true,
   imports: [
     Button,
   ],
@@ -12,9 +13,9 @@ import {Button} from 'primeng/button';
 export class ButtonComponent {
   @Input() label: string = ''
   @Input() icon: string = ''
-  @Input() customClass: string = ''
   @Input() loading: boolean = false
   @Input() disabled: boolean = false
+  @Input() customClass: string = ''
 
 
 
@@ -22,6 +23,10 @@ export class ButtonComponent {
 
   handleClick(event: Event) {
     this.onClick.emit(event)
+  }
+
+  get buttonClass(): string {
+    return `app-button ${this.customClass}`;
   }
 
 }

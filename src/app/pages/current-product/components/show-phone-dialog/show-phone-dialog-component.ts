@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Dialog} from 'primeng/dialog';
-import {ProductInterface} from '../../../../../features/products/services/product-interface';
-import {TelephonePipe} from '../../../../pipes/telephone.pipe';
+import {ProductInterface} from '../../../../features/products/services/product-interface';
+import {TelephonePipe} from '../../../../shared/pipes/telephone.pipe';
 
 @Component({
   selector: 'app-show-number',
@@ -9,10 +9,10 @@ import {TelephonePipe} from '../../../../pipes/telephone.pipe';
     Dialog,
     TelephonePipe
   ],
-  templateUrl: './show-number.component.html',
-  styleUrl: './show-number.component.scss'
+  templateUrl: './show-phone-dialog-component.html',
+  styleUrl: './show-phone-dialog-component.scss'
 })
-export class ShowNumberComponent {
+export class ShowPhoneDialogComponent {
   @Input() product?: ProductInterface;
   @Input() visible: boolean = false;
   @Output() closeShowPopup = new EventEmitter();

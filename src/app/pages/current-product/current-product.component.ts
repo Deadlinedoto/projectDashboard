@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {BreadcrumbsComponent} from '../../shared/components/ui/breadcrumbs/breadcrumbs.component';
-import {ButtonNumberComponent} from '../../shared/components/ui/button-number/button-number.component';
+import {BreadcrumbsComponent} from './components/breadcrumbs/breadcrumbs.component';
+import {ShowPhoneComponent} from './components/show-phone/show-phone-component';
 import {ProductInterface} from '../../features/products/services/product-interface';
 import {ApiService} from '../../core/services/http/api.service';
 import {ActivatedRoute} from '@angular/router';
@@ -10,7 +10,7 @@ import {PricePipe} from '../../shared/pipes/price.pipe';
   selector: 'app-current-product',
   imports: [
     BreadcrumbsComponent,
-    ButtonNumberComponent,
+    ShowPhoneComponent,
     PricePipe,
   ],
   templateUrl: './current-product.component.html',

@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import {RouterLink} from '@angular/router';
-import {ButtonComponent} from '../../ui/button/button.component';
-import {AuthComponent} from '../../../../features/auth/components/auth/auth.component';
-import {RegisterComponent} from '../../../../features/auth/components/register/register.component';
+import {ButtonComponent} from '../../../shared/components/ui/button/button.component';
+import {AuthComponent} from '../../../features/auth/components/auth/auth.component';
+import {RegisterComponent} from '../../../features/auth/components/register/register.component';
 
 @Component({
   selector: 'app-header',
+  standalone: true,
   imports: [
     RouterLink,
     ButtonComponent,
