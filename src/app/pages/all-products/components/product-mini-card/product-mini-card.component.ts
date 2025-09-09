@@ -10,7 +10,8 @@ import {PricePipe} from '../../../../shared/pipes/price.pipe';
     PricePipe
   ],
   templateUrl: './product-mini-card.component.html',
-  styleUrl: './product-mini-card.component.scss'
+  styleUrl: './product-mini-card.component.scss',
+  standalone: true,
 })
 export class ProductMiniCardComponent {
   @Input() product!: ProductMiniCardInterface

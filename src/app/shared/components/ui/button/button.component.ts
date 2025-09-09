@@ -3,12 +3,12 @@ import {Button} from 'primeng/button';
 
 @Component({
   selector: 'app-button',
-  standalone: true,
   imports: [
     Button,
   ],
   templateUrl: './button.component.html',
-  styleUrl: './button.component.scss'
+  styleUrl: './button.component.scss',
+  standalone: true,
 })
 export class ButtonComponent {
   @Input() label: string = ''

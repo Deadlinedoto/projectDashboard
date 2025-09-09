@@ -2,8 +2,8 @@ import {Component, EventEmitter, inject, Input, Output} from '@angular/core';
 import {Dialog} from 'primeng/dialog';
 import {Checkbox} from 'primeng/checkbox';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {ButtonComponent} from '../../../../shared/components/ui/button/button.component';
-import {AuthService} from './auth.service';
+import {ButtonComponent} from '../../../../shared/components/ui/button';
+import {AuthService} from './services';
 
 @Component({
   selector: 'app-auth',
@@ -15,7 +15,8 @@ import {AuthService} from './auth.service';
     ReactiveFormsModule,
   ],
   templateUrl: './auth.component.html',
-  styleUrl: './auth.component.scss'
+  styleUrl: './auth.component.scss',
+  standalone: true,
 })
 export class AuthComponent {
   @Input() visible = false;

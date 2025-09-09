@@ -12,7 +12,8 @@ import {ApiService} from '../../core/services/http/api.service';
     ProductMiniCardComponent,
   ],
   templateUrl: './all-products.html',
-  styleUrl: './all-products.scss'
+  styleUrl: './all-products.scss',
+  standalone: true,
 })
 
 export class AllProductsComponent implements OnInit {

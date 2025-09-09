@@ -10,7 +10,8 @@ import {TelephonePipe} from '../../../../shared/pipes/telephone.pipe';
     TelephonePipe
   ],
   templateUrl: './show-phone-dialog-component.html',
-  styleUrl: './show-phone-dialog-component.scss'
+  styleUrl: './show-phone-dialog-component.scss',
+  standalone: true,
 })
 export class ShowPhoneDialogComponent {
   @Input() product?: CurrentProductInterface;

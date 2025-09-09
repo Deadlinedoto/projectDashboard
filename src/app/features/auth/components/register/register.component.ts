@@ -12,7 +12,8 @@ import {RegisterService} from './register.service';
     ReactiveFormsModule
   ],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.scss'
+  styleUrl: './register.component.scss',
+  standalone: true,
 })
 export class RegisterComponent {
   @Input() visible = false;

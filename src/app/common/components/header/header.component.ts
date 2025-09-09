@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 import {RouterLink} from '@angular/router';
-import {ButtonComponent} from '../../../shared/components/ui/button/button.component';
+import {ButtonComponent} from '../../../shared/components/ui/button';
 import {AuthComponent} from '../../../features/auth/components/auth/auth.component';
 import {RegisterComponent} from '../../../features/auth/components/register/register.component';
 
 @Component({
   selector: 'app-header',
-  standalone: true,
   imports: [
     RouterLink,
     ButtonComponent,
@@ -14,7 +13,8 @@ import {RegisterComponent} from '../../../features/auth/components/register/regi
     RegisterComponent
   ],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+  styleUrl: './header.component.scss',
+  standalone: true,
 })
 export class HeaderComponent {
   public isVisiblePopupLogin: boolean = false;

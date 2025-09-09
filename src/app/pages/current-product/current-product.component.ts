@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BreadcrumbsComponent} from './components/breadcrumbs/breadcrumbs.component';
 import {ShowPhoneComponent} from './components/show-phone/show-phone-component';
 import {CurrentProductInterface} from './current-product-interface';
@@ -14,7 +14,8 @@ import {PricePipe} from '../../shared/pipes/price.pipe';
     PricePipe,
   ],
   templateUrl: './current-product.component.html',
-  styleUrl: './current-product.component.scss'
+  styleUrl: './current-product.component.scss',
+  standalone: true,
 })
 export class CurrentProductComponent implements OnInit {
 
