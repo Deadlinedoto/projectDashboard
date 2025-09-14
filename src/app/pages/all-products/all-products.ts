@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {NgForOf} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import {ProductMiniCardComponent} from './components/product-mini-card/product-mini-card.component';
@@ -18,7 +18,8 @@ import {ApiService} from '../../core/services/http/api.service';
 
 export class AllProductsComponent implements OnInit {
 
- products: any[] = [];
+  // const apiService = inject(ApiService)
+  products: any[] = [];
 
  constructor(private apiService: ApiService) {
  }

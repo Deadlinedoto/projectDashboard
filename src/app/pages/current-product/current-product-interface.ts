@@ -8,7 +8,7 @@ export interface CurrentProductInterface {
   name: string,
   description: string,
   isActive: boolean,
-  imagesIds: [{}],
+  imagesIds: [],
   cost: number,
   email: string,
   phone: string,

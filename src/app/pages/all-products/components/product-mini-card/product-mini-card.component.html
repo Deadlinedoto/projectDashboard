@@ -1,5 +1,9 @@
 <div class="product">
-  <img class="product__img" src="http://dzitskiy.ru:5000/Images/{{ product.imagesIds[0]}}" alt="image">
+  @if (product.imagesIds) {
+    <img class="product__img" src="http://dzitskiy.ru:5000/Images/{{ product.imagesIds[0]}}" alt="image">
+  } @else {
+    error
+  }
   <h3 class="product__name mt8">{{ product.name }}</h3>
   <h3 class="product__price">{{product.cost | price}}</h3>
   <p class="product__address">{{ product.location }}</p>

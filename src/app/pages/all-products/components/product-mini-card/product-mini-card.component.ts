@@ -15,4 +15,6 @@ import {PricePipe} from '../../../../shared/pipes/price.pipe';
 })
 export class ProductMiniCardComponent {
   @Input() product!: ProductMiniCardInterface
+  protected readonly Array = Array;
+
 }

@@ -1,10 +1,13 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {BreadcrumbsComponent} from './components/breadcrumbs/breadcrumbs.component';
 import {ShowPhoneComponent} from './components/show-phone/show-phone-component';
 import {CurrentProductInterface} from './current-product-interface';
 import {ApiService} from '../../core/services/http/api.service';
 import {ActivatedRoute} from '@angular/router';
 import {PricePipe} from '../../shared/pipes/price.pipe';
+import {ImagesCarouselComponent} from './components/images-carousel/images-carousel.component';
+import {ImagesInterface} from '../../core/interfaces/images-interface';
+import {ImageService} from '../../core/services/image.service';
 
 @Component({
   selector: 'app-current-product-mini-card',
@@ -12,6 +15,8 @@ import {PricePipe} from '../../shared/pipes/price.pipe';
     BreadcrumbsComponent,
     ShowPhoneComponent,
     PricePipe,
+    ImagesCarouselComponent,
+
   ],
   templateUrl: './current-product.component.html',
   styleUrl: './current-product.component.scss',
@@ -21,6 +26,9 @@ export class CurrentProductComponent implements OnInit {
 
   public selectedProduct!: CurrentProductInterface;
   public idSelectAdd!: string
+  public images: string[] = []
+
+  private imageService = inject(ImageService)
 
   constructor(private apiService: ApiService, private _route: ActivatedRoute ) {
   }
@@ -37,6 +45,7 @@ export class CurrentProductComponent implements OnInit {
         .subscribe((res) => {
           console.log(res)
           this.selectedProduct = res
+          this.images = res.imagesIds || []
         })
   }
 

@@ -3,6 +3,7 @@
 <div class="current-product">
   <div class="current-product_img">
     <h2>{{ selectedProduct.name }}</h2>
+    <app-images-carousel [imageIds]="images"></app-images-carousel>
   </div>
   <div class="current-product_info">
     <h2>{{ selectedProduct.cost | price}}</h2>
