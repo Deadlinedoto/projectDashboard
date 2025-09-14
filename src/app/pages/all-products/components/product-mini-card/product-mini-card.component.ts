@@ -1,7 +1,8 @@
-import {Component, Input} from '@angular/core';
+import {Component, inject, Input} from '@angular/core';
 import {ProductMiniCardInterface} from './product-mini-card.interface';
 import {RelativeTimePipe} from '../../../../shared/pipes/relative-time.pipe';
 import {PricePipe} from '../../../../shared/pipes/price.pipe';
+import {ImageService} from '../../../../core/services/image.service';
 
 @Component({
   selector: 'app-product-mini-card',
@@ -15,6 +16,11 @@ import {PricePipe} from '../../../../shared/pipes/price.pipe';
 })
 export class ProductMiniCardComponent {
   @Input() product!: ProductMiniCardInterface
+  @Input() imageIds: any[] = []
   protected readonly Array = Array;
+  private imageService = inject(ImageService)
 
+  getImageUrl(imageId: string) {
+    this.imageService.getImage(imageId)
+  }
 }

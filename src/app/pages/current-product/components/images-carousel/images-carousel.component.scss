@@ -1,0 +1,15 @@
+:host ::ng-deep p-galleria {
+  .main-image-carousel {
+    width: 856px;
+    height: 512px;
+    border-radius: 4px;
+    object-fit: cover;
+  }
+  .mini-images-carousel {
+    width: 856px;
+    &_item {
+      height: 85px;
+    }
+  }
+
+}

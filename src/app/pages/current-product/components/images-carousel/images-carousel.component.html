@@ -1,2 +1,21 @@
-<app-main-image-carousel [imageIds]="imageIds"></app-main-image-carousel>
+<p-galleria
+  [value]="images"
+  [numVisible]="5">
+  <ng-template pTemplate="item" let-item>
+    <img
+      class="main-image-carousel"
+      [src]="'http://dzitskiy.ru:5000/Images/'
+       + item" alt="main-image-carousel" />
+  </ng-template>
+  <ng-template
+    class="mini-images-carousel" pTemplate="thumbnail" let-item>
+    <div>
+      <img
+        class="mini-images-carousel_item"
+        [src]="'http://dzitskiy.ru:5000/Images/' + item"
+        alt=""
+      />
+    </div>
+  </ng-template>
+</p-galleria>
 

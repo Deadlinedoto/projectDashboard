@@ -1,8 +1,8 @@
 <div class="product">
-  @if (product.imagesIds) {
-    <img class="product__img" src="http://dzitskiy.ru:5000/Images/{{ product.imagesIds[0]}}" alt="image">
+  @if (product.imagesIds && product.imagesIds.length > 0) {
+    <img class="product__img" [src]="'http://dzitskiy.ru:5000/Images/' + product.imagesIds[0]" alt="image">
   } @else {
-    error
+    <img class="product__img" src="/assets/images/placeholder-image.webp" alt="image">
   }
   <h3 class="product__name mt8">{{ product.name }}</h3>
   <h3 class="product__price">{{product.cost | price}}</h3>

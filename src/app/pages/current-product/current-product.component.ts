@@ -29,9 +29,9 @@ export class CurrentProductComponent implements OnInit {
   public images: string[] = []
 
   private imageService = inject(ImageService)
+  private apiService = inject(ApiService);
+  private _route = inject(ActivatedRoute);
 
-  constructor(private apiService: ApiService, private _route: ActivatedRoute ) {
-  }
 
   ngOnInit() {
     this._route.params.subscribe(params => {

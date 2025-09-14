@@ -1,26 +1,23 @@
 import {ChangeDetectionStrategy, Component, inject, Input, OnInit} from '@angular/core';
-import {MainImageCarouselComponent} from './main-image-carousel/main-image-carousel.component';
 import {CurrentProductInterface} from '../../current-product-interface';
-import {ApiService} from '../../../../core/services/http/api.service';
-import {ImageService} from '../../../../core/services/image.service';
-import {ImagesInterface} from '../../../../core/interfaces/images-interface';
+import {GalleriaModule} from 'primeng/galleria';
 
 @Component({
   selector: 'app-images-carousel',
   standalone: true,
   imports: [
-    MainImageCarouselComponent
+    GalleriaModule
   ],
   templateUrl: './images-carousel.component.html',
   styleUrl: './images-carousel.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ImagesCarouselComponent {
-  @Input() miniImages!: CurrentProductInterface;
-  @Input() imageIds: string[] = [];
+export class ImagesCarouselComponent implements OnInit {
+  @Input() miniImg!:CurrentProductInterface;
 
+  images: any[] | undefined;
 
-  public imageService = inject(ImageService)
-
-
+  ngOnInit() {
+    this.images = this.miniImg.imagesIds.slice()
+  }
 }
