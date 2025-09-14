@@ -26,14 +26,17 @@ export class AuthComponent {
 
   rememberMe: boolean = false;
 
-  onHide(): void {
-    this.closeShowPopupLogin.emit(this.visible);
-  }
 
   form = new FormGroup({
     login: new FormControl<string | null>(null, [Validators.required]),
     password: new FormControl<string | null>(null, [Validators.required]),
   })
+
+
+
+  onHide(): void {
+    this.closeShowPopupLogin.emit(this.visible);
+  }
 
   onSubmit() {
     console.log("Форма отправлена")

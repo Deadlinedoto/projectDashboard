@@ -13,9 +13,7 @@ export class RegisterService {
 
 
   getRegister(payload:{ name: string, login: string, password: string}): Observable<RegisterInterface> {
-
     return this.http.post<RegisterInterface>(`${this.baseApiUrl}Auth/Register`, payload)
-
   }
 
 }

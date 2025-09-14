@@ -18,6 +18,6 @@ export class ImagesCarouselComponent implements OnInit {
   images: any[] | undefined;
 
   ngOnInit() {
-    this.images = this.miniImg.imagesIds.slice()
+    this.images = this.miniImg.imagesIds
   }
 }
