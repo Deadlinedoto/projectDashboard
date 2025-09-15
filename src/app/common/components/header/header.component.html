@@ -2,25 +2,35 @@
   <div class="header_top">
     <div class="container">
       <div class="header_top-buttons">
-        <app-button
-          icon="pi pi-user"
-          label="Войти"
-          customClass="p-button_log-in"
-          (click)="showVisiblePopupLogin()"
-        >
-        </app-button>
-        <app-button
-          label="Регистрация"
-          customClass="p-button_log-in"
-          (click)="showVisiblePopupRegister()"
-        >
+        @if (!authService.isAuth) {
+          <app-button
+            icon="pi pi-user"
+            label="Войти"
+            customClass="p-button_log-in"
+            (click)="showVisiblePopupLogin()"
+          >
+          </app-button>
+          <app-button
+            label="Регистрация"
+            customClass="p-button_log-in"
+            (click)="showVisiblePopupRegister()"
+          >
+          </app-button>
+        }
+        @else {
+          <p-split-button
 
-        </app-button>
-        <app-button
-          icon="pi pi-plus"
-          label="Новое объявление"
-          customClass="p-button_create-product"
-        ></app-button>
+          >
+            qwddqw
+          </p-split-button>
+        }
+          <app-button
+            icon="pi pi-plus"
+            label="Новое объявление"
+            customClass="p-button_create-product"
+            [routerLink]="['create-product']"
+          ></app-button>
+
       </div>
     </div>
   </div>

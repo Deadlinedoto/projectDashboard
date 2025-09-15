@@ -35,7 +35,7 @@ export class AuthComponent {
 
 
   onHide(): void {
-    this.closeShowPopupLogin.emit(this.visible);
+    this.closeShowPopupLogin.emit(false);
   }
 
   onSubmit() {
@@ -43,12 +43,11 @@ export class AuthComponent {
     if (this.form.valid) {
       console.log(this.form.value);
       //@ts-ignore
-      this.authService.getAuth(this.form.value)
+      this.authService.login(this.form.value)
         .subscribe(res => {
         console.log(res);
+        this.onHide()
       })
-
-
     }
   }
 }

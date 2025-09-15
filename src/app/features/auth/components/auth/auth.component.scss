@@ -5,6 +5,14 @@
     width: 100%;
     border: 1px solid var(--light-grey-color);
     border-radius: 4px;
+    &:focus {
+      outline: none;
+      border-color: #007bff;
+      &::placeholder {
+        color: #999;
+        opacity: 1;
+      }
+    }
 
   }
   &_password-menu {
