@@ -1,12 +1,14 @@
-import {Component, inject} from '@angular/core';
-import {RouterLink} from '@angular/router';
+import {Component, computed, inject} from '@angular/core';
+import {Router, RouterLink} from '@angular/router';
 import {ButtonComponent} from '../../../shared/components/ui/button';
 import {AuthComponent} from '../../../features/auth/components/auth/auth.component';
 import {RegisterComponent} from '../../../features/auth/components/register/register.component';
 import {AuthService} from '../../../features/auth/components/auth/services';
 import {SplitButton} from 'primeng/splitbutton';
-import {Toast} from 'primeng/toast';
 import {routes} from '../../../app.routes';
+import {MenuItem, MenuItemCommandEvent} from 'primeng/api';
+import {HeaderService} from './header.service';
+import {UserService} from '../../../core/services';
 
 @Component({
   selector: 'app-header',
@@ -16,7 +18,6 @@ import {routes} from '../../../app.routes';
     AuthComponent,
     RegisterComponent,
     SplitButton,
-    Toast
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
@@ -25,8 +26,34 @@ import {routes} from '../../../app.routes';
 export class HeaderComponent {
   public isVisiblePopupLogin: boolean = false;
   public isVisiblePopupRegister: boolean = false;
-  private token = inject(AuthService)._token
+
   authService = inject(AuthService);
+  headerService = inject(HeaderService)
+  userService = inject(UserService)
+
+
+  userName = computed(() => this.userService.user()?.name || 'Пользователь')
+
+
+  items: MenuItem[];
+
+
+  constructor() {
+    this.items = [
+      {
+        label: 'Мои объявления',
+      },
+      {
+        label: 'Настройки',
+        command: () => void this.headerService.navigateTo('/'),
+      },
+      {
+        label: 'Выйти',
+        styleClass: 'logout-menu-item',
+        command: () => this.authService.logout()
+      }
+    ]
+  }
 
 
   showVisiblePopupLogin() {

@@ -7,6 +7,7 @@ import Aura from '@primeng/themes/aura';
 import { routes } from './app.routes';
 import {provideHttpClient, withInterceptors} from '@angular/common/http';
 import {definePreset} from '@primeng/themes';
+import {authInterceptor} from './core/interceptors/auth.interceptor';
 
 const MyPreset = definePreset(Aura, {
   semantic: {
@@ -30,7 +31,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([authInterceptor])),
     provideAnimationsAsync(),
     providePrimeNG({
       theme: {

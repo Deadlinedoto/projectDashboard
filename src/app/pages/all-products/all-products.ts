@@ -4,6 +4,8 @@ import {RouterLink} from '@angular/router';
 import {ProductMiniCardComponent} from './components/product-mini-card/product-mini-card.component';
 import {ApiService} from '../../core/services/http/api.service';
 import {ImageService} from '../../core/services/image.service';
+import {UserInterface} from '../../core/interfaces/user-interface';
+import {UserService} from '../../core/services';
 
 @Component({
   selector: 'app-all-products',
@@ -19,10 +21,8 @@ import {ImageService} from '../../core/services/image.service';
 
 export class AllProductsComponent implements OnInit {
 
-  // const apiService = inject(ApiService)
+  userService = inject(UserService);
   products: any[] = [];
-  public images: string[] = []
-  public imageService = inject(ImageService)
 
  constructor(private apiService: ApiService) {
  }
@@ -33,5 +33,10 @@ export class AllProductsComponent implements OnInit {
         console.log(value);
         this.products = value;
    }})
+   this.apiService.getCurrentUser().subscribe((user: UserInterface) => {
+     console.log('User:', user.name, 'Role:', user.role);
+     this.userService.setUser(user)
+     }
+   )
  }
 }

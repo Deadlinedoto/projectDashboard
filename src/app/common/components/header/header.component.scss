@@ -3,29 +3,35 @@
     background-color: var(--dark-blue-color);
     padding: 8px 0;
   }
+
   &_top-buttons {
     display: flex;
     justify-content: flex-end;
     gap: 24px;
   }
+
   &_bottom {
     width: 100%;
     padding: 24px 0;
     border-bottom: 1px solid var(--light-grey-color);
   }
+
   &_bottom_menu {
     display: flex;
     gap: 24px;
   }
+
   &_bottom-wrapper {
     display: flex;
     gap: 12px;
     flex: 1;
   }
+
   &_bottom-input-zone {
     width: 100%;
     display: flex;
   }
+
   &_bottom-input {
     flex: 1;
     width: 100%;
@@ -34,7 +40,52 @@
     padding: 8px 12px;
     font: var(--ph);
   }
+
   &_bottom-search-button {
     flex: 0
+  }
+}
+
+::ng-deep {
+  p-splitbutton {
+    font-family: 'Roboto-Regular', sans-serif;
+
+    .p-icon {
+      width: 12px;
+      height: 12px;
+    }
+
+    .p-splitbutton-button {
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--white-color);
+      padding: 0;
+
+      &:hover {
+        color: var(--red-color) !important;
+        background: none !important;
+      }
+    }
+
+    .p-splitbutton-dropdown {
+      color: var(--white-color);
+
+      &:hover {
+        background: none !important;
+        color: var(--red-color) !important;
+      }
+    }
+  }
+
+  .p-tieredmenu-item {
+    font-family: 'Roboto-Regular', sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .logout-menu-item {
+    .p-tieredmenu-item-label {
+      color: red;
+    }
   }
 }

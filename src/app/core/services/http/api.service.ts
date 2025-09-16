@@ -3,6 +3,7 @@ import {ProductMiniCardInterface} from '../../../pages/all-products/components/p
 import {Observable} from 'rxjs';
 import {CurrentProductInterface} from '../../../pages/current-product';
 import {BaseService} from '../base.service';
+import {UserInterface} from '../../interfaces/user-interface';
 
 
 @Injectable({
@@ -15,5 +16,8 @@ export class ApiService extends BaseService{
   }
   getSelectedProduct(id: string): Observable<CurrentProductInterface> {
     return this.getData<CurrentProductInterface>('Advert/' + id)
+  }
+  getCurrentUser(): Observable<UserInterface> {
+    return this.getData<UserInterface>('Users/current')
   }
 }

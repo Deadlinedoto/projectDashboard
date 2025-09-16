@@ -5,6 +5,7 @@ import {BaseService} from '../../../../../core/services';
 import {AuthApiService} from '../infrastructure';
 import {AuthResponse} from '../domains/interfaces/auth.response';
 import {CookieService} from 'ngx-cookie-service';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class AuthService extends BaseService {
   private authApiService = inject(AuthApiService);
   _token: string | null = null
   cookieService = inject(CookieService);
+  router = inject(Router);
 
   get isAuth() {
     if(!this._token) {
@@ -20,6 +22,7 @@ export class AuthService extends BaseService {
     }
     return !!this._token
   }
+
 
   login(payload: AuthInterface): Observable<string> {
     return this.authApiService.getAuth(payload)
@@ -30,6 +33,11 @@ export class AuthService extends BaseService {
         console.log('ТОКЕН:', this._token)
       })
       )
+  }
+  logout() {
+    this.cookieService.deleteAll()
+    this._token = null;
+    this.router.navigate(['/']);
   }
 
 }
