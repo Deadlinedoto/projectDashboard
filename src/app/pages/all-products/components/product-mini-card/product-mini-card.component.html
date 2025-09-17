@@ -4,7 +4,7 @@
   } @else {
     <img class="product__img" src="/assets/images/placeholder-image.webp" alt="image">
   }
-  <h3 class="product__name mt8">{{ product.name }}</h3>
+  <a><h3 class="product__name mt8">{{ product.name }}</h3></a>
   <h3 class="product__price">{{product.cost | price}}</h3>
   <p class="product__address">{{ product.location }}</p>
   <p class="product__date">{{ product.createdAt | relativeTime}} </p>

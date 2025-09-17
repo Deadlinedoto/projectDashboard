@@ -33,10 +33,5 @@ export class AllProductsComponent implements OnInit {
         console.log(value);
         this.products = value;
    }})
-   this.apiService.getCurrentUser().subscribe((user: UserInterface) => {
-     console.log('User:', user.name, 'Role:', user.role);
-     this.userService.setUser(user)
-     }
-   )
  }
 }
