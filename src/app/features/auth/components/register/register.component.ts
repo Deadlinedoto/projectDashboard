@@ -26,9 +26,9 @@ export class RegisterComponent {
   }
 
   form = new FormGroup({
-    login: new FormControl<string | null>(null, Validators.required),
-    name: new FormControl<string | null>(null, Validators.required),
-    password: new FormControl<string | null>(null, Validators.required),
+    login: new FormControl<string | null>(null, [Validators.required, Validators.min(4), Validators.maxLength(64)]),
+    name: new FormControl<string | null>(null, [Validators.required, Validators.min(4), Validators.maxLength(64)]),
+    password: new FormControl<string | null>(null, [Validators.required, Validators.min(8), Validators.maxLength(50)]),
   })
   onSubmit() {
     if(this.form.valid) {

@@ -20,7 +20,4 @@ export class ApiService extends BaseService{
   getCurrentUser(): Observable<UserInterface> {
     return this.getData<UserInterface>('Users/current')
   }
-  getUser(id: string): Observable<UserInterface> {
-    return this.getData<UserInterface>('Users/' + id)
-  }
 }

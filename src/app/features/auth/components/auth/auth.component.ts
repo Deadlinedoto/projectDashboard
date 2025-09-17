@@ -28,8 +28,8 @@ export class AuthComponent {
 
 
   form = new FormGroup({
-    login: new FormControl<string | null>(null, [Validators.required]),
-    password: new FormControl<string | null>(null, [Validators.required]),
+    login: new FormControl<string | null>(null, [Validators.required, Validators.minLength(4), Validators.maxLength(64)]),
+    password: new FormControl<string | null>(null, [Validators.required, Validators.minLength(8), Validators.maxLength(50)]),
   })
 
 

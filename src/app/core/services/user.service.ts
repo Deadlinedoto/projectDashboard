@@ -11,6 +11,21 @@ import {HeaderService} from '../../common/components/header/header.service';
 export class UserService {
   apiService = inject(ApiService)
   private userSignal = signal<UserInterface | null>(null);
+  user = this.userSignal.asReadonly()
+
+  userData = computed(() => {
+    const user = this.userSignal();
+    if (!user) return null;
+
+    return {
+      ...user,
+      userName: user.name,
+      userId: user.id,
+      userRole: user.role,
+      userRegisteredTime: user.registeredTime,
+      userAdvertList: user.adverts,
+    }
+  })
 
   loadMe() {
     return this.apiService.getCurrentUser()
@@ -29,9 +44,11 @@ export class UserService {
   setUser(user: UserInterface | null) {
     this.userSignal.set(user);
   }
+  getUser(user: UserInterface | null) {
+    this.userSignal();
+  }
 
   getUserName(): string {
-    console
     return this.userSignal()?.name || "Пользователь"
 
   }

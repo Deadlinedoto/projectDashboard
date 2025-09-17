@@ -1,1 +1,60 @@
-<p>user-settings works!</p>
+<div class="user-settings">
+  <div>
+    <h4>Настройки</h4>
+    <form class="user-info-form mt24 ">
+      <div class="user-info-form_username-and-phone mb16">
+        <label>
+          <h6>Имя</h6>
+          <input placeholder="Имя">
+        </label>
+        <label>
+          <h6>Номер телефона</h6>
+          <input placeholder="Телефон">
+        </label>
+      </div>
+      <label class="user-info-form_address">
+        <h6>Адрес <span>(будет указываться в объявлениях по умолчанию)</span></h6>
+        <input placeholder="Не указан">
+      </label>
+      <div class="user-info-form_save-button mt24">
+        <app-button
+          [disabled]=true
+          label="Сохранить"
+          customClass="p-button_user-settings-save"
+          type="submit"
+        ></app-button>
+      </div>
+    </form>
+  </div>
+  <div class="user-settings_passwords mt48">
+    <h4>{{ userService.userData()?.userName }}</h4>
+    <form class="user-password-form mt24">
+      <label>
+        <h6>Текущий пароль</h6>
+        <input
+        placeholder="Введите текущий пароль"
+        >
+      </label>
+      <label>
+        <h6>Новый пароль <span>(минимум 8 символов)</span></h6>
+        <input
+          placeholder="Введите новый пароль"
+        >
+      </label>
+      <label>
+        <h6>Повторите новый пароль</h6>
+        <input
+          placeholder="Введите новый пароль"
+        >
+      </label>
+      <div class='user-password-form_save-button-password mt8'>
+        <app-button
+          [disabled]=true
+          label="Изменить пароль"
+          customClass="p-button_user-settings-save"
+          type="submit"
+        ></app-button>
+      </div>
+    </form>
+  </div>
+</div>

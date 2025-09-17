@@ -48,7 +48,7 @@ export class HeaderComponent implements OnInit {
       },
       {
         label: 'Настройки',
-        command: () => void this.headerService.navigateTo('/'),
+        command: () => void this.headerService.navigateTo('/user-settings'),
       },
       {
         label: 'Выйти',

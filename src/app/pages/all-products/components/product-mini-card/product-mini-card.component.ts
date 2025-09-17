@@ -17,10 +17,4 @@ import {ImageService} from '../../../../core/services/image.service';
 export class ProductMiniCardComponent {
   @Input() product!: ProductMiniCardInterface
   @Input() imageIds: any[] = []
-  protected readonly Array = Array;
-  private imageService = inject(ImageService)
-
-  getImageUrl(imageId: string) {
-    this.imageService.getImage(imageId)
-  }
 }

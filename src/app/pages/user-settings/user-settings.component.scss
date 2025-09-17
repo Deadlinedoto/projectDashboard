@@ -1,0 +1,47 @@
+.user-settings {
+  width: 856px;
+  input {
+    width: 100%;
+    font-family: 'Roboto-Regular', sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    margin-top: 8px;
+    border: 1px solid var(--border-input-color);
+    border-radius: 4px;
+    padding: 12px;
+    gap: 8px;
+  }
+
+  span {
+    color: var(--grey-color);
+  }
+
+  .user-info-form {
+    &_username-and-phone {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 24px;
+
+      label {
+        flex: 1;
+      }
+    }
+    &_save-button {
+      width: 132px;
+      height: 48px;
+    }
+  }
+  .user-password-form {
+    display: flex;
+    gap: 16px;
+    flex-direction: column;
+    &_save-button-password {
+      width: 186px;
+      height: 48px;
+    }
+  }
+  &_passwords {
+    width: calc(50% - 12px);
+  }
+}
