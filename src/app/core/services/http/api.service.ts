@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {CurrentProductInterface} from '../../../pages/current-product';
 import {BaseService} from '../base.service';
 import {UserInterface} from '../../interfaces/user-interface';
+import {RegisterInterface} from '../../../features/auth/components/register/register.interface';
 
 
 @Injectable({
@@ -19,5 +20,8 @@ export class ApiService extends BaseService{
   }
   getCurrentUser(): Observable<UserInterface> {
     return this.getData<UserInterface>('Users/current')
+  }
+  putChangeProfile(id: string): Observable<RegisterInterface> {
+    return this.putData<RegisterInterface>('Users/' + id)
   }
 }

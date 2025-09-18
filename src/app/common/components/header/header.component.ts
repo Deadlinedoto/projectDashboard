@@ -36,8 +36,8 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     if (this.authService.isAuth)
-      this.userService.loadMe().subscribe()
-    else console.log('УЖЕ ЗАЛОГИНЕН');
+      this.userService.loadMe()
+    else console.log('Не авторизирован');
   }
 
 

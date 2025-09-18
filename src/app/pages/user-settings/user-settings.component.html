@@ -1,11 +1,18 @@
 <div class="user-settings">
   <div>
     <h4>Настройки</h4>
-    <form class="user-info-form mt24 ">
+    <form
+      class="user-info-form mt24"
+      [formGroup]="form" (ngSubmit)="changeProile()"
+    >
       <div class="user-info-form_username-and-phone mb16">
         <label>
           <h6>Имя</h6>
-          <input placeholder="Имя">
+          <input
+            placeholder="Имя"
+            type="text"
+            formControlName="Name"
+          >
         </label>
         <label>
           <h6>Номер телефона</h6>
@@ -18,7 +25,6 @@
       </label>
       <div class="user-info-form_save-button mt24">
         <app-button
-          [disabled]=true
           label="Сохранить"
           customClass="p-button_user-settings-save"
           type="submit"
@@ -27,7 +33,7 @@
     </form>
   </div>
   <div class="user-settings_passwords mt48">
-    <h4>{{ userService.userData()?.userName }}</h4>
+    <h4>Смена пароля</h4>
     <form class="user-password-form mt24">
       <label>
         <h6>Текущий пароль</h6>

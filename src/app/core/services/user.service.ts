@@ -27,18 +27,25 @@ export class UserService {
     }
   })
 
+  // loadMe() {
+  //   return this.apiService.getCurrentUser()
+  //     .pipe(
+  //       tap(user => {
+  //         this.setUser(user);
+  //       }),
+  //       catchError(error => {
+  //         console.error('Ошибка загрузки пользователя', error);
+  //         this.setUser(null)
+  //         return of(null)
+  //       })
+  //     )
+  // }
   loadMe() {
     return this.apiService.getCurrentUser()
-      .pipe(
-        tap(user => {
-          this.setUser(user);
-        }),
-        catchError(error => {
-          console.error('Ошибка загрузки пользователя', error);
-          this.setUser(null)
-          return of(null)
-        })
-      )
+      .subscribe(
+        user => {
+          this.setUser(user)
+        });
   }
 
   setUser(user: UserInterface | null) {
