@@ -11,40 +11,17 @@ import {HeaderService} from '../../common/components/header/header.service';
 export class UserService {
   apiService = inject(ApiService)
   private userSignal = signal<UserInterface | null>(null);
-  user = this.userSignal.asReadonly()
+  user: UserInterface | null = null;
 
-  userData = computed(() => {
-    const user = this.userSignal();
-    if (!user) return null;
+  userName = computed(() => this.userSignal()?.name || 'Пользователь')
 
-    return {
-      ...user,
-      userName: user.name,
-      userId: user.id,
-      userRole: user.role,
-      userRegisteredTime: user.registeredTime,
-      userAdvertList: user.adverts,
-    }
-  })
 
-  // loadMe() {
-  //   return this.apiService.getCurrentUser()
-  //     .pipe(
-  //       tap(user => {
-  //         this.setUser(user);
-  //       }),
-  //       catchError(error => {
-  //         console.error('Ошибка загрузки пользователя', error);
-  //         this.setUser(null)
-  //         return of(null)
-  //       })
-  //     )
-  // }
   loadMe() {
     return this.apiService.getCurrentUser()
       .subscribe(
         user => {
           this.setUser(user)
+          this.user = user;
         });
   }
 

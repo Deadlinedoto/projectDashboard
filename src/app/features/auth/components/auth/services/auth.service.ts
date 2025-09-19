@@ -1,7 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {Observable, tap} from 'rxjs';
 import {AuthInterface} from '../domains/interfaces/auth.interface';
-import {BaseService} from '../../../../../core/services';
+import {BaseService, UserService} from '../../../../../core/services';
 import {AuthApiService} from '../infrastructure';
 import {AuthResponse} from '../domains/interfaces/auth.response';
 import {CookieService} from 'ngx-cookie-service';
@@ -12,6 +12,7 @@ import {Router} from '@angular/router';
 })
 export class AuthService extends BaseService {
   private authApiService = inject(AuthApiService);
+  userService = inject(UserService);
   _token: string | null = null
   cookieService = inject(CookieService);
   router = inject(Router);
@@ -31,6 +32,7 @@ export class AuthService extends BaseService {
         this._token = response;
         this.cookieService.set('token', this._token);
         console.log('ТОКЕН:', this._token)
+        this.userService.loadMe()
       })
       )
   }

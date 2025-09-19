@@ -32,11 +32,13 @@ export class HeaderComponent implements OnInit {
   items: MenuItem[];
 
 
-  userName = computed(() => this.userService.getUserName())
+  userName = this.userService.userName
 
   ngOnInit() {
-    if (this.authService.isAuth)
+    if (this.authService.isAuth) {
       this.userService.loadMe()
+    }
+
     else console.log('Не авторизирован');
   }
 
@@ -53,7 +55,10 @@ export class HeaderComponent implements OnInit {
       {
         label: 'Выйти',
         styleClass: 'logout-menu-item',
-        command: () => this.authService.logout()
+        command: () =>  {
+          this.authService.logout()
+          this.userService.setUser(null)
+        }
       }
     ]
   }

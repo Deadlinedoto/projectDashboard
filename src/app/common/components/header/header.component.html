@@ -18,7 +18,13 @@
           </app-button>
         }
         @else {
-          <p-splitbutton icon="pi pi-user" [label]="userName()" [model]="items" text></p-splitbutton>
+          <p-splitbutton
+            icon="pi pi-user"
+            [label]="userName()"
+            [model]="items"
+            [routerLink]="['user-settings']"
+            text
+          ></p-splitbutton>
           <app-button
             icon="pi pi-plus"
             label="Новое объявление"
