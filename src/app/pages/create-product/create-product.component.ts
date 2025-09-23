@@ -24,6 +24,7 @@ import {CommonModule} from '@angular/common';
 export class CreateProductComponent implements OnInit {
   categoriesApi = inject(AllCategoiesListService)
   nodes: any[string] = [];
+  currentCategories: any[string] = [];
   selectedNodes: any;
   isLoading: boolean = true;
 
@@ -40,7 +41,8 @@ export class CreateProductComponent implements OnInit {
                 label: value.name,
                 value: value.id,
               })
-              if (value.parentName === "00000000-0000-0000-0000-000000000000") {
+              if (value.name === "00000000-0000-0000-0000-000000000000") {
+                console.log('Родитель!!')
               }
             })
             console.log('для списка:', this.nodes)

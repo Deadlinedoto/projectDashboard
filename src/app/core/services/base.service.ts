@@ -13,7 +13,7 @@ export abstract class BaseService {
   protected getData<T>(endpoint: string): Observable<T> {
     return this.http.get<T>(this.baseApiUrl + endpoint);
   }
-  protected postData<T>(endpoint: string, body?: any, options: { responseType?: 'json' | 'text'} = {}): Observable<T> {
+  protected postData<T>(endpoint: string, body?: any): Observable<T> {
     return this.http.post<T>(this.baseApiUrl + endpoint, body);
   }
   protected putData<T>(endpoint: string, body?: any): Observable<T> {

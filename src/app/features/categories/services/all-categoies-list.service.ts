@@ -13,8 +13,8 @@ export class AllCategoiesListService extends BaseService{
   getAllCategories(): Observable<AllCategoriesListInterface[]> {
     return this.getData<AllCategoriesListInterface[]>('Categories');
   }
-  getCategoryWithChildren(id: string): Observable<CurrentCategoryInterface> {
-    return this.getData<CurrentCategoryInterface>(`Categories/${id}`);
+  getCategoryWithChildren(id: string): Observable<CurrentCategoryInterface[]> {
+    return this.getData<CurrentCategoryInterface[]>(`Categories/${id}`);
 
   }
 }

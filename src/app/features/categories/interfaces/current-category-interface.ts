@@ -4,8 +4,8 @@ export interface CurrentCategoryInterface {
   parentId: string,
   childs: [
     {
+      parentId: string,
     id: string,
-    parentId: string,
     name: string,
     }
   ]

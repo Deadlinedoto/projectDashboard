@@ -15,11 +15,39 @@
       type="tel"
       placeholder="Телефонный номер"
     >
+    @if (form.get('login')?.touched) {
+      @if (form.get('login')?.hasError('required')) {
+        <p-message
+          severity="error"
+          variant="simple"
+          size="small"
+        >
+          Введите номер телефона
+        </p-message>
+      }
+      @if (form.get('login')?.hasError?.('minlength')) {
+        <p-message
+          severity="error"
+          variant="simple"
+          size="small"
+        >
+          Введите корректный номер телефона: +7 (9**)-***-**-**
+        </p-message>
+      }
+    }
+
+
+
     <input
       formControlName="name"
       placeholder="Имя"
       type="text"
-      class="mt16">
+      class="mt16"
+    >
+
+
+
+
     <input
       formControlName="password"
       placeholder="Пароль"
@@ -30,8 +58,9 @@
       label="Зарегистрироваться"
       customClass="p-button_login"
       type="submit"
-      (click)="onSubmit()"
-
+      (click)="register()"
+      [disabled]="form.invalid"
+      [loading]="isLoading()"
     >
     </app-button>
   </form>
