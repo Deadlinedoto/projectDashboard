@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import {AllProductsComponent} from './pages/all-products/all-products';
 import {CurrentProductComponent} from './pages/current-product';
-import {CreateProductComponent} from './pages/create-product/create-product.component';
+import {CreateProductComponent} from './pages/product-form/create-product.component';
 import {canActivateAuth} from './core/guards/auth.guard';
 import {productTitleResolver} from './core/resolvers/product.resolver';
 
@@ -25,9 +25,9 @@ export const routes: Routes = [
       },
       {
         title: 'Новое объявление',
-        path: 'create-product',
+        path: 'product-form',
         loadComponent: () =>
-          import('../app/pages/create-product/create-product.component').then(
+          import('./pages/product-form/create-product.component').then(
             (m) => m.CreateProductComponent
           ),
         canActivate: [canActivateAuth]

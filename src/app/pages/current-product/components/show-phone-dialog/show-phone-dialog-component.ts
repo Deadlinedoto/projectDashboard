@@ -1,7 +1,8 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, inject, Input, Output} from '@angular/core';
 import {Dialog} from 'primeng/dialog';
 import {CurrentProductInterface} from '../../current-product-interface';
 import {TelephonePipe} from '../../../../shared/pipes/telephone.pipe';
+import {ShowPhoneDialogService} from './show-phone-dialog.service';
 
 @Component({
   selector: 'app-show-number',
@@ -15,11 +16,13 @@ import {TelephonePipe} from '../../../../shared/pipes/telephone.pipe';
 })
 export class ShowPhoneDialogComponent {
   @Input() product?: CurrentProductInterface;
-  @Input() visible: boolean = false;
   @Output() closeShowPopup = new EventEmitter();
 
-  onHide(): void {
-    this.visible = false
-    this.closeShowPopup.emit(this.visible);
+  showPhoneDialogService = inject(ShowPhoneDialogService);
+
+  visible = this.showPhoneDialogService.showPhoneDialog;
+
+  closeShowPhoneDialog() {
+    this.showPhoneDialogService.closePhoneDialog();
   }
 }

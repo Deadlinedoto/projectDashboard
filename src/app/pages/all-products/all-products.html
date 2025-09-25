@@ -1,6 +1,15 @@
 
 <div class="all-products mb100">
   <h4 class="all-products mb24">Рекомендации для вас</h4>
+  @if (authStateService.isPageLoading()) {
+    <p-progressSpinner
+      *ngIf="authStateService.isPageLoading()"
+      styleClass="w-4rem h-4rem"
+      strokeWidth="4"
+      class="page-loader"
+    >
+    </p-progressSpinner>
+  } @else {
   <div class="all-products_wrapper">
     <div
       *ngFor="let product of products"
@@ -11,6 +20,7 @@
       ></app-product-mini-card>
     </div>
   </div>
+  }
 </div>
 
 

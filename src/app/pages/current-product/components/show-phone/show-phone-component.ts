@@ -1,7 +1,8 @@
-import {Component, Input} from '@angular/core';
+import {Component, inject, Input} from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import {ShowPhoneDialogComponent} from '../show-phone-dialog/show-phone-dialog-component';
 import {CurrentProductInterface} from '../../current-product-interface';
+import {ShowPhoneDialogService} from '../show-phone-dialog/show-phone-dialog.service';
 
 @Component({
   selector: 'app-show-phone',
@@ -16,14 +17,15 @@ import {CurrentProductInterface} from '../../current-product-interface';
 export class ShowPhoneComponent {
   @Input() product!: CurrentProductInterface;
   public isVisiblePopup = false;
+  showPhoneDialogService = inject(ShowPhoneDialogService);
 
   constructor() {
   }
   showVisiblePopup() {
-    this.isVisiblePopup = !this.isVisiblePopup
+    this.showPhoneDialogService.openPhoneDialog()
   }
   closeShowPopup(value: boolean) {
-    this.isVisiblePopup = value
+    this.showPhoneDialogService.closePhoneDialog()
   }
 
 }

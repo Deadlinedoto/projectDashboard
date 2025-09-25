@@ -8,6 +8,7 @@ import { routes } from './app.routes';
 import {provideHttpClient, withInterceptors} from '@angular/common/http';
 import {definePreset} from '@primeng/themes';
 import {authInterceptor} from './core/interceptors/auth.interceptor';
+import {provideNgxMask} from 'ngx-mask';
 
 const MyPreset = definePreset(Aura, {
   semantic: {
@@ -42,6 +43,7 @@ export const appConfig: ApplicationConfig = {
         },
 
       }
-    })
+    }),
+    provideNgxMask()
   ],
 };

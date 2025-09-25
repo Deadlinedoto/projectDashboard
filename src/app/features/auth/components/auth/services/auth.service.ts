@@ -3,7 +3,6 @@ import {Observable, tap} from 'rxjs';
 import {AuthInterface} from '../domains/interfaces/auth.interface';
 import {BaseService, UserService} from '../../../../../core/services';
 import {AuthApiService} from '../infrastructure';
-import {AuthResponse} from '../domains/interfaces/auth.response';
 import {CookieService} from 'ngx-cookie-service';
 import {Router} from '@angular/router';
 

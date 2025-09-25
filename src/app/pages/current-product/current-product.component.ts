@@ -6,8 +6,6 @@ import {ApiService} from '../../core/services/http/api.service';
 import {ActivatedRoute} from '@angular/router';
 import {PricePipe} from '../../shared/pipes/price.pipe';
 import {ImagesCarouselComponent} from './components/images-carousel/images-carousel.component';
-import {ImagesInterface} from '../../core/interfaces/images-interface';
-import {ImageService} from '../../core/services/image.service';
 
 @Component({
   selector: 'app-current-product-mini-card',
@@ -28,7 +26,6 @@ export class CurrentProductComponent implements OnInit {
   public idSelectAdd!: string
   public images: string[] = []
 
-  private imageService = inject(ImageService)
   private apiService = inject(ApiService);
   private _route = inject(ActivatedRoute);
 

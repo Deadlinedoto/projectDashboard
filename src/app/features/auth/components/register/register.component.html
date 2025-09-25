@@ -7,36 +7,29 @@
   class="login-modal"
 >
   <form
-    [formGroup]="form"
+    [formGroup]="formRegister"
+    (ngSubmit)="register()"
     class="register-form auth-font"
   >
     <input
       formControlName="login"
       type="tel"
       placeholder="Телефонный номер"
+      mask=' (000) 000 - 00 - 00'
+      [showMaskTyped]="true"
+      [prefix]='"+7"'
+      [dropSpecialCharacters]="false"
     >
-    @if (form.get('login')?.touched) {
-      @if (form.get('login')?.hasError('required')) {
+    @if (formRegister.get('login')?.invalid && formRegister.get('login')?.touched) {
         <p-message
           severity="error"
           variant="simple"
           size="small"
+          class="register-form_p-message"
         >
-          Введите номер телефона
+          Нужно ввести номер телефона
         </p-message>
       }
-      @if (form.get('login')?.hasError?.('minlength')) {
-        <p-message
-          severity="error"
-          variant="simple"
-          size="small"
-        >
-          Введите корректный номер телефона: +7 (9**)-***-**-**
-        </p-message>
-      }
-    }
-
-
 
     <input
       formControlName="name"
@@ -44,8 +37,29 @@
       type="text"
       class="mt16"
     >
+    @if (formRegister.get('name')?.touched && formRegister.get('name')?.invalid) {
+      @if (formRegister.get('name')?.hasError('minlength')) {
+        <p-message
+          severity="error"
+          variant="simple"
+          size="small"
+          class="register-form_p-message"
+        >
+          Минимальная длина: 4 символа
+        </p-message>
+      }
+      @if (formRegister.get('name')?.hasError('maxlength')) {
+        <p-message
+          severity="error"
+          variant="simple"
+          size="small"
+          class="register-form_p-message"
+        >
+          Максимальная длина: 64 символа
+        </p-message>
+      }
 
-
+    }
 
 
     <input
@@ -54,12 +68,34 @@
       type="text"
       class="mt16"
     >
+    @if (formRegister.get('password')?.touched && formRegister.get('password')?.invalid) {
+      @if (formRegister.get('password')?.hasError('minlength')) {
+        <p-message
+          severity="error"
+          variant="simple"
+          size="small"
+          class="register-form_p-message"
+        >
+          Минимальная длина: 8 символов
+        </p-message>
+      }
+      @if (formRegister.get('password')?.hasError('maxlength')) {
+        <p-message
+          severity="error"
+          variant="simple"
+          size="small"
+          class="register-form_p-message"
+        >
+          Максимальная длина: 64 символа
+        </p-message>
+      }
+
+    }
     <app-button
       label="Зарегистрироваться"
       customClass="p-button_login"
       type="submit"
-      (click)="register()"
-      [disabled]="form.invalid"
+      [disabled]="formRegister.invalid"
       [loading]="isLoading()"
     >
     </app-button>

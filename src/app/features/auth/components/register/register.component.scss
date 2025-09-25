@@ -1,4 +1,10 @@
+:host ::ng-deep p-dialog {
+
+}
+
 .register-form {
+  width: 350px;
+
 
   input {
     padding: 12px;
@@ -7,4 +13,5 @@
     border: 1px solid var(--light-grey-color);
     border-radius: 4px;
   }
+
 }

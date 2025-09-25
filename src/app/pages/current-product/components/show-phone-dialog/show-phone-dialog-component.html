@@ -1,7 +1,7 @@
 <p-dialog
-  (onHide)="onHide()"
   [header]="product?.user?.name"
   [(visible)]="visible"
+  (onHide)="closeShowPhoneDialog()"
   [modal]="true"
   [draggable]="false"
 >
