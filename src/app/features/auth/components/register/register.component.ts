@@ -1,7 +1,15 @@
 import {Component, EventEmitter, inject, Input, Output} from '@angular/core';
 import {ButtonComponent} from '../../../../shared/components/ui/button';
 import {Dialog} from 'primeng/dialog';
-import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  ValidationErrors,
+  Validators
+} from '@angular/forms';
 import {RegisterService} from './register.service';
 import {AuthStateService} from '../auth/services';
 import {Message} from 'primeng/message';
@@ -38,22 +46,41 @@ export class RegisterComponent {
 
   constructor(private formBuilder: FormBuilder) {
     this.formRegister = formBuilder.group({
-      login: new FormControl('', [
+      login: ['', [
         Validators.required,
         Validators.minLength(4),
         Validators.maxLength(64)
-      ]),
-      name: new FormControl('', [
+      ]],
+      name: ['', [
         Validators.required,
         Validators.minLength(4),
         Validators.maxLength(64)
-      ]),
-      password: new FormControl('', [
+      ]],
+      password: ['', [
         Validators.required,
         Validators.minLength(8),
         Validators.maxLength(50)
-      ]),
-    })
+      ]],
+      confirmPassword: ['', [
+        Validators.required
+      ]]
+    }, {
+      validators: this.passwordMatchValidator.bind(this)
+    });
+  }
+
+  passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
+    const formGroup = control as FormGroup;
+    const password = formGroup.get('password');
+    const confirmPassword = formGroup.get('confirmPassword');
+
+    if (password && confirmPassword && password.value !== confirmPassword.value) {
+      confirmPassword.setErrors({ passwordMismatch: true });
+      return { passwordMismatch: true };
+    } else {
+      confirmPassword?.setErrors(null);
+      return null;
+    }
   }
 
   register() {
@@ -62,14 +89,22 @@ export class RegisterComponent {
       console.log('Форма невалидна');
       return;
     }
-    this.registerService.getRegister(this.formRegister.value).subscribe({
+    const {confirmPassword, ...registerData} = this.formRegister.value;
+
+    this.registerService.getRegister(registerData).subscribe({
       next: (res) => {
         console.log(res)
-        console.log(this.formRegister.value)
+        console.log("Отправленные данные: ", registerData)
         this.closeShowPopupRegister.emit(false);
         this.formRegister.reset()
+      },
+      error: (error) => {
+        console.error("Ошибка регистрации", error)
       }
     })
+  }
+  loginAfterRegister() {
+
   }
   // form = new FormGroup({
   //   login: new FormControl<string | null>('', [

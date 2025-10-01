@@ -4,6 +4,7 @@ export interface ProductMiniCardInterface {
   location: string;
   createdAt: string;
   isActive: boolean;
-  imagesIds: [{}],
+  imagesIds: [{
+  }],
   cost: number;
 }

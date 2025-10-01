@@ -1,7 +1,8 @@
-import {Component, inject, Input} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {ProductMiniCardInterface} from './product-mini-card.interface';
 import {RelativeTimePipe} from '../../../../shared/pipes/relative-time.pipe';
 import {PricePipe} from '../../../../shared/pipes/price.pipe';
+
 
 
 @Component({
@@ -15,6 +16,8 @@ import {PricePipe} from '../../../../shared/pipes/price.pipe';
   standalone: true,
 })
 export class ProductMiniCardComponent {
+
   @Input() product!: ProductMiniCardInterface
   @Input() imageIds: any[] = []
+
 }

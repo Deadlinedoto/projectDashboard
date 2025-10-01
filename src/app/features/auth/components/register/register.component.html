@@ -68,7 +68,7 @@
       type="text"
       class="mt16"
     >
-    @if (formRegister.get('password')?.touched && formRegister.get('password')?.invalid) {
+    @if (formRegister.get('password')?.invalid) {
       @if (formRegister.get('password')?.hasError('minlength')) {
         <p-message
           severity="error"
@@ -89,12 +89,42 @@
           Максимальная длина: 64 символа
         </p-message>
       }
-
     }
-    <app-button
+
+    <input
+      formControlName="confirmPassword"
+      placeholder="Повторите пароль"
+      type="password"
+      class="mt16"
+    >
+    @if (formRegister.get('confirmPassword')?.touched && formRegister.get('confirmPassword')?.invalid) {
+      @if (formRegister.get('confirmPassword')?.hasError('required')) {
+        <p-message
+          severity="error"
+          variant="simple"
+          size="small"
+          class="register-form_p-message"
+        >
+          Подтверждение пароля обязательно
+        </p-message>
+      }
+      @if (formRegister.get('confirmPassword')?.hasError('passwordMismatch')) {
+        <p-message
+          severity="error"
+          variant="simple"
+          size="small"
+          class="register-form_p-message"
+        >
+          Пароли не совпадают
+        </p-message>
+      }
+    }
+
+      <app-button
       label="Зарегистрироваться"
       customClass="p-button_login"
       type="submit"
+      (onClick)="register()"
       [disabled]="formRegister.invalid"
       [loading]="isLoading()"
     >

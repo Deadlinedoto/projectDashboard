@@ -11,5 +11,5 @@ export const canActivateAuth = () => {
   }
 
 
-  return router.createUrlTree([router.url]);
+  return router.createUrlTree(['/']);
 }
