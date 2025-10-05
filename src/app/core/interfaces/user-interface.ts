@@ -2,6 +2,7 @@ export interface UserInterface {
   id: string;
   name: string;
   role: string;
+  login: string;
   adverts: [{
     id: string,
     name: string,

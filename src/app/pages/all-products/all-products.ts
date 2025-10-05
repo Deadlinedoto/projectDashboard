@@ -4,7 +4,6 @@ import {RouterLink} from '@angular/router';
 import {ProductMiniCardComponent} from './components/product-mini-card/product-mini-card.component';
 import {ApiService} from '../../core/services/http/api.service';
 import {AuthStateService} from '../../features/auth/components/auth/services';
-import {ProgressSpinner} from 'primeng/progressspinner';
 
 @Component({
   selector: 'app-all-products',
@@ -12,8 +11,6 @@ import {ProgressSpinner} from 'primeng/progressspinner';
     NgForOf,
     RouterLink,
     ProductMiniCardComponent,
-    NgIf,
-    ProgressSpinner,
   ],
   templateUrl: './all-products.html',
   styleUrl: './all-products.scss',
@@ -34,9 +31,6 @@ export class AllProductsComponent implements OnInit {
           next: (value) => {
             console.log(value);
             this.products = value;
-            setTimeout(() => {
-              this.authStateService.setPageLoading(false);
-            }, 500)
           }
         }
       )

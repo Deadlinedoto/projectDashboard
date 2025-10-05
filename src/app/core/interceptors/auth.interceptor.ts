@@ -3,6 +3,10 @@ import {inject} from '@angular/core';
 import {AuthService} from '../../features/auth/components/auth/services';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
+  if(req.url.includes('dadata.ru')) {
+    return next(req);
+  }
+
   const token = inject(AuthService)._token
 
   if(!token) return next(req);

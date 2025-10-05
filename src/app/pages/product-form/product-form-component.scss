@@ -12,6 +12,22 @@
 
 .product-form {
   width: 856px;
+  &_suggestions-container {
+    background-color: var(--light-white-color);
+    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+  &_suggestion-item {
+    cursor: pointer;
+    padding: 8px 12px;
+    font-family: 'Roboto-Regular', sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--dark-blue-color);
+    &:hover {
+      background-color: var(--border-input-color);
+    }
+  }
+
   input {
     padding: 12px;
     width: 100%;
@@ -27,7 +43,7 @@
     border: 1px solid var(--border-input-color);
 
   }
-  .product-form-area {
+  &_area {
     display: flex;
     flex-direction: column;
     gap: 16px;

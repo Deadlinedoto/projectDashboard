@@ -32,14 +32,15 @@ export class UserSettingsComponent implements OnInit {
     this.apiService.getCurrentUser().subscribe({
       next: (response) => {
         this.userData = response;
-        console.log(response.id);
+        console.log(response);
         this.form.patchValue({
           Name: response.name,
+          Login: response.login
         })
       }
     })
   }
-  changeProile() {
+  changeProfile() {
     console.log(this.userData?.id)
     this.apiService.putChangeProfile(this.userData?.id! + this.form.value).subscribe({
 

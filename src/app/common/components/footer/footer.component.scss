@@ -1,0 +1,16 @@
+.footer {
+  height: 100px;
+  background-color: var(--dark-blue-color);
+  &_me {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  a {
+  }
+  h1 {
+
+    color: var(--white-color);
+  }
+}

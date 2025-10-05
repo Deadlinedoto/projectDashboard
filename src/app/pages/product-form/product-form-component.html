@@ -1,16 +1,42 @@
-<!--@if (false) {-->
-<!--  <p-progressSpinner-->
-<!--    *ngIf="authStateService.isPageLoading()"-->
-<!--    styleClass="w-4rem h-4rem"-->
-<!--    strokeWidth="4"-->
-<!--    class="page-loader"-->
-<!--  >-->
-<!--  </p-progressSpinner>-->
-
-<!--} @else {-->
 <div class="product-form">
   <h4>Новое объявление</h4>
-  <form class="product-form-area">
+  <form
+    class="product-form_area"
+    [formGroup]="productForm"
+    (ngSubmit)="productFormSubmit()"
+  >
+    <div class="card flex justify-center">
+      <h6>Выберите категорию <span>*</span></h6>
+      <p-tree-select
+        class="md:w-80 w-full"
+        containerStyleClass="w-full"
+        [options]="nodes"
+        placeholder="Нажмите, чтобы выбрать"
+        [filter]="true"
+        [formControl]="categoryControl"
+      />
+    </div>
+    @if (selectedNodes) {
+    <h1>{{selectedNodes.label}}</h1>
+    }
+
+    <div>
+      <h6>Название объявления <span>*</span></h6>
+      <input
+        formControlName="name"
+        aria-label="Название объявления"
+        placeholder="Что хотите продать?"
+      >
+    </div>
+
+    <div>
+      <h6>Описание</h6>
+      <textarea
+        formControlName="description"
+        placeholder="Расскажите подробнее о товаре или услуге"
+      ></textarea>
+    </div>
+
     <div>
       <h6>Адрес (место проведения сделки) <span>*</span></h6>
       <input
@@ -21,68 +47,53 @@
         [ngModelOptions]="{standalone: true}"
       >
 
-      <!-- Список подсказок -->
-      <div *ngIf="addressSuggestions.length" class="suggestions-container">
+      <div *ngIf="addressSuggestions.length" class="product-form_suggestions-container">
         <div
           *ngFor="let suggestion of addressSuggestions"
           (click)="selectAddress(suggestion)"
-          class="suggestion-item"
+          class="product-form_suggestion-item"
         >
           {{ suggestion.value }}
         </div>
       </div>
     </div>
-    <div class="card flex justify-center">
-      <h6>Выберите категорию <span>*</span></h6>
-      <p-tree-select
-        class="md:w-80 w-full"
-        containerStyleClass="w-full"
-        [(ngModel)]="selectedNodes"
-        [options]="nodes"
-        placeholder="Нажмите, чтобы выбрать"
-        [filter]="true"
-      />
-    </div>
 
     <div>
-      <h6>Название объявления <span>*</span></h6>
+      <h6>Номер телефона <span>*</span></h6>
       <input
-        aria-label="Название объявления"
-        placeholder="Что хотите продать?"
+        formControlName="phone"
+        aria-label="Номер телефона"
+        type="tel"
+        placeholder="Телефонный номер"
+        mask=' (000) 000 - 00 - 00'
+        [showMaskTyped]="true"
+        [prefix]='"+7"'
+        [dropSpecialCharacters]="false"
+      >
+    </div>
+    <div>
+      <h6>Адрес электронной почты</h6>
+      <input
+        formControlName="email"
       >
     </div>
 
-    <div>
-      <h6>Описание</h6>
-      <textarea
-        placeholder="Расскажите подробнее о товаре или услуге"
-      ></textarea>
-    </div>
 
-    <div>
-      <h6>Адрес (место проведения сделки) <span>*</span></h6>
-    </div>
 
     <div>
       <p-fileupload
         chooseLabel="Выбрать картинки"
         uploadLabel="Загрузить"
         cancelLabel="Отмена"
-        name="demo[]"
-        url="https://www.primefaces.org/cdn/api/upload.php"
-        (onUpload)="onUpload($event)"
         [multiple]="true"
+        (onUpload)="getImages($event)"
         accept="image/*"
         maxFileSize="1000000"
         mode="advanced">
         <ng-template #empty>
-          <div style="font: var(--ph); color: var(--dark-blue-color)">Максимум 10 картинок в формате jpeg, png или heic
+          <div style="font: var(--ph); color: var(--dark-blue-color)">
+            Максимум 10 картинок в формате jpeg, png или heic
           </div>
-        </ng-template>
-        <ng-template #content>
-          <ul *ngIf="uploadedFiles.length">
-            <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
-          </ul>
         </ng-template>
       </p-fileupload>
     </div>
@@ -90,14 +101,17 @@
     <div>
       <h6>Цена</h6>
       <input
+        formControlName="cost"
+        mask="separator"
+        [suffix]="' ₽'"
         placeholder="0 ₽"
+        [dropSpecialCharacters]="true"
       >
     </div>
 
     <app-button
       label="Разместить объявление"
       customClass="p-button_product-form"
-      type="submit"
     ></app-button>
   </form>
   <div style="width: 306px; font: var(--ph)">

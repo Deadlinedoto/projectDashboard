@@ -4,7 +4,6 @@ import {Dialog} from 'primeng/dialog';
 import {
   AbstractControl,
   FormBuilder,
-  FormControl,
   FormGroup,
   ReactiveFormsModule,
   ValidationErrors,
@@ -37,6 +36,7 @@ export class RegisterComponent {
   registerService = inject(RegisterService)
   authStateService = inject(AuthStateService)
   isLoading = this.authStateService.isLoading;
+  _fb = inject(FormBuilder)
 
   onHide() {
     this.closeShowPopupRegister.emit(false);
@@ -44,8 +44,8 @@ export class RegisterComponent {
 
   formRegister: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
-    this.formRegister = formBuilder.group({
+  constructor() {
+    this.formRegister = this._fb.group({
       login: ['', [
         Validators.required,
         Validators.minLength(4),
@@ -103,51 +103,4 @@ export class RegisterComponent {
       }
     })
   }
-  loginAfterRegister() {
-
-  }
-  // form = new FormGroup({
-  //   login: new FormControl<string | null>('', [
-  //     Validators.required,
-  //     Validators.minLength(4),
-  //     Validators.maxLength(64)
-  //   ]),
-  //   name: new FormControl<string | null>('', [
-  //     Validators.required,
-  //     Validators.minLength(4),
-  //     Validators.maxLength(64)
-  //   ]),
-  //   password: new FormControl<string | null>('', [
-  //     Validators.required,
-  //     Validators.minLength(8),
-  //     Validators.maxLength(50)
-  //   ]),
-  // })
-  //
-  // register() {
-  //   if (this.form.invalid) {
-  //     this.form.markAllAsTouched()
-  //     return console.log('invalid register form');
-  //   }
-  //
-  //   const {login, name, password} = this.form.value;
-  //
-  //   if (login && name && password) {
-  //     console.log(this.form.value);
-  //     this.registerService.getRegister({ login, name, password })
-  //       .subscribe({
-  //         next: (res) => {
-  //           console.log(res);
-  //           this.closeShowPopupRegister.emit(false);
-  //         },
-  //         error: (error) => {
-  //           console.log('Ошибка регистрации', error);
-  //         }
-  //     })
-  //   }
-  // }
-  //
-  // get nameControl() {
-  //   return this.form.controls.name as FormControl;
-  // }
 }

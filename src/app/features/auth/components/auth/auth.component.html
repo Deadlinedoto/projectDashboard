@@ -7,7 +7,7 @@
   class="login-modal"
 >
   <form
-    [formGroup]="form"
+    [formGroup]="authForm"
     (ngSubmit)="onSubmit()"
     class="auth-form auth-font"
   >
@@ -15,7 +15,11 @@
       formControlName="login"
       class="auth-form_auth-input"
       type="tel"
-      placeholder="Номер телефона"
+      placeholder="Телефонный номер"
+      mask=' (000) 000 - 00 - 00'
+      [showMaskTyped]="true"
+      [prefix]='"+7"'
+      [dropSpecialCharacters]="false"
     >
     <input
       formControlName="password"
@@ -39,8 +43,6 @@
     <app-button
       label="Войти"
       customClass="p-button_login"
-      type="sumbit"
-      (click)="onSubmit()"
     >
     </app-button>
 

@@ -3,7 +3,7 @@
     <h4>Настройки</h4>
     <form
       class="user-info-form mt24"
-      [formGroup]="form" (ngSubmit)="changeProile()"
+      [formGroup]="form" (ngSubmit)="changeProfile()"
     >
       <div class="user-info-form_username-and-phone mb16">
         <label>
@@ -16,7 +16,11 @@
         </label>
         <label>
           <h6>Номер телефона</h6>
-          <input placeholder="Телефон">
+          <input
+            placeholder="Телефон"
+            type="tel"
+            formControlName="Login"
+          >
         </label>
       </div>
       <label class="user-info-form_address">
