@@ -1,12 +1,10 @@
 import {Component, EventEmitter, inject, Input, Output} from '@angular/core';
 import {Dialog} from 'primeng/dialog';
 import {Checkbox} from 'primeng/checkbox';
-import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ButtonComponent} from '../../../../shared/components/ui/button';
 import {AuthService} from './services';
 import {NgxMaskDirective} from 'ngx-mask';
-import {Toast} from 'primeng/toast';
-import {MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-auth',
@@ -17,7 +15,7 @@ import {MessageService} from 'primeng/api';
     ButtonComponent,
     ReactiveFormsModule,
     NgxMaskDirective,
-    Toast,
+
   ],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.scss',
