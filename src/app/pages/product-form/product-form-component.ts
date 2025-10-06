@@ -14,6 +14,7 @@ import {ProductFormModel} from './models/product-form-model';
 import {ProductFormService} from './services/product-form.service';
 import {toSignal} from '@angular/core/rxjs-interop';
 import {ImagesService} from '../../features/images/services/images.service';
+import {ProductFormApiService} from './services/product-form-api.service';
 
 @Component({
   selector: 'app-product-form',
@@ -39,6 +40,7 @@ export class ProductFormComponent implements OnInit {
   private categoriesApi = inject(CategoryApi);
   private productFormService = inject(ProductFormService)
   private imagesService = inject(ImagesService)
+  private productFormApiService = inject(ProductFormApiService)
 
 
   addressQuery: string = '';
@@ -46,10 +48,8 @@ export class ProductFormComponent implements OnInit {
   selectedAddress: string = '';
 
   uploadedFiles: any[] = [];
-  uploadedImageIds: string[] = [];
 
   nodes: any[] = [];
-  selectedNodes: any;
 
   productForm: FormGroup<ProductFormModel>
 
@@ -81,66 +81,29 @@ export class ProductFormComponent implements OnInit {
   }
 
   productFormSubmit() {
-    console.log(this.productForm.value)
-  }
-  getImages(event: any) {
+    const formData = new FormData();
+    const formValue = this.productFormValue()
 
+    formData.append('name', formValue.name)
+    formData.append('description', formValue.description)
+    formData.append('cost', formValue.cost)
+    formData.append('email', formValue.email)
+    formData.append('location', formValue.location)
+    formData.append('categoryId', formValue.categoryId)
+    formData.append('images', formValue.images)
+    formData.append('phone', formValue.phone)
+
+    console.log(this.productForm.value)
+
+    this.productFormApiService.createProduct(formData).subscribe()
   }
+
 
   onUploadImages(event: any) {
     for (let file of event.files) {
       this.uploadedFiles.push(file);
     }
   }
-  // onCustomUpload(event: any) {
-  //   const files = event.files;
-  //
-  //   // Загружаем каждый файл через сервис
-  //   files.forEach((file: File) => {
-  //     this.imagesService.postImages(file.name, file.size).subscribe({
-  //       next: (response) => {
-  //         console.log('Файл загружен:', response);
-  //         this.uploadedFiles.push({
-  //           name: file.name,
-  //           size: file.size,
-  //           serverResponse: response
-  //         });
-  //       },
-  //       error: (error) => {
-  //         console.error('Ошибка загрузки:', error);
-  //       }
-  //     });
-  //   });
-  // }
-
-  // onCustomUpload(event: any) {
-  //   const files = event.files;
-  //
-  //   files.forEach((file: File) => {
-  //     this.imagesService.uploadImages(file).subscribe({
-  //       next: (response: ImagesResponseInterface) => {
-  //         console.log('Файл загружен!', response);
-  //
-  //         this.uploadedFiles.push({
-  //           name: file.name,
-  //           size: file.size,
-  //           serverResponse: response,
-  //         })
-  //         if (response.id) {
-  //           this.uploadedImageIds.push(response.id);
-  //           console.log('Айдишник сохранен', response.id);
-  //
-  //
-  //         }
-  //       },
-  //       error: (error) => {
-  //         console.log('Ошибка', error);
-  //       }
-  //       }
-  //     )
-  //   })
-  // }
-
 
 
 
