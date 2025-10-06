@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit, Signal} from '@angular/core';
+import {Component, inject, OnInit, Signal} from '@angular/core';
 import {CategoryApi} from '../../features/categories/services/category-api';
 import {CategoryInterface} from '../../features/categories/interfaces';
 import {TreeSelect, TreeSelectModule} from 'primeng/treeselect';
