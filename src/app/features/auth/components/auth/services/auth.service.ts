@@ -12,33 +12,64 @@ import {Router} from '@angular/router';
 export class AuthService extends BaseService {
   private authApiService = inject(AuthApiService);
   userService = inject(UserService);
-  _token: string | null = null
   cookieService = inject(CookieService);
   router = inject(Router);
 
   get isAuth() {
-    if(!this._token) {
-      this._token = this.cookieService.get('token')
-    }
-    return !!this._token
+    const token = this.cookieService.get('token');
+    return !!token;
   }
 
+  getToken() {
+    return this.cookieService.get('token') || null;
+  }
 
-  login(payload: AuthInterface): Observable<string> {
+  login(payload: AuthInterface) {
     return this.authApiService.getAuth(payload)
       .pipe(
-      tap((response: string) => {
-        this._token = response;
-        this.cookieService.set('token', this._token);
-        console.log('ТОКЕН:', this._token)
-        this.userService.loadMe()
-      })
+        tap((response: string) => {
+          this.cookieService.set('token', response);
+          this.userService.loadMe().subscribe()
+        })
       )
   }
   logout() {
-    this.cookieService.deleteAll()
-    this._token = null;
+    this.cookieService.delete('token');
+    this.userService.setUser(null);
     this.router.navigate(['/']);
   }
+
+
+
+  // private authApiService = inject(AuthApiService);
+  // userService = inject(UserService);
+  // _token: string | null = null
+  // cookieService = inject(CookieService);
+  // router = inject(Router);
+  //
+  // get isAuth() {
+  //   if(!this._token) {
+  //     this._token = this.cookieService.get('token')
+  //   }
+  //   return !!this._token
+  // }
+  //
+  //
+  // login(payload: AuthInterface): Observable<string> {
+  //   return this.authApiService.getAuth(payload)
+  //     .pipe(
+  //     tap((response: string) => {
+  //       this._token = response;
+  //       this.cookieService.set('token', this._token);
+  //       console.log('ТОКЕН:', this._token)
+  //       this.userService.loadMe()
+  //     })
+  //     )
+  // }
+  // logout() {
+  //   this.cookieService.deleteAll()
+  //   this._token = null;
+  //   this.router.navigate(['/']);
+  // }
 
 }

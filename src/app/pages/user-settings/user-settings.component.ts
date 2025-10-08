@@ -17,7 +17,6 @@ import {RegisterInterface} from '../../features/auth/components/register/registe
   styleUrl: './user-settings.component.scss'
 })
 export class UserSettingsComponent implements OnInit {
-  userService = inject(UserService);
   apiService = inject(ApiService);
   public userData?: UserInterface
   private fb = inject(FormBuilder)

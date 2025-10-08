@@ -13,14 +13,14 @@ export class ProductFormService {
 
   getForm(): FormGroup {
     return this._fb.group({
-      name: ['', Validators.required],
+      name: ['', [Validators.required]],
       description: [''],
       images: [[]],
-      cost: [null, Validators.required],
+      cost: [null, [Validators.required]],
       email: [''],
-      location: ['', Validators.required],
-      categoryId: ['', Validators.required],
-      phone: [''],
+      location: ['', [Validators.required]],
+      categoryId: ['', [Validators.required]],
+      phone: ['', [Validators.required]],
     })
   }
 

@@ -1,4 +1,6 @@
 export interface UploadImagesInterface {
-  originalEvent: Event;
-  files: File[];
+  name: string;
+  size: number;
+  previewUrl: string;
+  file: File;
 }

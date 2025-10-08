@@ -32,20 +32,6 @@ export class AuthComponent {
   rememberMe: boolean = false;
 
 
-  // form = new FormGroup({
-  //   login: new FormControl<string | null>(
-  //     null, [
-  //       Validators.required,
-  //       Validators.minLength(4),
-  //       Validators.maxLength(64)
-  //     ]),
-  //   password: new FormControl<string | null>(
-  //     null, [
-  //       Validators.required,
-  //       Validators.minLength(8),
-  //       Validators.maxLength(50)
-  //     ]),
-  // })
   constructor() {
     this.authForm = this._fb.group({
       login: ['', Validators.required],

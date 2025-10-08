@@ -1,8 +1,13 @@
-<div class="main-layout">
-  <app-header></app-header>
-  <main class="container mt32 mb32 height">
-    <router-outlet></router-outlet>
-  </main>
-  <app-footer></app-footer>
-</div>
+@if (isLoading) {
+  <app-skeleton-big></app-skeleton-big>
+} @else {
+  <div class="main-layout">
+    <app-header></app-header>
+    <main class="container mt32 mb32 height">
+      <router-outlet></router-outlet>
+    </main>
+    <app-footer></app-footer>
+  </div>
+}
+
 

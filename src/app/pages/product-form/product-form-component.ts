@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, Signal} from '@angular/core';
+import {Component, inject, OnInit, signal, Signal} from '@angular/core';
 import {CategoryApi} from '../../features/categories/services/category-api';
 import {CategoryInterface} from '../../features/categories/interfaces';
 import {TreeSelect, TreeSelectModule} from 'primeng/treeselect';
@@ -6,7 +6,7 @@ import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular
 import {TreeTableModule} from 'primeng/treetable';
 import {CommonModule} from '@angular/common';
 import {ButtonComponent} from '../../shared/components/ui/button';
-import {FileUpload} from 'primeng/fileupload';
+import {FileUpload, UploadEvent} from 'primeng/fileupload';
 import {DadataService} from '../../features/dadata/dadata.service';
 import {NgxMaskDirective} from 'ngx-mask';
 import {forkJoin} from 'rxjs';
@@ -15,6 +15,7 @@ import {ProductFormService} from './services/product-form.service';
 import {toSignal} from '@angular/core/rxjs-interop';
 import {ImagesService} from '../../features/images/services/images.service';
 import {ProductFormApiService} from './services/product-form-api.service';
+import {UploadImagesInterface} from '../../features/images/interfaces/upload-images-interface';
 
 @Component({
   selector: 'app-product-form',
@@ -47,14 +48,14 @@ export class ProductFormComponent implements OnInit {
   addressSuggestions: any[] = [];
   selectedAddress: string = '';
 
-  uploadedFiles: any[] = [];
+  selectedFiles: File[] = [];
 
   nodes: any[] = [];
 
+  uploadedImages = signal<UploadImagesInterface[]>([]);
+
   productForm: FormGroup<ProductFormModel>
-
   productFormValue: Signal<any>
-
   categoryControl = new FormControl();
 
   ///КОНСТРУКТОР
@@ -65,10 +66,10 @@ export class ProductFormComponent implements OnInit {
     this.productForm = this.productFormService.getForm()
     console.log(this.productForm)
 
-    this.productFormValue = toSignal(this.productForm.valueChanges)
-
 
     this.productForm = this.productFormService.getForm();
+
+    this.productFormValue = toSignal(this.productForm.valueChanges)
 
 
     this.categoryControl.valueChanges.subscribe(selectedNode => {
@@ -82,7 +83,10 @@ export class ProductFormComponent implements OnInit {
 
   productFormSubmit() {
     const formData = new FormData();
+    const cleanPhone = this.productForm.value.phone?.replace(/\D/g, '') || '';
+    const phoneAsNumber = cleanPhone ? Number(cleanPhone) : 0;
     const formValue = this.productFormValue()
+
 
     formData.append('name', formValue.name)
     formData.append('description', formValue.description)
@@ -90,20 +94,44 @@ export class ProductFormComponent implements OnInit {
     formData.append('email', formValue.email)
     formData.append('location', formValue.location)
     formData.append('categoryId', formValue.categoryId)
-    formData.append('images', formValue.images)
-    formData.append('phone', formValue.phone)
+    formData.append('phone', phoneAsNumber.toString())
 
-    console.log(this.productForm.value)
+    this.selectedFiles.forEach((file, index) => {
+      formData.append('Images', file, file.name);
+    });
 
-    this.productFormApiService.createProduct(formData).subscribe()
+    console.log('Формдата отправляется с:', {
+      name: formValue.name,
+      description: formValue.description,
+      cost: formValue.cost,
+      email: formValue.email,
+      location: formValue.location,
+      categoryId: formValue.categoryId,
+      phone: phoneAsNumber,
+      images: formValue.selectedFiles
+    });
+
+    this.productFormApiService.createProduct(formData).subscribe(
+      (res) => {
+        console.log(res)
+      }
+    )
   }
 
 
-  onUploadImages(event: any) {
-    for (let file of event.files) {
-      this.uploadedFiles.push(file);
-    }
+  //--------------------
+  //ЗАГРУЗКА КАРТИНОК!!!
+  //--------------------
+
+  onFileSelect(event: any) {
+    this.selectedFiles = [...this.selectedFiles, ...event.files];
+    console.log('Выбранные файлы:', this.selectedFiles);
   }
+  onFileClear() {
+    this.selectedFiles = [];
+    console.log('Все файлы удадены');
+  }
+
 
 
 

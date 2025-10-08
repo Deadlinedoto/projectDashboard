@@ -5,7 +5,7 @@ import {AuthComponent} from '../../../features/auth/components/auth/auth.compone
 import {RegisterComponent} from '../../../features/auth/components/register/register.component';
 import {AuthService} from '../../../features/auth/components/auth/services';
 import {SplitButton} from 'primeng/splitbutton';
-import {MenuItem} from 'primeng/api';
+import {MenuItem, MenuItemCommandEvent} from 'primeng/api';
 import {HeaderService} from './header.service';
 import {UserService} from '../../../core/services';
 
@@ -47,6 +47,7 @@ export class HeaderComponent implements OnInit {
     this.items = [
       {
         label: 'Мои объявления',
+        command: () => void this.headerService.navigateTo('/my-products'),
       },
       {
         label: 'Настройки',

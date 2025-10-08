@@ -62,7 +62,7 @@
         aria-label="Номер телефона"
         type="tel"
         placeholder="Телефонный номер"
-        mask=' (000) 000 - 00 - 00'
+        mask=' (999) 999 - 99 - 99'
         [showMaskTyped]="true"
         [prefix]='"+7"'
         [dropSpecialCharacters]="false"
@@ -85,17 +85,27 @@
         [multiple]="true"
         accept="image/*"
         maxFileSize="1000000"
-        mode="advanced">
+        mode="advanced"
+        [auto]="false"
+        [showUploadButton]="false"
+        (onSelect)="onFileSelect($event)"
+        (onClear)="onFileClear()"
+      >
         <ng-template #empty>
           <div style="font: var(--ph); color: var(--dark-blue-color)">
             Максимум 10 картинок в формате jpeg, png или heic
           </div>
         </ng-template>
+        <ng-template #content>
+          <ul *ngIf="selectedFiles.length">
+            <li *ngFor="let file of selectedFiles">{{ file.name }} - {{ file.size }} bytes</li>
+          </ul>
+        </ng-template>
       </p-fileupload>
     </div>
 
     <div>
-      <h6>Цена</h6>
+      <h6>Цена <span>*</span></h6>
       <input
         formControlName="cost"
         mask="separator"

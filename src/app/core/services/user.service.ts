@@ -10,30 +10,42 @@ import {HeaderService} from '../../common/components/header/header.service';
 })
 export class UserService {
   apiService = inject(ApiService)
-  private userSignal = signal<UserInterface | null>(null);
-  user: UserInterface | null = null;
 
+  private userSignal = signal<UserInterface | null>(null);
+
+  // user: UserInterface | null = null;
+
+  user = computed(() => this.userSignal());
   userName = computed(() => this.userSignal()?.name || 'Пользователь')
+
+  myProductsId = computed<any>(() => {
+    const user = this.userSignal()
+    return user?.adverts?.map(advert => advert.id.toString() || [])
+  })
+
+  isAuthenticated = computed(() => !!this.userSignal())
 
 
   loadMe() {
     return this.apiService.getCurrentUser()
-      .subscribe(
-        user => {
-          this.setUser(user)
-          this.user = user;
-        });
+      .pipe(
+        tap(user => {
+          this.setUser(user);
+          console.log('Юзер загружен:', user);
+          console.log('Мои айдишники:', user.adverts?.map(a => a.id));
+        }),
+        catchError(error => {
+          this.setUser(null)
+          return of(null);
+        }))
   }
 
   setUser(user: UserInterface | null) {
     this.userSignal.set(user);
   }
+
   getUser(user: UserInterface | null) {
     this.userSignal();
   }
 
-  getUserName(): string {
-    return this.userSignal()?.name || "Пользователь"
-
-  }
 }
