@@ -20,7 +20,10 @@
 
     </button>
     @for (product of myProducts; track product) {
-      <div class="product">
+      <div
+        class="product"
+        [routerLink]="['current-product-mini-card/' + product.id]"
+      >
         @if (product.imagesIds && product.imagesIds.length > 0) {
           <img class="product__img" [src]="'http://dzitskiy.ru:5000/Images/' + (product.imagesIds[0] || product.imagesIds)" alt="image">
         } @else {

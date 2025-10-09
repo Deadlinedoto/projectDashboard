@@ -3,6 +3,17 @@
   display: flex;
   gap: 24px;
 
+  &_edit-buttons {
+    display: flex;
+    justify-content: space-between;
+
+  }
+  &_price {
+    text-wrap: wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
   &_img {
     width: 856px;
   }
@@ -25,3 +36,18 @@
     }
   }
 }
+.breadcrumbs {
+  &_menu {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--grey-color);
+  }
+  li {
+    cursor: pointer;
+    &:hover {
+      color: var(--red-color);
+    }
+  }
+}
+

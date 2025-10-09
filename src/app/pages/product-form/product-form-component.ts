@@ -40,7 +40,6 @@ export class ProductFormComponent implements OnInit {
   private dadataService = inject(DadataService)
   private categoriesApi = inject(CategoryApi);
   private productFormService = inject(ProductFormService)
-  private imagesService = inject(ImagesService)
   private productFormApiService = inject(ProductFormApiService)
 
 
@@ -52,7 +51,6 @@ export class ProductFormComponent implements OnInit {
 
   nodes: any[] = [];
 
-  uploadedImages = signal<UploadImagesInterface[]>([]);
 
   productForm: FormGroup<ProductFormModel>
   productFormValue: Signal<any>

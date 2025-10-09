@@ -17,6 +17,7 @@ export class UserService {
 
   user = computed(() => this.userSignal());
   userName = computed(() => this.userSignal()?.name || 'Пользователь')
+  userId = computed(() => this.userSignal()?.id);
 
   myProductsId = computed<any>(() => {
     const user = this.userSignal()

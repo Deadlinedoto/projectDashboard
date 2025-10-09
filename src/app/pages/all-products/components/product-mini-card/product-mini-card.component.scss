@@ -27,6 +27,11 @@
   &__price {
     font-family: 'Roboto-SemiBold', sans-serif;
     font-size: 18px;
+    text-wrap: wrap;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 290px;
     color: var(--dark-blue-color);
   }
   &__address {

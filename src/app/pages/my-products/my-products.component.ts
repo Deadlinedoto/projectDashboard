@@ -5,6 +5,7 @@ import {CurrentProductInterface} from '../current-product';
 import {PricePipe} from '../../shared/pipes/price.pipe';
 import {RelativeTimePipe} from '../../shared/pipes/relative-time.pipe';
 import {RouterLink} from '@angular/router';
+import {CurrentProductApiService} from '../current-product/services/current-product-api.service';
 
 @Component({
   selector: 'app-my-products',
@@ -19,9 +20,10 @@ import {RouterLink} from '@angular/router';
 })
 export class MyProductsComponent implements OnInit {
   userService = inject(UserService);
-  apiService = inject(ApiService);
 
   myProducts: CurrentProductInterface[] = []
+
+  private currentProductApiService = inject(CurrentProductApiService)
 
 
 
@@ -38,14 +40,14 @@ export class MyProductsComponent implements OnInit {
     }
     else {}
   }
-  async loadMyProducts() {
+  loadMyProducts() {
     const productsId = this.userService.myProductsId();
     let completed = 0
 
     for(let i = 0; i < productsId.length; i++) {
       const id = productsId[i];
 
-      this.apiService.getSelectedProduct(id).subscribe({
+      this.currentProductApiService.getSelectedProduct(id).subscribe({
         next: (product) => {
           this.myProducts.push(product)
           completed++

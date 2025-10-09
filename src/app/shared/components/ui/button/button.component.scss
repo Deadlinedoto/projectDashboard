@@ -47,6 +47,23 @@
     height: 52px;
     font-size: 19px;
     line-height: 28px;
-
+  }
+  &_edit-product {
+    width: 250px;
+    height: 52px;
+    font-size: 19px;
+    line-height: 28px;
+  }
+  &_delete-product {
+    background-color: var(--red-color);
+    border-color: var(--red-color);
+    width: 150px;
+    height: 52px;
+    font-size: 19px;
+    line-height: 28px;
+    &:hover {
+      background-color: var(--dark-red-color) !important;
+      border-color: var(--dark-red-color) !important;
+    }
   }
 }

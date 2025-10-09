@@ -1,6 +1,6 @@
-import {inject, Injectable} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {BaseService} from '../../../core/services';
-import {map, Observable} from 'rxjs';
+import {Observable} from 'rxjs';
 import {CategoryDTOInterface, CategoryInterface} from '../interfaces';
 
 @Injectable({
@@ -8,10 +8,12 @@ import {CategoryDTOInterface, CategoryInterface} from '../interfaces';
 })
 export class CategoryApi extends BaseService{
 
+
   getAllCategories(): Observable<CategoryInterface[]> {
     return this.getData<CategoryInterface[]>('Categories');
   }
   getCategoryWithChildren(id: string): Observable<CategoryInterface> {
     return this.getData<CategoryDTOInterface>(`Categories/${id}`)
   }
+
 }

@@ -18,7 +18,11 @@ export const routes: Routes = [
     loadComponent: () =>
       import('../app/pages/current-product').then(
         (m) => m.CurrentProductComponent
-      )
+      ),
+    data: {
+      isMyProduct: false,
+      showEditButton: false
+    }
   },
   {
     title: 'Новое объявление',
@@ -46,7 +50,19 @@ export const routes: Routes = [
         (m) => m.MyProductsComponent
       ),
     canActivate: [canActivateAuth]
-  }
+  },
+  {
+    title: productTitleResolver,
+    path: 'my-products/current-product-mini-card/:id',
+    loadComponent: () =>
+      import('../app/pages/current-product').then(
+        (m) => m.CurrentProductComponent
+      ),
+    data: {
+      isMyProduct: true,
+      showEditButton: true
+    }
+  },
 
 
 ];

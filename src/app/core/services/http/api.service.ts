@@ -15,9 +15,6 @@ export class ApiService extends BaseService{
   getAllProducts(): Observable<ProductMiniCardInterface[]> {
     return this.postData<ProductMiniCardInterface[]>('Advert/search', {})
   }
-  getSelectedProduct(id: string): Observable<CurrentProductInterface> {
-    return this.getData<CurrentProductInterface>('Advert/' + id)
-  }
   getCurrentUser(): Observable<UserInterface> {
     return this.getData<UserInterface>('Users/current')
   }
