@@ -1,3 +1,4 @@
+<app-loading-modal></app-loading-modal>
 <div class="product-form">
   <h4>Новое объявление</h4>
   <form
@@ -15,6 +16,16 @@
         [filter]="true"
         [formControl]="categoryControl"
       />
+      @if (categoryId?.invalid && categoryId?.touched) {
+        <p-message
+          severity="error"
+          variant="simple"
+          size="small"
+          class="register-form_p-message"
+        >
+          Выберите категорию
+        </p-message>
+      }
     </div>
 
     <div>
@@ -24,6 +35,16 @@
         aria-label="Название объявления"
         placeholder="Что хотите продать?"
       >
+      @if (name?.invalid && name?.touched) {
+        <p-message
+          severity="error"
+          variant="simple"
+          size="small"
+          class="register-form_p-message"
+        >
+          Укажите название объявления
+        </p-message>
+      }
     </div>
 
     <div>
@@ -32,6 +53,16 @@
         formControlName="description"
         placeholder="Расскажите подробнее о товаре или услуге"
       ></textarea>
+      @if (description?.invalid && description?.touched) {
+        <p-message
+          severity="error"
+          variant="simple"
+          size="small"
+          class="register-form_p-message"
+        >
+          Максимальная длина: 250 символов
+        </p-message>
+      }
     </div>
 
     <div>
@@ -43,6 +74,16 @@
         placeholder="Введите адрес"
         [ngModelOptions]="{standalone: true}"
       >
+      @if (location?.invalid && location?.touched) {
+        <p-message
+          severity="error"
+          variant="simple"
+          size="small"
+          class="register-form_p-message"
+        >
+          Укажите адрес
+        </p-message>
+      }
 
       <div *ngIf="addressSuggestions.length" class="product-form_suggestions-container">
         <div
@@ -67,6 +108,16 @@
         [prefix]='"+7"'
         [dropSpecialCharacters]="false"
       >
+      @if (phone?.invalid && phone?.touched) {
+        <p-message
+          severity="error"
+          variant="simple"
+          size="small"
+          class="register-form_p-message"
+        >
+          Заполните телефонный номер
+        </p-message>
+      }
     </div>
     <div>
       <h6>Адрес электронной почты</h6>
@@ -84,7 +135,7 @@
         cancelLabel="Отмена"
         [multiple]="true"
         accept="image/*"
-        maxFileSize="1000000"
+        maxFileSize="2000000"
         mode="advanced"
         [auto]="false"
         [showUploadButton]="false"
@@ -113,6 +164,16 @@
         placeholder="0 ₽"
         [dropSpecialCharacters]="true"
       >
+      @if (cost?.invalid && cost?.touched) {
+        <p-message
+          severity="error"
+          variant="simple"
+          size="small"
+          class="register-form_p-message"
+        >
+          Укажите цену
+        </p-message>
+      }
     </div>
 
     <app-button

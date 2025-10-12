@@ -18,7 +18,5 @@ export class ApiService extends BaseService{
   getCurrentUser(): Observable<UserInterface> {
     return this.getData<UserInterface>('Users/current')
   }
-  putChangeProfile(id: string): Observable<RegisterInterface> {
-    return this.putData<RegisterInterface>('Users/' + id)
-  }
+
 }

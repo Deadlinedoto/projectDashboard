@@ -8,6 +8,14 @@ import {UserService} from '../../core/services';
 import {ButtonComponent} from '../../shared/components/ui/button';
 import {CurrentProductApiService} from './services/current-product-api.service';
 import {CategoryApi} from '../../features/categories/services/category-api';
+import {RelativeTimePipe} from '../../shared/pipes/relative-time.pipe';
+import {Toast} from 'primeng/toast';
+import {ConfirmationService, MessageService} from 'primeng/api';
+import {ConfirmDialog} from 'primeng/confirmdialog';
+import {BlockUI} from 'primeng/blockui';
+import {ProgressSpinner} from 'primeng/progressspinner';
+import {LoadingModalComponent} from '../../features/loading-modal/loading-modal/loading-modal.component';
+import {LoadingModalService} from '../../features/loading-modal/loading-modal/services/loading-modal.service';
 
 @Component({
   selector: 'app-current-product-mini-card',
@@ -16,11 +24,18 @@ import {CategoryApi} from '../../features/categories/services/category-api';
     PricePipe,
     ImagesCarouselComponent,
     ButtonComponent,
+    RelativeTimePipe,
+    Toast,
+    ConfirmDialog,
+    BlockUI,
+    ProgressSpinner,
+    LoadingModalComponent,
 
   ],
   templateUrl: './current-product.component.html',
   styleUrl: './current-product.component.scss',
   standalone: true,
+  providers: [ConfirmationService, MessageService]
 })
 export class CurrentProductComponent implements OnInit {
 
@@ -38,8 +53,48 @@ export class CurrentProductComponent implements OnInit {
   private userService = inject(UserService);
   private router = inject(Router);
   private categoryApiService = inject(CategoryApi);
+  private confirmationService = inject(ConfirmationService);
+  private messageService = inject(MessageService);
+  private loadingModalService = inject(LoadingModalService);
 
 
+
+  confirm2(event: Event) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: 'Вы уверены, что хотите удалить объявление?',
+      header: 'Удалить объявление',
+      icon: 'pi pi-info-circle',
+      rejectLabel: 'Cancel',
+      rejectButtonProps: {
+        label: 'Отменить',
+        severity: 'secondary',
+        outlined: true,
+      },
+      acceptButtonProps: {
+        label: 'Удалить',
+        severity: 'danger',
+      },
+
+      accept: () => {
+        this.loadingModalService.showLoadingModal('Удаляем объявление...')
+        this.messageService.add({ severity: 'info', summary: 'Успешно', detail: 'Объявление удалено' });
+        this.currentProductApiService.deleteMyProduct(this.selectedProduct.id).subscribe(
+          (res) => {
+            console.log('Объявление удалено', res)
+
+            this.userService.loadMe().subscribe(() => {
+              this.router.navigate(['/my-products']);
+              this.loadingModalService.hideLoadingModal();
+            })
+          }
+        )
+      },
+      reject: () => {
+        this.messageService.add({ severity: 'error', summary: 'Отмена', detail: 'Объявление не удалено' });
+      },
+    });
+  }
 
 
 
@@ -99,19 +154,6 @@ export class CurrentProductComponent implements OnInit {
     console.log(this.showEditButton);
   }
 
-  deleteProduct() {
-    if (confirm('Вы точно хотите удалить???????')) {
-      this.currentProductApiService.deleteMyProduct(this.selectedProduct.id).subscribe(
-        (res) => {
-          console.log('Объявление удалено', res)
-
-          this.userService.loadMe().subscribe(() => {
-            this.router.navigate(['/my-products']);
-          })
-        }
-      )
-    } else console.log('Ну и ЛАДНО!')
-  }
 
 
 }

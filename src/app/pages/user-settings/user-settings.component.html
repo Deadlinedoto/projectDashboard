@@ -1,9 +1,11 @@
+<p-toast />
 <div class="user-settings">
   <div>
     <h4>Настройки</h4>
     <form
       class="user-info-form mt24"
-      [formGroup]="form" (ngSubmit)="changeProfile()"
+      [formGroup]="userSettingsForm"
+      (ngSubmit)="changeProfile()"
     >
       <div class="user-info-form_username-and-phone mb16">
         <label>
@@ -11,7 +13,7 @@
           <input
             placeholder="Имя"
             type="text"
-            formControlName="Name"
+            formControlName="name"
           >
         </label>
         <label>
@@ -19,50 +21,38 @@
           <input
             placeholder="Телефон"
             type="tel"
-            formControlName="Login"
+            formControlName="login"
+            mask=' (000) 000 - 00 - 00'
+            [showMaskTyped]="true"
+            [prefix]='"+7"'
+            [dropSpecialCharacters]="false"
+
           >
         </label>
       </div>
-      <label class="user-info-form_address">
-        <h6>Адрес <span>(будет указываться в объявлениях по умолчанию)</span></h6>
-        <input placeholder="Не указан">
-      </label>
-      <div class="user-info-form_save-button mt24">
-        <app-button
-          label="Сохранить"
-          customClass="p-button_user-settings-save"
-          type="submit"
-        ></app-button>
-      </div>
-    </form>
-  </div>
-  <div class="user-settings_passwords mt48">
-    <h4>Смена пароля</h4>
-    <form class="user-password-form mt24">
       <label>
-        <h6>Текущий пароль</h6>
+        <h6 class="mt16">Текущий пароль</h6>
         <input
           placeholder="Введите текущий пароль"
         >
       </label>
       <label>
-        <h6>Новый пароль <span>(минимум 8 символов)</span></h6>
+        <h6 class="mt16">Новый пароль <span>(минимум 8 символов)</span></h6>
         <input
+          formControlName="password"
           placeholder="Введите новый пароль"
         >
       </label>
       <label>
-        <h6>Повторите новый пароль</h6>
+        <h6 class="mt16">Повторите новый пароль</h6>
         <input
           placeholder="Введите новый пароль"
         >
       </label>
-      <div class='user-password-form_save-button-password mt8'>
+      <div class="user-info-form_save-button mt24">
         <app-button
-          [disabled]=true
-          label="Изменить пароль"
+          label="Сохранить"
           customClass="p-button_user-settings-save"
-          type="submit"
         ></app-button>
       </div>
     </form>

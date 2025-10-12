@@ -14,7 +14,7 @@ export const routes: Routes = [
   },
   {
     title: productTitleResolver,
-    path: 'current-product-mini-card/:id',
+    path: 'current-product/:id',
     loadComponent: () =>
       import('../app/pages/current-product').then(
         (m) => m.CurrentProductComponent
@@ -53,7 +53,7 @@ export const routes: Routes = [
   },
   {
     title: productTitleResolver,
-    path: 'my-products/current-product-mini-card/:id',
+    path: 'my-products/current-product/:id',
     loadComponent: () =>
       import('../app/pages/current-product').then(
         (m) => m.CurrentProductComponent

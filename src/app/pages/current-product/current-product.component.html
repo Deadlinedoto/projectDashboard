@@ -1,3 +1,4 @@
+<app-loading-modal/>
 @if (selectedProduct) {
   <nav class="breadcrumbs mb8">
     <ul class="breadcrumbs_menu">
@@ -31,11 +32,13 @@
             label="Редактировать"
             icon="pi pi-pencil"
           ></app-button>
+          <p-toast />
+          <p-confirm-dialog></p-confirm-dialog>
           <app-button
             customClass='p-button_delete-product'
             label="Удалить"
             icon="pi pi-trash"
-            (onClick)="deleteProduct()"
+            (onClick)="confirm2($event)"
           ></app-button>
         </div>
       }
@@ -56,6 +59,13 @@
       <div class="current-product_info_description mt32">
         <h4>Описание</h4>
         <h6 class="mt8">{{ selectedProduct.description }}</h6>
+      </div>
+      <div class="mt32">
+        <h4>Электронный адрес</h4>
+        <h6  class="mt8">{{ selectedProduct.email }}</h6>
+      </div>
+      <div class="mt32">
+        <h6>Было опубликовано: <span>{{ selectedProduct.created | relativeTime}}</span></h6>
       </div>
     </div>
   </div>

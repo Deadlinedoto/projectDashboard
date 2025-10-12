@@ -2,7 +2,7 @@ import {Component, inject, OnInit, signal, Signal} from '@angular/core';
 import {CategoryApi} from '../../features/categories/services/category-api';
 import {CategoryInterface} from '../../features/categories/interfaces';
 import {TreeSelect, TreeSelectModule} from 'primeng/treeselect';
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {TreeTableModule} from 'primeng/treetable';
 import {CommonModule} from '@angular/common';
 import {ButtonComponent} from '../../shared/components/ui/button';
@@ -16,6 +16,13 @@ import {toSignal} from '@angular/core/rxjs-interop';
 import {ImagesService} from '../../features/images/services/images.service';
 import {ProductFormApiService} from './services/product-form-api.service';
 import {UploadImagesInterface} from '../../features/images/interfaces/upload-images-interface';
+import {Router} from '@angular/router';
+import {Message} from 'primeng/message';
+import {UserService} from '../../core/services';
+import {BlockUI} from 'primeng/blockui';
+import {ProgressSpinner} from 'primeng/progressspinner';
+import {LoadingModalComponent} from '../../features/loading-modal/loading-modal/loading-modal.component';
+import {LoadingModalService} from '../../features/loading-modal/loading-modal/services/loading-modal.service';
 
 @Component({
   selector: 'app-product-form',
@@ -29,6 +36,10 @@ import {UploadImagesInterface} from '../../features/images/interfaces/upload-ima
     FileUpload,
     NgxMaskDirective,
     ReactiveFormsModule,
+    Message,
+    BlockUI,
+    ProgressSpinner,
+    LoadingModalComponent,
   ],
   templateUrl: './product-form-component.html',
   styleUrl: './product-form-component.scss',
@@ -41,6 +52,9 @@ export class ProductFormComponent implements OnInit {
   private categoriesApi = inject(CategoryApi);
   private productFormService = inject(ProductFormService)
   private productFormApiService = inject(ProductFormApiService)
+  private router = inject(Router);
+  private userService = inject(UserService)
+  private loadingModalService = inject(LoadingModalService)
 
 
   addressQuery: string = '';
@@ -50,6 +64,8 @@ export class ProductFormComponent implements OnInit {
   selectedFiles: File[] = [];
 
   nodes: any[] = [];
+
+  isLoading = false;
 
 
   productForm: FormGroup<ProductFormModel>
@@ -80,6 +96,11 @@ export class ProductFormComponent implements OnInit {
   }
 
   productFormSubmit() {
+
+    this.loadingModalService.showLoadingModal('Создаем объявление...')
+
+    this.markAllInputsAsTouched();
+
     const formData = new FormData();
     const cleanPhone = this.productForm.value.phone?.replace(/\D/g, '') || '';
     const phoneAsNumber = cleanPhone ? Number(cleanPhone) : 0;
@@ -109,12 +130,40 @@ export class ProductFormComponent implements OnInit {
       images: formValue.selectedFiles
     });
 
-    this.productFormApiService.createProduct(formData).subscribe(
-      (res) => {
-        console.log(res)
-      }
-    )
+    if (this.productForm.invalid) {
+      console.log("Ошибка формы");
+    } else {
+      this.productFormApiService.createProduct(formData).subscribe(
+        (res) => {
+          console.log(res)
+
+          this.userService.loadMe().subscribe(() => {
+            this.loadingModalService.hideLoadingModal();
+            this.router.navigate(['current-product/' + res.id]);
+            window.scrollTo(0, 0);
+          })
+        }
+      )
+    }
+
   }
+
+  private markAllInputsAsTouched() {
+    Object.keys(this.productForm.controls).forEach(key => {
+      const control = this.productForm.get(key);
+      control?.markAsTouched();
+    });
+
+    this.categoryControl.markAsTouched();
+  }
+
+  get name() { return this.productForm.get('name') }
+  get description() { return this.productForm.get('description') }
+  get cost() { return this.productForm.get('cost') }
+  get email() { return this.productForm.get('email') }
+  get location() { return this.productForm.get('location') }
+  get categoryId() { return this.productForm.get('categoryId') }
+  get phone() { return this.productForm.get('phone')}
 
 
   //--------------------
@@ -125,13 +174,11 @@ export class ProductFormComponent implements OnInit {
     this.selectedFiles = [...this.selectedFiles, ...event.files];
     console.log('Выбранные файлы:', this.selectedFiles);
   }
+
   onFileClear() {
     this.selectedFiles = [];
     console.log('Все файлы удадены');
   }
-
-
-
 
 
   //--------------------

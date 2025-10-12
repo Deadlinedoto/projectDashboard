@@ -1,0 +1,12 @@
+<p-blockUI [blocked]="isLoading" [baseZIndex]="1000">
+  <div class="loading-overlay">
+    <div class="loading-content">
+      <p-progressSpinner
+        styleClass="w-4rem h-4rem"
+        strokeWidth="4"
+        animationDuration=".5s"
+      />
+      <h5 class="mt-3 text-lg">{{ loadingMessage }}</h5>
+    </div>
+  </div>
+</p-blockUI>

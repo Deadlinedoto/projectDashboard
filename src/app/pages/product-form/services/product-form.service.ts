@@ -14,9 +14,9 @@ export class ProductFormService {
   getForm(): FormGroup {
     return this._fb.group({
       name: ['', [Validators.required]],
-      description: [''],
+      description: ['', [Validators.maxLength(250)]],
       images: [[]],
-      cost: [null, [Validators.required]],
+      cost: [null, [Validators.required, Validators.min(1)]],
       email: [''],
       location: ['', [Validators.required]],
       categoryId: ['', [Validators.required]],

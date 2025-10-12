@@ -1,3 +1,7 @@
+:host ::ng-deep ng-trigger ng-trigger-animation ng-tns-c2196985156-32 p-confirmdialog undefined p-dialog p-component ng-star-inserted {
+  font-family: Roboto-Regular, sans-serif !important;
+}
+
 .current-product {
   width: 100%;
   display: flex;
@@ -8,6 +12,7 @@
     justify-content: space-between;
 
   }
+
   &_price {
     text-wrap: wrap;
     word-wrap: break-word;
@@ -17,25 +22,38 @@
   &_img {
     width: 856px;
   }
+
   &_info {
     max-width: 416px;
   }
+
   &_info_address {
     display: flex;
     flex-direction: column;
     gap: 4px;
   }
+
   &_open-map {
     display: flex;
     gap: 8px;
     align-items: center;
     color: var(--primary-color);
     cursor: pointer;
+
+    &:hover {
+      color: var(--red-color);
+    }
+  }
+
+  span {
+    color: var(--primary-color);
+
     &:hover {
       color: var(--red-color);
     }
   }
 }
+
 .breadcrumbs {
   &_menu {
     display: flex;
@@ -43,8 +61,10 @@
     gap: 8px;
     color: var(--grey-color);
   }
+
   li {
     cursor: pointer;
+
     &:hover {
       color: var(--red-color);
     }
