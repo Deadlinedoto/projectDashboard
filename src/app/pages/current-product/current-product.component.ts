@@ -12,8 +12,6 @@ import {RelativeTimePipe} from '../../shared/pipes/relative-time.pipe';
 import {Toast} from 'primeng/toast';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {ConfirmDialog} from 'primeng/confirmdialog';
-import {BlockUI} from 'primeng/blockui';
-import {ProgressSpinner} from 'primeng/progressspinner';
 import {LoadingModalComponent} from '../../features/loading-modal/loading-modal/loading-modal.component';
 import {LoadingModalService} from '../../features/loading-modal/loading-modal/services/loading-modal.service';
 
@@ -27,8 +25,6 @@ import {LoadingModalService} from '../../features/loading-modal/loading-modal/se
     RelativeTimePipe,
     Toast,
     ConfirmDialog,
-    BlockUI,
-    ProgressSpinner,
     LoadingModalComponent,
 
   ],
@@ -78,14 +74,14 @@ export class CurrentProductComponent implements OnInit {
 
       accept: () => {
         this.loadingModalService.showLoadingModal('Удаляем объявление...')
-        this.messageService.add({ severity: 'info', summary: 'Успешно', detail: 'Объявление удалено' });
         this.currentProductApiService.deleteMyProduct(this.selectedProduct.id).subscribe(
           (res) => {
             console.log('Объявление удалено', res)
 
             this.userService.loadMe().subscribe(() => {
-              this.router.navigate(['/my-products']);
               this.loadingModalService.hideLoadingModal();
+              this.messageService.add({ severity: 'info', summary: 'Успешно', detail: 'Объявление удалено' });
+              this.router.navigate(['/my-products']);
             })
           }
         )

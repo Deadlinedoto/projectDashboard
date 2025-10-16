@@ -1,0 +1,15 @@
+<app-button
+  customClass="p-button_show-all-categories"
+  (click)="showDialog()"
+  label="Все категории"
+  [icon]="this.visible ? 'pi pi-times' : 'pi pi-bars'"
+/>
+<p-dialog
+  [modal]="true"
+  [dismissableMask]="true"
+  [draggable]="false"
+  header="Edit Profile"
+  [(visible)]="visible"
+>
+  <H1>SEX</H1>
+</p-dialog>

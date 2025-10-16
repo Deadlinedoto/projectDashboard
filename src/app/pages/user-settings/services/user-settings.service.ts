@@ -30,22 +30,12 @@ export class UserSettingsService extends BaseService{
           Validators.minLength(8),
           Validators.maxLength(50)
         ]],
-      })
+      },
+      )
   }
 
-  createProduct(request: any): Observable<ProductFormResponse> {
-    return this.postData<ProductFormResponse>('Advert', request)
-  }
   putChangeProfile(id: string | undefined, payload: any): Observable<UserSettingsResponseInterface> {
     return this.putData<UserSettingsResponseInterface>('Users/' + id, payload)
   }
 
-  // putChangeProfile(id: string | undefined, payload: UserSettingsInterface): Observable<any> {
-  //   const formData = new FormData();
-  //   formData.append('Name', payload.name);
-  //   formData.append('Login', payload.login);
-  //   formData.append('Password', payload.password);
-  //
-  //   return this.putData<any>('Users/' + id, formData)
-  // }
 }

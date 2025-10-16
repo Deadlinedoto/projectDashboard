@@ -1,26 +1,22 @@
-import {Component, inject, OnInit, signal, Signal} from '@angular/core';
+import {Component, inject, OnInit, Signal} from '@angular/core';
 import {CategoryApi} from '../../features/categories/services/category-api';
 import {CategoryInterface} from '../../features/categories/interfaces';
 import {TreeSelect, TreeSelectModule} from 'primeng/treeselect';
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {TreeTableModule} from 'primeng/treetable';
 import {CommonModule} from '@angular/common';
 import {ButtonComponent} from '../../shared/components/ui/button';
-import {FileUpload, UploadEvent} from 'primeng/fileupload';
+import {FileUpload} from 'primeng/fileupload';
 import {DadataService} from '../../features/dadata/dadata.service';
 import {NgxMaskDirective} from 'ngx-mask';
 import {forkJoin} from 'rxjs';
 import {ProductFormModel} from './models/product-form-model';
 import {ProductFormService} from './services/product-form.service';
 import {toSignal} from '@angular/core/rxjs-interop';
-import {ImagesService} from '../../features/images/services/images.service';
 import {ProductFormApiService} from './services/product-form-api.service';
-import {UploadImagesInterface} from '../../features/images/interfaces/upload-images-interface';
 import {Router} from '@angular/router';
 import {Message} from 'primeng/message';
 import {UserService} from '../../core/services';
-import {BlockUI} from 'primeng/blockui';
-import {ProgressSpinner} from 'primeng/progressspinner';
 import {LoadingModalComponent} from '../../features/loading-modal/loading-modal/loading-modal.component';
 import {LoadingModalService} from '../../features/loading-modal/loading-modal/services/loading-modal.service';
 
@@ -37,8 +33,6 @@ import {LoadingModalService} from '../../features/loading-modal/loading-modal/se
     NgxMaskDirective,
     ReactiveFormsModule,
     Message,
-    BlockUI,
-    ProgressSpinner,
     LoadingModalComponent,
   ],
   templateUrl: './product-form-component.html',

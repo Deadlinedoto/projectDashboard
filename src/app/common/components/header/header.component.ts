@@ -1,13 +1,16 @@
-import {Component, computed, inject, OnInit} from '@angular/core';
-import {Router, RouterLink} from '@angular/router';
+import {Component, inject, OnInit} from '@angular/core';
+import {RouterLink} from '@angular/router';
 import {ButtonComponent} from '../../../shared/components/ui/button';
 import {AuthComponent} from '../../../features/auth/components/auth/auth.component';
 import {RegisterComponent} from '../../../features/auth/components/register/register.component';
 import {AuthService} from '../../../features/auth/components/auth/services';
 import {SplitButton} from 'primeng/splitbutton';
-import {MenuItem, MenuItemCommandEvent} from 'primeng/api';
+import {MenuItem} from 'primeng/api';
 import {HeaderService} from './header.service';
 import {UserService} from '../../../core/services';
+import {
+  ShowAllCategoriesComponent
+} from '../../../shared/components/show-all-categories-modal/show-all-categories.component';
 
 @Component({
   selector: 'app-header',
@@ -17,6 +20,7 @@ import {UserService} from '../../../core/services';
     AuthComponent,
     RegisterComponent,
     SplitButton,
+    ShowAllCategoriesComponent,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',

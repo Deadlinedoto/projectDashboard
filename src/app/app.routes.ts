@@ -63,6 +63,14 @@ export const routes: Routes = [
       showEditButton: true
     }
   },
+  {
+    title: 'Страница не найдена',
+    path: '**',
+    loadComponent: () =>
+      import('../app/pages/not-found/not-found.component').then(
+        (m) => m.NotFoundComponent
+      )
+  }
 
 
 ];

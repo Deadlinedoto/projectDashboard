@@ -1,6 +1,6 @@
 import {Component, inject, OnInit, Signal} from '@angular/core';
 import {ButtonComponent} from '../../shared/components/ui/button';
-import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors} from '@angular/forms';
 import {UserService} from '../../core/services';
 import {NgxMaskDirective} from 'ngx-mask';
 import {UserSettingsService} from './services/user-settings.service';
@@ -82,9 +82,19 @@ export class UserSettingsComponent implements OnInit {
         }
       )
     }
+  }
+  passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
+    const formGroup = control as FormGroup;
+    const password = formGroup.get('password');
+    const confirmPassword = formGroup.get('confirmPassword');
 
-
-
+    if (password && confirmPassword && password.value !== confirmPassword.value) {
+      confirmPassword.setErrors({ passwordMismatch: true });
+      return { passwordMismatch: true };
+    } else {
+      confirmPassword?.setErrors(null);
+      return null;
+    }
   }
 
 }
