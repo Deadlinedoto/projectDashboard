@@ -1,6 +1,6 @@
 export interface CategoryDTOInterface {
   id: string,
-  parentName: string,
+  parentId: string,
   name: string,
   childs?: CategoryDTOInterface[],
 }

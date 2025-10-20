@@ -1,16 +1,45 @@
-:host ::ng-deep {
+.all-categories {
+  height: 80vh;
+  display: grid;
+  grid-template-columns: 282px 1fr;
+  gap: 48px;
+  margin-top: 32px;
 
-  .p-dialog {
-    position: fixed;
-    bottom: 0;
-    height: calc(100vh - 137px);
+  & ul {
+    height: 520px;
+    width: 306px;
     display: flex;
-    width: 100%;
-    border-radius: 0;
+    gap: 8px;
+    align-items: center;
+    flex-direction: column;
   }
-  .p-dialog-mask {
-    margin-top: 137px;
-    background: none;
+  & li {
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 282px;
+    transition: background-color 0.2s;
+    border-radius: 8px;
+    &:hover {
+      cursor: pointer;
+      background-color: #F5F5F5;
+    }
   }
-
+  & a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  &_child-categories {
+    &_list {
+      margin-top: 24px;
+    }
+  }
+}
+.no-categories {
+  margin-top: 24px;
+}
+.loading {
+  margin-top: 24px;
 }

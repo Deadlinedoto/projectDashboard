@@ -8,14 +8,20 @@
   >
     <div class="card flex justify-center">
       <h6>Выберите категорию <span>*</span></h6>
-      <p-tree-select
-        class="md:w-80 w-full"
-        containerStyleClass="w-full"
-        [options]="nodes"
-        placeholder="Нажмите, чтобы выбрать"
-        [filter]="true"
-        [formControl]="categoryControl"
-      />
+        <p-tree-select
+          class="md:w-80 w-full"
+          containerStyleClass="w-full"
+          [options]="nodes"
+          placeholder="Нажмите, чтобы выбрать"
+          [filter]="true"
+          [formControl]="categoryControl"
+        />
+      @if (isLoadingCategories) {
+          <div class="loading-spinner">
+            <i class="pi pi-spin pi-spinner" style="font-size: 1.25rem"></i>
+            <span>Загрузка категорий...</span>
+          </div>
+      }
       @if (categoryId?.invalid && categoryId?.touched) {
         <p-message
           severity="error"
@@ -27,7 +33,6 @@
         </p-message>
       }
     </div>
-
     <div>
       <h6>Название объявления <span>*</span></h6>
       <input

@@ -47,6 +47,10 @@
 }
 
 ::ng-deep {
+  .p-popover {
+    left: 300px !important;
+    width: 100% !important;
+  }
   p-splitbutton {
     font-family: 'Roboto-Regular', sans-serif;
 

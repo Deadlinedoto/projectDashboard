@@ -60,11 +60,17 @@ export class ProductFormComponent implements OnInit {
   nodes: any[] = [];
 
   isLoading = false;
+  isLoadingCategories = false;
 
 
   productForm: FormGroup<ProductFormModel>
   productFormValue: Signal<any>
   categoryControl = new FormControl();
+
+  ngOnInit() {
+    this.loadCategories(
+    )
+  }
 
   ///КОНСТРУКТОР
   //!!!!
@@ -125,6 +131,7 @@ export class ProductFormComponent implements OnInit {
     });
 
     if (this.productForm.invalid) {
+      this.loadingModalService.hideLoadingModal();
       console.log("Ошибка формы");
     } else {
       this.productFormApiService.createProduct(formData).subscribe(
@@ -207,21 +214,29 @@ export class ProductFormComponent implements OnInit {
   //КАТЕГОРИИ!!!!!
   //--------------------
 
-  ngOnInit() {
-    this.loadCategories(
-    )
-  }
 
   loadCategories() {
+    this.categoryControl.disable();
+    this.isLoadingCategories = true;
+
     this.categoriesApi.getAllCategories()
       .subscribe((categories) => {
         const categoryRequests = categories.map(category =>
           this.categoriesApi.getCategoryWithChildren(category.id)
         );
 
-        forkJoin(categoryRequests).subscribe((categoriesWithChildren) => {
-          this.nodes = categoriesWithChildren.map(category => this.mapCategoryToTreeNode(category));
-          console.log('Категории: ', this.nodes);
+        forkJoin(categoryRequests).subscribe({
+          next: (categoriesWithChildren) => {
+            this.nodes = categoriesWithChildren.map(category => this.mapCategoryToTreeNode(category));
+            console.log('Категории: ', this.nodes);
+            this.isLoadingCategories = false;
+            this.categoryControl.enable();
+          },
+          error: (error) => {
+            console.error('Ошибка загрузки категорий:', error);
+            this.isLoadingCategories = false;
+            this.categoryControl.enable();
+          }
         });
       });
   }

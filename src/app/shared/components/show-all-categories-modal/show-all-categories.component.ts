@@ -1,22 +1,25 @@
-import { Component } from '@angular/core';
-import {ButtonComponent} from '../ui/button';
-import {Dialog} from 'primeng/dialog';
+import {Component, inject} from '@angular/core';
+import {CategoriesService} from '../../../features/categories/services/categories.service';
+
 
 @Component({
   selector: 'app-show-all-categories-modal',
-  imports: [
-    ButtonComponent,
-    Dialog
-  ],
+  imports: [],
   templateUrl: './show-all-categories.component.html',
-  styleUrl: './show-all-categories.component.scss'
+  styleUrl: './show-all-categories.component.scss',
+  standalone: true,
 })
 export class ShowAllCategoriesComponent {
-  visible: boolean = false;
-  isCategoriesOpen = false;
 
-  showDialog() {
-    this.visible = !this.visible;
-    this.isCategoriesOpen = true;
+  private categoriesService = inject(CategoriesService);
+
+  categories = this.categoriesService.allCategories;
+  childCategories = this.categoriesService.childCategories;
+  selectedCategory = this.categoriesService.selectedCategory;
+  isLoadingChildren = this.categoriesService.isLoadingChildren;
+
+  onCategorySelect(category: any): void {
+    this.categoriesService.selectCategory(category);
   }
+
 }

@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, ViewChild} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {ButtonComponent} from '../../../shared/components/ui/button';
 import {AuthComponent} from '../../../features/auth/components/auth/auth.component';
@@ -11,6 +11,7 @@ import {UserService} from '../../../core/services';
 import {
   ShowAllCategoriesComponent
 } from '../../../shared/components/show-all-categories-modal/show-all-categories.component';
+import {Popover} from 'primeng/popover';
 
 @Component({
   selector: 'app-header',
@@ -21,6 +22,7 @@ import {
     RegisterComponent,
     SplitButton,
     ShowAllCategoriesComponent,
+    Popover,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
@@ -35,6 +37,20 @@ export class HeaderComponent implements OnInit {
   userService = inject(UserService)
   items: MenuItem[];
 
+  @ViewChild('showAllCategoryMenu') categoryMenu!: ShowAllCategoriesComponent;
+
+  menuButtonIcon = 'list-nested';
+  menuButtonActive = false;
+
+  onMenuShow() {
+    this.menuButtonActive = true;
+    this.menuButtonIcon = 'close';
+  }
+
+  onMenuHide() {
+    this.menuButtonActive = false;
+    this.menuButtonIcon = 'list-nested';
+  }
 
   userName = this.userService.userName
 

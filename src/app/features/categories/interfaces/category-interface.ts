@@ -1,6 +1,6 @@
 export interface CategoryInterface {
   id: string,
-  parentName: string,
+  parentId: string,
   name: string,
   childs?: CategoryInterface[],
 }

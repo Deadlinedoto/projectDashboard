@@ -1,15 +1,47 @@
-<app-button
-  customClass="p-button_show-all-categories"
-  (click)="showDialog()"
-  label="Все категории"
-  [icon]="this.visible ? 'pi pi-times' : 'pi pi-bars'"
-/>
-<p-dialog
-  [modal]="true"
-  [dismissableMask]="true"
-  [draggable]="false"
-  header="Edit Profile"
-  [(visible)]="visible"
->
-  <H1>SEX</H1>
-</p-dialog>
+<div class="all-categories">
+  <ul>
+    @for (cat of categories(); track cat) {
+      <li
+        (click)="onCategorySelect(cat)"
+      >
+        <h6>{{ cat.name }}</h6>
+        <i class="pi pi-chevron-right" style="font-size: 0.8rem"></i>
+      </li>
+    }
+  </ul>
+  <div class="all-categories_child-categories">
+    @if (selectedCategory()) {
+      <a>
+        <h4>{{ selectedCategory()?.name }}</h4>
+        <i class="pi pi-chevron-right" style="font-size: 1rem"></i>
+      </a>
+
+
+      @if (isLoadingChildren()) {
+        <div class="loading">
+          <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+        </div>
+      } @else {
+        @if (childCategories().length > 0) {
+          <ul class="all-categories_child-categories_list">
+            @for (childCat of childCategories(); track childCat.id) {
+              <li class="category-item child-item">
+                <h5>{{ childCat.name }}</h5>
+                @if (childCat.childs && childCat.childs.length > 0) {
+                  <span class="child-count">({{ childCat.childs.length }})</span>
+                }
+              </li>
+            }
+          </ul>
+        } @else {
+          <div class="no-categories">Нет подкатегорий</div>
+        }
+      }
+    } @else {
+      <div class="placeholder">
+        <i class="pi pi-info-circle"></i>
+        <p>Выберите категорию</p>
+      </div>
+    }
+  </div>
+</div>

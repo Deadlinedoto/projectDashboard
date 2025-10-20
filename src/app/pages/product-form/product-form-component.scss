@@ -9,7 +9,6 @@
   }
 }
 
-
 .product-form {
   width: 856px;
   &_suggestions-container {
@@ -54,5 +53,15 @@
   }
   span {
     color: var(--red-color);
+  }
+}
+
+.loading-spinner {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+  & span {
+    color: var(--dark-blue-color);
+
   }
 }
