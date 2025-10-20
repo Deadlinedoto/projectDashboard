@@ -14,11 +14,12 @@ import {ProductFormModel} from './models/product-form-model';
 import {ProductFormService} from './services/product-form.service';
 import {toSignal} from '@angular/core/rxjs-interop';
 import {ProductFormApiService} from './services/product-form-api.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Message} from 'primeng/message';
 import {UserService} from '../../core/services';
 import {LoadingModalComponent} from '../../features/loading-modal/loading-modal/loading-modal.component';
 import {LoadingModalService} from '../../features/loading-modal/loading-modal/services/loading-modal.service';
+import {CurrentProductApiService} from '../current-product/services/current-product-api.service';
 
 @Component({
   selector: 'app-product-form',
@@ -49,6 +50,10 @@ export class ProductFormComponent implements OnInit {
   private router = inject(Router);
   private userService = inject(UserService)
   private loadingModalService = inject(LoadingModalService)
+  private route = inject(ActivatedRoute);
+  private productId: string | null = null;
+  private currentProduct = inject(CurrentProductApiService)
+  isEditMode = false;
 
 
   addressQuery: string = '';
@@ -59,7 +64,6 @@ export class ProductFormComponent implements OnInit {
 
   nodes: any[] = [];
 
-  isLoading = false;
   isLoadingCategories = false;
 
 
@@ -72,10 +76,57 @@ export class ProductFormComponent implements OnInit {
     )
   }
 
+
+  //////
+  ///////РЕДАКТИРОВАНИЕ ОБЪЯВЛЕНИЯ
+  ///////
+
+
+  loadProductData(productId: string) {
+    this.loadingModalService.showLoadingModal('Загружаем данные объявления...');
+
+    this.currentProduct.getSelectedProduct(productId).subscribe({
+      next: (product) => {
+        console.log(product);
+        this.populateFormWithProductData(product);
+        this.loadingModalService.hideLoadingModal();
+      },
+      error: (error) => {
+        console.error('Ошибка загрузки данных объявления:', error);
+        this.loadingModalService.hideLoadingModal();
+      }
+    });
+  }
+
+  private populateFormWithProductData(product: any) {
+
+    this.productForm.patchValue({
+      name: product.name,
+      description: product.description,
+      cost: product.cost,
+      email: product.email || '',
+      location: product.location,
+      categoryId: product.category.id,
+      phone: product.phone.slice(1),
+    });
+
+    this.addressQuery = product.location;
+    this.selectedAddress = product.location;
+  }
+
+
   ///КОНСТРУКТОР
   //!!!!
 
   constructor() {
+
+    this.route.paramMap.subscribe(params => {
+      this.productId = params.get('id');
+      if (this.productId) {
+        this.isEditMode = true;
+        this.loadProductData(this.productId);
+      }
+    });
 
     this.productForm = this.productFormService.getForm()
     console.log(this.productForm)
@@ -86,18 +137,20 @@ export class ProductFormComponent implements OnInit {
     this.productFormValue = toSignal(this.productForm.valueChanges)
 
 
-    this.categoryControl.valueChanges.subscribe(selectedNode => {
-      if (selectedNode) {
-        this.productForm.controls.categoryId.setValue(selectedNode.key);
-      } else {
-        this.productForm.controls.categoryId.setValue('');
-      }
-    });
+    if (!this.isEditMode) {
+      this.categoryControl.valueChanges.subscribe(selectedNode => {
+        if (selectedNode) {
+          this.productForm.controls.categoryId.setValue(selectedNode.key);
+        } else {
+          this.productForm.controls.categoryId.setValue('');
+        }
+      });
+    }
   }
 
   productFormSubmit() {
 
-    this.loadingModalService.showLoadingModal('Создаем объявление...')
+    this.loadingModalService.showLoadingModal(this.isEditMode ? 'Обновляем объявление...' : 'Создаем объявление...')
 
     this.markAllInputsAsTouched();
 
@@ -115,9 +168,9 @@ export class ProductFormComponent implements OnInit {
     formData.append('categoryId', formValue.categoryId)
     formData.append('phone', phoneAsNumber.toString())
 
-    this.selectedFiles.forEach((file, index) => {
-      formData.append('Images', file, file.name);
-    });
+      this.selectedFiles.forEach((file, index) => {
+        formData.append('Images', file, file.name);
+      });
 
     console.log('Формдата отправляется с:', {
       name: formValue.name,
@@ -127,24 +180,42 @@ export class ProductFormComponent implements OnInit {
       location: formValue.location,
       categoryId: formValue.categoryId,
       phone: phoneAsNumber,
-      images: formValue.selectedFiles
+      images: this.selectedFiles.length
     });
 
     if (this.productForm.invalid) {
       this.loadingModalService.hideLoadingModal();
       console.log("Ошибка формы");
-    } else {
-      this.productFormApiService.createProduct(formData).subscribe(
-        (res) => {
-          console.log(res)
-
+      return;
+    }
+    if (this.isEditMode && this.productId) {
+      this.productFormApiService.updateProduct(this.productId, formData).subscribe({
+        next: (res) => {
           this.userService.loadMe().subscribe(() => {
             this.loadingModalService.hideLoadingModal();
             this.router.navigate(['current-product/' + res.id]);
             window.scrollTo(0, 0);
-          })
+          });
+        },
+        error: (error) => {
+          console.error('Ошибка обновления:', error);
+          this.loadingModalService.hideLoadingModal();
         }
-      )
+      });
+    } else {
+      this.productFormApiService.createProduct(formData).subscribe({
+        next: (res) => {
+          this.userService.loadMe().subscribe(() => {
+            this.loadingModalService.hideLoadingModal();
+            this.router.navigate(['current-product/' + res.id]);
+            window.scrollTo(0, 0);
+          });
+        },
+        error: (error) => {
+          console.error('Ошибка создания:', error);
+          this.loadingModalService.hideLoadingModal();
+        }
+      });
     }
 
   }
@@ -158,13 +229,33 @@ export class ProductFormComponent implements OnInit {
     this.categoryControl.markAsTouched();
   }
 
-  get name() { return this.productForm.get('name') }
-  get description() { return this.productForm.get('description') }
-  get cost() { return this.productForm.get('cost') }
-  get email() { return this.productForm.get('email') }
-  get location() { return this.productForm.get('location') }
-  get categoryId() { return this.productForm.get('categoryId') }
-  get phone() { return this.productForm.get('phone')}
+  get name() {
+    return this.productForm.get('name')
+  }
+
+  get description() {
+    return this.productForm.get('description')
+  }
+
+  get cost() {
+    return this.productForm.get('cost')
+  }
+
+  get email() {
+    return this.productForm.get('email')
+  }
+
+  get location() {
+    return this.productForm.get('location')
+  }
+
+  get categoryId() {
+    return this.productForm.get('categoryId')
+  }
+
+  get phone() {
+    return this.productForm.get('phone')
+  }
 
 
   //--------------------
@@ -179,6 +270,12 @@ export class ProductFormComponent implements OnInit {
   onFileClear() {
     this.selectedFiles = [];
     console.log('Все файлы удадены');
+  }
+
+  onFileRemove(event: any) {
+    this.selectedFiles = this.selectedFiles.filter(file => file !== event.file);
+    console.log('Удален файл:', event.file.name);
+    console.log('Остальные файлы:', this.selectedFiles);
   }
 
 

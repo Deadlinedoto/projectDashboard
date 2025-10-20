@@ -11,4 +11,7 @@ export class ProductFormApiService extends BaseService{
   createProduct(request: any): Observable<ProductFormResponse> {
     return this.postData<ProductFormResponse>('Advert', request)
   }
+  updateProduct(productId: string, formData: FormData): Observable<ProductFormResponse> {
+    return this.putData<ProductFormResponse>('Advert/' + productId, formData);
+  }
 }

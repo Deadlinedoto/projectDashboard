@@ -28,6 +28,7 @@
       @if (showEditButton) {
         <div class="current-product_edit-buttons mt16">
           <app-button
+            (click)="editProduct($event, selectedProduct.id)"
             customClass='p-button_edit-product'
             label="Редактировать"
             icon="pi pi-pencil"

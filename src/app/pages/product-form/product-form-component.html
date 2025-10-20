@@ -1,13 +1,14 @@
 <app-loading-modal></app-loading-modal>
 <div class="product-form">
-  <h4>Новое объявление</h4>
+  <h4>{{ isEditMode ? 'Редактирование объявления' : 'Новое объявление' }}</h4>
   <form
     class="product-form_area"
     [formGroup]="productForm"
     (ngSubmit)="productFormSubmit()"
   >
-    <div class="card flex justify-center">
-      <h6>Выберите категорию <span>*</span></h6>
+    @if (!isEditMode) {
+      <div class="card flex justify-center">
+        <h6>Выберите категорию <span>*</span></h6>
         <p-tree-select
           class="md:w-80 w-full"
           containerStyleClass="w-full"
@@ -16,23 +17,24 @@
           [filter]="true"
           [formControl]="categoryControl"
         />
-      @if (isLoadingCategories) {
+        @if (isLoadingCategories) {
           <div class="loading-spinner">
             <i class="pi pi-spin pi-spinner" style="font-size: 1.25rem"></i>
             <span>Загрузка категорий...</span>
           </div>
-      }
-      @if (categoryId?.invalid && categoryId?.touched) {
-        <p-message
-          severity="error"
-          variant="simple"
-          size="small"
-          class="register-form_p-message"
-        >
-          Выберите категорию
-        </p-message>
-      }
-    </div>
+        }
+        @if (categoryId?.invalid && categoryId?.touched) {
+          <p-message
+            severity="error"
+            variant="simple"
+            size="small"
+            class="register-form_p-message"
+          >
+            Выберите категорию
+          </p-message>
+        }
+      </div>
+    }
     <div>
       <h6>Название объявления <span>*</span></h6>
       <input
@@ -131,34 +133,34 @@
       >
     </div>
 
+      <div>
+        <p-fileupload
+          chooseLabel="Выбрать картинки"
+          uploadLabel="Загрузить"
+          cancelLabel="Отмена"
+          [multiple]="true"
+          accept="image/*"
+          maxFileSize="2000000"
+          mode="advanced"
+          [auto]="false"
+          [showUploadButton]="false"
+          (onSelect)="onFileSelect($event)"
+          (onClear)="onFileClear()"
+          (onRemove)="onFileRemove($event)"
+        >
+          <ng-template #empty>
+            <div style="font: var(--ph); color: var(--dark-blue-color)">
+              Максимум 10 картинок в формате jpeg, png или heic
+            </div>
+          </ng-template>
+          <ng-template #content>
+            <ul *ngIf="selectedFiles.length">
+              <li *ngFor="let file of selectedFiles">{{ file.name }} - {{ file.size }} bytes</li>
+            </ul>
+          </ng-template>
+        </p-fileupload>
+      </div>
 
-
-    <div>
-      <p-fileupload
-        chooseLabel="Выбрать картинки"
-        uploadLabel="Загрузить"
-        cancelLabel="Отмена"
-        [multiple]="true"
-        accept="image/*"
-        maxFileSize="2000000"
-        mode="advanced"
-        [auto]="false"
-        [showUploadButton]="false"
-        (onSelect)="onFileSelect($event)"
-        (onClear)="onFileClear()"
-      >
-        <ng-template #empty>
-          <div style="font: var(--ph); color: var(--dark-blue-color)">
-            Максимум 10 картинок в формате jpeg, png или heic
-          </div>
-        </ng-template>
-        <ng-template #content>
-          <ul *ngIf="selectedFiles.length">
-            <li *ngFor="let file of selectedFiles">{{ file.name }} - {{ file.size }} bytes</li>
-          </ul>
-        </ng-template>
-      </p-fileupload>
-    </div>
 
     <div>
       <h6>Цена <span>*</span></h6>
@@ -180,14 +182,14 @@
         </p-message>
       }
     </div>
-
     <app-button
-      label="Разместить объявление"
+      [label]="isEditMode ? 'Сохранить изменения' : 'Разместить объявление'"
       customClass="p-button_product-form"
     ></app-button>
   </form>
   <div style="width: 306px; font: var(--ph)">
-    Нажимая кнопку «Разместить объявление» Вы соглашаетесь с <a style="color: var(--primary-color); cursor: pointer">правилами
+    Нажимая кнопку «{{ isEditMode ? 'Сохранить изменения' : 'Разместить объявление' }}» Вы соглашаетесь с <a
+    style="color: var(--primary-color); cursor: pointer">правилами
     площадки</a>
   </div>
 

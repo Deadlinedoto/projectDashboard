@@ -102,8 +102,11 @@ export class CurrentProductComponent implements OnInit {
       this.idSelectAdd = params['id'];
       this.getSelectedProduct(this.idSelectAdd)
     })
+  }
 
-
+  editProduct(event: Event, productId: string) {
+    event.stopPropagation();
+    this.router.navigate(['/product-form', productId]);
   }
 
 

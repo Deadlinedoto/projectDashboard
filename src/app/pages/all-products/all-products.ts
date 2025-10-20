@@ -1,11 +1,10 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {NgForOf, NgIf} from '@angular/common';
+import {NgForOf} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import {ProductMiniCardComponent} from './components/product-mini-card/product-mini-card.component';
 import {ApiService} from '../../core/services/http/api.service';
 import {AuthStateService} from '../../features/auth/components/auth/services';
 import {LoadingModalService} from '../../features/loading-modal/loading-modal/services/loading-modal.service';
-import {LoadingModalComponent} from '../../features/loading-modal/loading-modal/loading-modal.component';
 
 @Component({
   selector: 'app-all-products',
@@ -13,7 +12,7 @@ import {LoadingModalComponent} from '../../features/loading-modal/loading-modal/
     NgForOf,
     RouterLink,
     ProductMiniCardComponent,
-    LoadingModalComponent,
+
   ],
   templateUrl: './all-products.html',
   styleUrl: './all-products.scss',

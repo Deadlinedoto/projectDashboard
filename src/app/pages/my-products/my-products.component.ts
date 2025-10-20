@@ -3,7 +3,7 @@ import {UserService} from '../../core/services';
 import {CurrentProductInterface} from '../current-product';
 import {PricePipe} from '../../shared/pipes/price.pipe';
 import {RelativeTimePipe} from '../../shared/pipes/relative-time.pipe';
-import {RouterLink} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {CurrentProductApiService} from '../current-product/services/current-product-api.service';
 import {LoadingModalService} from '../../features/loading-modal/loading-modal/services/loading-modal.service';
 import {LoadingModalComponent} from '../../features/loading-modal/loading-modal/loading-modal.component';
@@ -30,6 +30,7 @@ export class MyProductsComponent implements OnInit {
   private loadingModalService = inject(LoadingModalService);
 
 
+
   ngOnInit() {
     console.log(this.userService.user());
     console.log(this.userService.userName());
@@ -44,6 +45,8 @@ export class MyProductsComponent implements OnInit {
     } else {
     }
   }
+
+
 
   loadMyProducts() {
 

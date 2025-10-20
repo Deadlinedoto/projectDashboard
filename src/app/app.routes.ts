@@ -34,6 +34,15 @@ export const routes: Routes = [
     canActivate: [canActivateAuth]
   },
   {
+    title: 'Редактирование объявления',
+    path: 'product-form/:id',
+    loadComponent: () =>
+      import('./pages/product-form/product-form-component').then(
+        (m) => m.ProductFormComponent
+      ),
+    canActivate: [canActivateAuth]
+  },
+  {
     title: 'Настройки',
     path: 'user-settings',
     loadComponent: () =>
