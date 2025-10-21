@@ -11,7 +11,7 @@
   </ul>
   <div class="all-categories_child-categories">
     @if (selectedCategory()) {
-      <a>
+      <a (click)="onParentCategoryClick(selectedCategory())" >
         <h4>{{ selectedCategory()?.name }}</h4>
         <i class="pi pi-chevron-right" style="font-size: 1rem"></i>
       </a>
@@ -25,7 +25,7 @@
         @if (childCategories().length > 0) {
           <ul class="all-categories_child-categories_list">
             @for (childCat of childCategories(); track childCat.id) {
-              <li class="category-item child-item">
+              <li class="category-item child-item" (click)="onChildCategoryClick(childCat)">
                 <h5>{{ childCat.name }}</h5>
                 @if (childCat.childs && childCat.childs.length > 0) {
                   <span class="child-count">({{ childCat.childs.length }})</span>

@@ -1,6 +1,10 @@
 .all-products {
   height: 100%;
 
+  &_header {
+    display: flex;
+    justify-content: space-between;
+  }
   &_label {
     font-family: 'Roboto-SemiBold', sans-serif;
     font-size: 24px;
@@ -15,7 +19,6 @@
   }
 
 }
-
 .card {
   margin-top: 20px;
 

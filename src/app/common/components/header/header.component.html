@@ -83,5 +83,8 @@
 >
 </app-register>
 <p-popover #menu styleClass="show-all-categories container" (onShow)="onMenuShow()" (onHide)="onMenuHide()">
-  <app-show-all-categories-modal #showAllCategoryMenu></app-show-all-categories-modal>
+  <app-show-all-categories-modal
+    #showAllCategoryMenu
+    (closeModal)="onMenuHide()"
+  ></app-show-all-categories-modal>
 </p-popover>

@@ -8,6 +8,7 @@ import {LoadingModalService} from '../../features/loading-modal/loading-modal/se
 import {SearchService} from '../../common/components/header/services/search.service';
 import {Subscription} from 'rxjs';
 import {LoadingModalComponent} from '../../features/loading-modal/loading-modal/loading-modal.component';
+import {ButtonComponent} from '../../shared/components/ui/button';
 
 @Component({
   selector: 'app-all-products',
@@ -16,6 +17,7 @@ import {LoadingModalComponent} from '../../features/loading-modal/loading-modal/
     RouterLink,
     ProductMiniCardComponent,
     LoadingModalComponent,
+    ButtonComponent,
 
   ],
   templateUrl: './all-products.html',
@@ -45,6 +47,14 @@ export class AllProductsComponent implements OnInit, OnDestroy {
   private searchSubscription?: Subscription;
 
   ngOnInit() {
+    this.loadProducts();
+
+    this.searchService.selectedCategory$.subscribe(category => {
+      this.loadProducts(category?.id);
+    });
+
+    this.searchSubscription = this.searchService.searchQuery$.subscribe(query => {
+    });
   }
 
 
@@ -52,12 +62,15 @@ export class AllProductsComponent implements OnInit, OnDestroy {
   loadProducts(categoryId?: string) {
     this.loadingModalService.showLoadingModal('Загружаем объявления')
     this.authStateService.setPageLoading(true);
-    // const selectedCategory = this.searchService.getSelectedCategory();
-    // const finalCategoryId = categoryId || selectedCategory?.id;
-    this.apiService.getAllProducts()
+
+    const selectedCategory = this.searchService.getSelectedCategory();
+    const finalCategoryId = categoryId || selectedCategory?.id;
+
+    this.apiService.getAllProducts(finalCategoryId)
       .subscribe({
           next: (value) => {
             console.log(value);
+            console.log('2 раза');
             this.products.set(value);
             this.loadingModalService.hideLoadingModal()
           },
@@ -67,8 +80,6 @@ export class AllProductsComponent implements OnInit, OnDestroy {
           }
         }
       )
-    this.searchSubscription = this.searchService.searchQuery$.subscribe(query => {
-    });
   }
 
   ngOnDestroy() {
@@ -78,6 +89,6 @@ export class AllProductsComponent implements OnInit, OnDestroy {
   }
 
   clearSearch(): void {
-    this.searchService.clearSearchQuery();
+    this.searchService.clearAllFilters();
   }
 }

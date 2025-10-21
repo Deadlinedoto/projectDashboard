@@ -44,6 +44,7 @@ export class HeaderComponent implements OnInit {
 
 
   @ViewChild('showAllCategoryMenu') categoryMenu!: ShowAllCategoriesComponent;
+  @ViewChild('menu') menu!: Popover;
 
   menuButtonIcon = 'list-nested';
   menuButtonActive = false;
@@ -56,6 +57,7 @@ export class HeaderComponent implements OnInit {
   onMenuHide() {
     this.menuButtonActive = false;
     this.menuButtonIcon = 'list-nested';
+    this.menu.hide();
   }
 
   userName = this.userService.userName

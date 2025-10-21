@@ -35,6 +35,18 @@
     &_list {
       margin-top: 24px;
     }
+    & a {
+      display: flex;
+      justify-content: space-between;
+      width: 232px;
+      padding: 8px 12px;
+      transition: background-color 0.2s;
+      border-radius: 8px;
+      &:hover {
+        cursor: pointer;
+        background-color: #F5F5F5;
+      }
+    }
   }
 }
 .no-categories {

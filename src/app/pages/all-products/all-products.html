@@ -1,12 +1,27 @@
 <app-loading-modal></app-loading-modal>
-<div class="all-products mb100">
+<div class="mb100">
+  <div class="all-products_header">
   <h4 class="all-products mb24">
-    @if (searchService.searchQuery()) {
+    @if (searchService.searchQuery() && searchService.selectedCategory()) {
+      Поиск "{{ searchService.searchQuery() }}" в категории "{{ searchService.selectedCategory()?.name }}"
+    } @else if (searchService.searchQuery()) {
       Результаты поиска: "{{ searchService.searchQuery() }}"
+    } @else if (searchService.selectedCategory()) {
+      Категория: "{{ searchService.selectedCategory()?.name }}"
     } @else {
       Рекомендации для вас
     }
   </h4>
+  @if (searchService.selectedCategory()) {
+    <div class="close-category-filter">
+      <app-button
+        (click)="clearSearch()"
+        label="Очистить фильтры"
+        icon="pi pi-times"
+      />
+    </div>
+  }
+  </div>
   <div class="all-products_wrapper">
     @if (filteredProducts().length > 0) {
       <div
@@ -20,9 +35,6 @@
     } @else if (searchService.searchQuery() && products().length > 0) {
       <div class="no-results">
         <p>По вашему запросу ничего не найдено</p>
-        <button class="btn btn-primary" (click)="clearSearch()">
-          Показать все товары
-        </button>
       </div>
     } @else if (products().length === 0) {
       <div class="loading-message">
