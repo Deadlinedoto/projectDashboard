@@ -12,8 +12,15 @@ import {RegisterInterface} from '../../../features/auth/components/register/regi
 })
 export class ApiService extends BaseService{
 
-  getAllProducts(): Observable<ProductMiniCardInterface[]> {
-    return this.postData<ProductMiniCardInterface[]>('Advert/search', {})
+  getAllProducts(categoryId?: string): Observable<ProductMiniCardInterface[]> {
+    const searchParams: any = {
+      search: "",
+      showNonActive: false
+    };
+    if (categoryId) {
+      searchParams.category = categoryId;
+    }
+    return this.postData<ProductMiniCardInterface[]>('Advert/search', searchParams)
   }
   getCurrentUser(): Observable<UserInterface> {
     return this.getData<UserInterface>('Users/current')

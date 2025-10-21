@@ -36,17 +36,24 @@ export class AllProductsComponent implements OnInit, OnDestroy {
   filteredProducts = computed(() => {
     const searchQuery = this.searchService.searchQuery();
     const productsArray = this.products();
-    console.log('Filtering products:', productsArray.length, 'with query:', searchQuery);
-    const filtered = this.searchService.filterProducts(productsArray, searchQuery);
-    console.log('Filtered result:', filtered.length);
-    return filtered;
+    if (searchQuery && searchQuery.trim() !== '') {
+      return this.searchService.filterProducts(productsArray, searchQuery);
+    }
+    return productsArray;
   });
 
   private searchSubscription?: Subscription;
 
   ngOnInit() {
+  }
+
+
+
+  loadProducts(categoryId?: string) {
     this.loadingModalService.showLoadingModal('Загружаем объявления')
     this.authStateService.setPageLoading(true);
+    // const selectedCategory = this.searchService.getSelectedCategory();
+    // const finalCategoryId = categoryId || selectedCategory?.id;
     this.apiService.getAllProducts()
       .subscribe({
           next: (value) => {
