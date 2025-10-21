@@ -2,8 +2,6 @@ import {computed, inject, Injectable, signal} from '@angular/core';
 import {UserInterface} from '../interfaces/user-interface';
 import {ApiService} from './http/api.service';
 import {catchError, of, tap} from 'rxjs';
-import {AuthService} from '../../features/auth/components/auth/services';
-import {HeaderService} from '../../common/components/header/header.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +11,6 @@ export class UserService {
 
   private userSignal = signal<UserInterface | null>(null);
 
-  // user: UserInterface | null = null;
 
   user = computed(() => this.userSignal());
   userName = computed(() => this.userSignal()?.name || 'Пользователь')

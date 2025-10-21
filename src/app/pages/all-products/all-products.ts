@@ -1,10 +1,13 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, computed, inject, OnDestroy, OnInit, signal} from '@angular/core';
 import {NgForOf} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import {ProductMiniCardComponent} from './components/product-mini-card/product-mini-card.component';
 import {ApiService} from '../../core/services/http/api.service';
 import {AuthStateService} from '../../features/auth/components/auth/services';
 import {LoadingModalService} from '../../features/loading-modal/loading-modal/services/loading-modal.service';
+import {SearchService} from '../../common/components/header/services/search.service';
+import {Subscription} from 'rxjs';
+import {LoadingModalComponent} from '../../features/loading-modal/loading-modal/loading-modal.component';
 
 @Component({
   selector: 'app-all-products',
@@ -12,6 +15,7 @@ import {LoadingModalService} from '../../features/loading-modal/loading-modal/se
     NgForOf,
     RouterLink,
     ProductMiniCardComponent,
+    LoadingModalComponent,
 
   ],
   templateUrl: './all-products.html',
@@ -19,13 +23,26 @@ import {LoadingModalService} from '../../features/loading-modal/loading-modal/se
   standalone: true,
 })
 
-export class AllProductsComponent implements OnInit {
+export class AllProductsComponent implements OnInit, OnDestroy {
 
   private authStateService = inject(AuthStateService);
   private apiService = inject(ApiService);
   private loadingModalService = inject(LoadingModalService);
+  public searchService = inject(SearchService);
 
-  products: any[] = [];
+
+  products = signal<any[]>([]);
+
+  filteredProducts = computed(() => {
+    const searchQuery = this.searchService.searchQuery();
+    const productsArray = this.products();
+    console.log('Filtering products:', productsArray.length, 'with query:', searchQuery);
+    const filtered = this.searchService.filterProducts(productsArray, searchQuery);
+    console.log('Filtered result:', filtered.length);
+    return filtered;
+  });
+
+  private searchSubscription?: Subscription;
 
   ngOnInit() {
     this.loadingModalService.showLoadingModal('Загружаем объявления')
@@ -34,10 +51,8 @@ export class AllProductsComponent implements OnInit {
       .subscribe({
           next: (value) => {
             console.log(value);
-            this.products = value;
-            setTimeout(() => {
-              this.loadingModalService.hideLoadingModal()
-            }, 500)
+            this.products.set(value);
+            this.loadingModalService.hideLoadingModal()
           },
           error: (error) => {
             console.error('Ошибка загрузки объявлений:', error);
@@ -45,6 +60,17 @@ export class AllProductsComponent implements OnInit {
           }
         }
       )
+    this.searchSubscription = this.searchService.searchQuery$.subscribe(query => {
+    });
+  }
 
+  ngOnDestroy() {
+    if (this.searchSubscription) {
+      this.searchSubscription.unsubscribe();
+    }
+  }
+
+  clearSearch(): void {
+    this.searchService.clearSearchQuery();
   }
 }

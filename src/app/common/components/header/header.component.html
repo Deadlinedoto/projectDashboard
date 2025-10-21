@@ -37,7 +37,12 @@
   <div class="header_bottom">
     <div class="container">
       <div class="header_bottom_menu">
-        <h1 [routerLink]="['/']">Доска объявлений</h1>
+        <h1
+          [routerLink]="['/']"
+          (click)="clearSearch()"
+        >
+          Доска объявлений
+        </h1>
         <div class="header_bottom-wrapper">
           <app-button
             customClass="p-button_show-all-categories"
@@ -49,6 +54,8 @@
             <input class="header_bottom-input"
                    type="text"
                    placeholder="Поиск по объявлениям"
+                   [(ngModel)]="searchQuery"
+                   (input)="onSearchInput($event)"
             >
             <button class="header_bottom-search-button btn btn-search">
               Найти

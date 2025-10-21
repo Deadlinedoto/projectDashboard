@@ -6,12 +6,14 @@ import {RegisterComponent} from '../../../features/auth/components/register/regi
 import {AuthService} from '../../../features/auth/components/auth/services';
 import {SplitButton} from 'primeng/splitbutton';
 import {MenuItem} from 'primeng/api';
-import {HeaderService} from './header.service';
+import {HeaderService} from './services/header.service';
 import {UserService} from '../../../core/services';
 import {
   ShowAllCategoriesComponent
 } from '../../../shared/components/show-all-categories-modal/show-all-categories.component';
 import {Popover} from 'primeng/popover';
+import {SearchService} from './services/search.service';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-header',
@@ -23,6 +25,7 @@ import {Popover} from 'primeng/popover';
     SplitButton,
     ShowAllCategoriesComponent,
     Popover,
+    FormsModule,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
@@ -31,11 +34,14 @@ import {Popover} from 'primeng/popover';
 export class HeaderComponent implements OnInit {
   public isVisiblePopupLogin: boolean = false;
   public isVisiblePopupRegister: boolean = false;
+  public searchQuery: string = '';
 
+  private searchService = inject(SearchService);
   authService = inject(AuthService);
   headerService = inject(HeaderService)
   userService = inject(UserService)
   items: MenuItem[];
+
 
   @ViewChild('showAllCategoryMenu') categoryMenu!: ShowAllCategoriesComponent;
 
@@ -58,8 +64,8 @@ export class HeaderComponent implements OnInit {
     if (this.authService.isAuth) {
       this.userService.loadMe()
     }
-
     else console.log('Не авторизирован');
+    this.searchQuery = this.searchService.getSearchQuery();
   }
 
 
@@ -82,6 +88,16 @@ export class HeaderComponent implements OnInit {
         }
       }
     ]
+  }
+
+  onSearchInput(event: any): void {
+    const value = event.target.value;
+    this.searchQuery = value;
+    this.searchService.setSearchQuery(value.trim());
+  }
+  clearSearch(): void {
+    this.searchQuery = '';
+    this.searchService.clearSearchQuery();
   }
 
 

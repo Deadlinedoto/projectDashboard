@@ -168,9 +168,12 @@ export class ProductFormComponent implements OnInit {
     formData.append('categoryId', formValue.categoryId)
     formData.append('phone', phoneAsNumber.toString())
 
+    if(this.selectedFiles.length > 0) {
       this.selectedFiles.forEach((file, index) => {
         formData.append('Images', file, file.name);
       });
+    }
+
 
     console.log('Формдата отправляется с:', {
       name: formValue.name,
@@ -180,7 +183,7 @@ export class ProductFormComponent implements OnInit {
       location: formValue.location,
       categoryId: formValue.categoryId,
       phone: phoneAsNumber,
-      images: this.selectedFiles.length
+      images: this.selectedFiles
     });
 
     if (this.productForm.invalid) {
