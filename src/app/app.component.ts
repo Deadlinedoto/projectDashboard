@@ -5,6 +5,8 @@ import {FooterComponent} from './common/components/footer/footer.component';
 import {AuthService} from './features/auth/components/auth/services';
 import {UserService} from './core/services';
 import {SkeletonBigComponent} from './features/skeletons/skeleton-big/skeleton-big.component';
+import {Toast} from 'primeng/toast';
+import {MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-root',
@@ -14,9 +16,11 @@ import {SkeletonBigComponent} from './features/skeletons/skeleton-big/skeleton-b
     HeaderComponent,
     FooterComponent,
     SkeletonBigComponent,
+    Toast,
   ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
+  providers: [MessageService],
 })
 export class AppComponent implements OnInit {
   title = 'projectDashboard';

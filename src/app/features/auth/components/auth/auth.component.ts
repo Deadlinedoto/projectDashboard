@@ -5,6 +5,7 @@ import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import {ButtonComponent} from '../../../../shared/components/ui/button';
 import {AuthService} from './services';
 import {NgxMaskDirective} from 'ngx-mask';
+import {MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-auth',
@@ -27,6 +28,7 @@ export class AuthComponent {
 
   authService = inject(AuthService)
   private _fb = inject(FormBuilder)
+  private messageService = inject(MessageService)
   authForm: FormGroup;
 
   rememberMe: boolean = false;
@@ -57,6 +59,7 @@ export class AuthComponent {
         this.onHide()
       })
       this.authForm.reset()
+      this.messageService.add({severity: 'info', summary: 'Успешно', detail: 'Вы успешно авторизировались'});
     }
   }
 }

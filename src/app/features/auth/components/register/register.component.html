@@ -62,12 +62,18 @@
     }
 
 
-    <input
-      formControlName="password"
-      placeholder="Пароль"
-      type="text"
-      class="mt16"
-    >
+    <div class="password-input-wrapper">
+      <input
+        formControlName="password"
+        placeholder="Пароль"
+        [type]="showPassword() ? 'text' : 'password'"
+        class="mt16 password-input"
+      />
+      <i
+        [class]="showPassword() ? 'pi pi-eye-slash password-toggle' : 'pi pi-eye password-toggle'"
+        (click)="togglePasswordVisibility()"
+      ></i>
+    </div>
     @if (formRegister.get('password')?.invalid) {
       @if (formRegister.get('password')?.hasError('minlength')) {
         <p-message
@@ -91,12 +97,18 @@
       }
     }
 
-    <input
-      formControlName="confirmPassword"
-      placeholder="Повторите пароль"
-      type="password"
-      class="mt16"
-    >
+    <div class="password-input-wrapper">
+      <input
+        formControlName="confirmPassword"
+        placeholder="Повторите пароль"
+        [type]="showConfirmPassword() ? 'text' : 'password'"
+        class="mt16 password-input"
+      >
+      <i
+        [class]="showConfirmPassword() ? 'pi pi-eye-slash password-toggle' : 'pi pi-eye password-toggle'"
+        (click)="toggleConfirmPasswordVisibility()"
+      ></i>
+    </div>
     @if (formRegister.get('confirmPassword')?.touched && formRegister.get('confirmPassword')?.invalid) {
       @if (formRegister.get('confirmPassword')?.hasError('required')) {
         <p-message

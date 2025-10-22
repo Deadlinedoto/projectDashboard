@@ -75,16 +75,15 @@ export class CurrentProductComponent implements OnInit {
       accept: () => {
         this.loadingModalService.showLoadingModal('Удаляем объявление...')
         this.currentProductApiService.deleteMyProduct(this.selectedProduct.id).subscribe(
-          (res) => {
-            console.log('Объявление удалено', res)
-
+          () => {
+            console.log('Объявление удалено')
             this.userService.loadMe().subscribe(() => {
               this.loadingModalService.hideLoadingModal();
-              this.messageService.add({ severity: 'info', summary: 'Успешно', detail: 'Объявление удалено' });
               this.router.navigate(['/my-products']);
             })
           }
         )
+        this.messageService.add({severity: 'info', summary: 'Успешно', detail: 'Объявление успешно удалено'});
       },
       reject: () => {
         this.messageService.add({ severity: 'error', summary: 'Отмена', detail: 'Объявление не удалено' });

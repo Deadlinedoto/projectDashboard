@@ -1,4 +1,5 @@
 <app-loading-modal/>
+<p-toast/>
 @if (selectedProduct) {
   <nav class="breadcrumbs mb8">
     <ul class="breadcrumbs_menu">
@@ -18,7 +19,11 @@
   <div class="current-product">
     <div class="current-product_img">
       <h2 class="mb16">{{ selectedProduct.name }}</h2>
-      <app-images-carousel [miniImg]="selectedProduct"></app-images-carousel>
+      @if (selectedProduct.imagesIds[0]) {
+        <app-images-carousel [miniImg]="selectedProduct"></app-images-carousel>
+      } @else {
+        <img class="current-product_no-img" src="/assets/images/placeholder-image.webp" alt="image">
+      }
     </div>
     <div class="current-product_info">
       <h2 class="current-product_price">{{ selectedProduct.cost | price }}</h2>
@@ -33,7 +38,6 @@
             label="Редактировать"
             icon="pi pi-pencil"
           ></app-button>
-          <p-toast />
           <p-confirm-dialog></p-confirm-dialog>
           <app-button
             customClass='p-button_delete-product'

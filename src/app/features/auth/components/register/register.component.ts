@@ -1,4 +1,4 @@
-import {Component, EventEmitter, inject, Input, Output} from '@angular/core';
+import {Component, EventEmitter, inject, Input, Output, signal} from '@angular/core';
 import {ButtonComponent} from '../../../../shared/components/ui/button';
 import {Dialog} from 'primeng/dialog';
 import {
@@ -13,6 +13,8 @@ import {RegisterService} from './register.service';
 import {AuthStateService} from '../auth/services';
 import {Message} from 'primeng/message';
 import {NgxMaskDirective} from 'ngx-mask';
+import {LoadingModalService} from '../../../loading-modal/loading-modal/services/loading-modal.service';
+import {MessageService} from 'primeng/api';
 
 
 @Component({
@@ -35,7 +37,10 @@ export class RegisterComponent {
 
   registerService = inject(RegisterService)
   authStateService = inject(AuthStateService)
+  private messageService = inject(MessageService)
   isLoading = this.authStateService.isLoading;
+  showPassword = signal<boolean>(false);
+  showConfirmPassword = signal<boolean>(false);
   _fb = inject(FormBuilder)
 
   onHide() {
@@ -82,6 +87,13 @@ export class RegisterComponent {
       return null;
     }
   }
+  togglePasswordVisibility(): void {
+    this.showPassword.set(!this.showPassword());
+  }
+
+  toggleConfirmPasswordVisibility(): void {
+    this.showConfirmPassword.set(!this.showConfirmPassword());
+  }
 
   register() {
     if (this.formRegister.invalid) {
@@ -97,6 +109,7 @@ export class RegisterComponent {
         console.log("Отправленные данные: ", registerData)
         this.closeShowPopupRegister.emit(false);
         this.formRegister.reset()
+        this.messageService.add({severity: 'info', summary: 'Успешно', detail: 'Профиль успешно обновлен'});
       },
       error: (error) => {
         console.error("Ошибка регистрации", error)

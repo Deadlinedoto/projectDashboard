@@ -20,6 +20,7 @@ import {UserService} from '../../core/services';
 import {LoadingModalComponent} from '../../features/loading-modal/loading-modal/loading-modal.component';
 import {LoadingModalService} from '../../features/loading-modal/loading-modal/services/loading-modal.service';
 import {CurrentProductApiService} from '../current-product/services/current-product-api.service';
+import {MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-product-form',
@@ -48,6 +49,7 @@ export class ProductFormComponent implements OnInit {
   private productFormService = inject(ProductFormService)
   private productFormApiService = inject(ProductFormApiService)
   private router = inject(Router);
+  private messageService = inject(MessageService)
   private userService = inject(UserService)
   private loadingModalService = inject(LoadingModalService)
   private route = inject(ActivatedRoute);
@@ -198,13 +200,16 @@ export class ProductFormComponent implements OnInit {
             this.loadingModalService.hideLoadingModal();
             this.router.navigate(['current-product/' + res.id]);
             window.scrollTo(0, 0);
+            this.messageService.add({severity: 'info', summary: 'Успешно', detail: 'Объявление успешно изменено'});
           });
         },
         error: (error) => {
           console.error('Ошибка обновления:', error);
           this.loadingModalService.hideLoadingModal();
         }
-      });
+      })
+
+
     } else {
       this.productFormApiService.createProduct(formData).subscribe({
         next: (res) => {
@@ -212,13 +217,15 @@ export class ProductFormComponent implements OnInit {
             this.loadingModalService.hideLoadingModal();
             this.router.navigate(['current-product/' + res.id]);
             window.scrollTo(0, 0);
+            this.messageService.add({severity: 'info', summary: 'Успешно', detail: 'Объявление успешно создано'});
           });
         },
         error: (error) => {
           console.error('Ошибка создания:', error);
           this.loadingModalService.hideLoadingModal();
         }
-      });
+      })
+
     }
 
   }

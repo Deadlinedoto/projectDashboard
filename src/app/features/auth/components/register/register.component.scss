@@ -1,5 +1,7 @@
-:host ::ng-deep p-dialog {
-
+:host ::ng-deep  {
+  i {
+    margin-top: 8px;
+  }
 }
 
 .register-form {
@@ -12,6 +14,34 @@
     width: 100%;
     border: 1px solid var(--light-grey-color);
     border-radius: 4px;
+  }
+
+}
+.password-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+  .password-input {
+    width: 100%;
+    padding-right: 40px;
+  }
+
+  .password-toggle {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #6c757d;
+    font-size: 1.1rem;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #495057;
+    }
   }
 
 }

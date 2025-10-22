@@ -1,21 +1,19 @@
 import {Component, inject, OnInit, Signal} from '@angular/core';
 import {ButtonComponent} from '../../shared/components/ui/button';
-import {AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors} from '@angular/forms';
+import {AbstractControl, FormGroup, ReactiveFormsModule, ValidationErrors} from '@angular/forms';
 import {UserService} from '../../core/services';
 import {NgxMaskDirective} from 'ngx-mask';
 import {UserSettingsService} from './services/user-settings.service';
 import {UserSettingsModel} from './models/user-settings-model';
 import {toSignal} from '@angular/core/rxjs-interop';
 import {MessageService} from 'primeng/api';
-import {Toast} from 'primeng/toast';
 
 @Component({
   selector: 'app-user-settings',
   imports: [
     ButtonComponent,
     ReactiveFormsModule,
-    NgxMaskDirective,
-    Toast
+    NgxMaskDirective
   ],
   templateUrl: './user-settings.component.html',
   styleUrl: './user-settings.component.scss',
@@ -47,6 +45,7 @@ export class UserSettingsComponent implements OnInit {
     })
     console.log('Айдишник пользователя:', this.userService.userId());
     console.log('Текущий пользователь:', currentUser)
+
   }
 
   changeProfile() {
@@ -70,7 +69,6 @@ export class UserSettingsComponent implements OnInit {
       this.userSettingsService.putChangeProfile(this.userService.userId(), formData).subscribe(
         (res) => {
           console.log('Профиль успешно обновлен: ', res)
-          this.messageService.add({severity: 'info', summary: 'Успешно', detail: 'Профиль успешно обновлен'});
           this.userService.loadMe().subscribe(
             (res) => {
               console.log('Новые данные пользователя: ', res)
@@ -83,18 +81,4 @@ export class UserSettingsComponent implements OnInit {
       )
     }
   }
-  passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
-    const formGroup = control as FormGroup;
-    const password = formGroup.get('password');
-    const confirmPassword = formGroup.get('confirmPassword');
-
-    if (password && confirmPassword && password.value !== confirmPassword.value) {
-      confirmPassword.setErrors({ passwordMismatch: true });
-      return { passwordMismatch: true };
-    } else {
-      confirmPassword?.setErrors(null);
-      return null;
-    }
-  }
-
 }
