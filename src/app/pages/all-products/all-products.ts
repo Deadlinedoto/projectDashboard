@@ -34,6 +34,13 @@ export class AllProductsComponent implements OnInit, OnDestroy {
 
 
   products = signal<any[]>([]);
+  currentPage = signal<number>(1);
+  itemsPerPage = signal<number>(24);
+  isLoading = signal<boolean>(false);
+
+  totalPages = computed(() => {
+    return Math.ceil(this.filteredProducts().length / this.itemsPerPage());
+  });
 
   filteredProducts = computed(() => {
     const searchQuery = this.searchService.searchQuery();
@@ -50,10 +57,12 @@ export class AllProductsComponent implements OnInit, OnDestroy {
     this.loadProducts();
 
     this.searchService.selectedCategory$.subscribe(category => {
+      this.currentPage.set(1);
       this.loadProducts(category?.id);
     });
 
     this.searchSubscription = this.searchService.searchQuery$.subscribe(query => {
+      this.currentPage.set(1)
     });
   }
 
@@ -73,6 +82,7 @@ export class AllProductsComponent implements OnInit, OnDestroy {
             console.log('2 раза');
             this.products.set(value);
             this.loadingModalService.hideLoadingModal()
+            this.currentPage.set(1);
           },
           error: (error) => {
             console.error('Ошибка загрузки объявлений:', error);
@@ -90,5 +100,45 @@ export class AllProductsComponent implements OnInit, OnDestroy {
 
   clearSearch(): void {
     this.searchService.clearAllFilters();
+  }
+
+  goToPage(page: number): void {
+    if (page >= 1 && page <= this.totalPages()) {
+      this.currentPage.set(page);
+      this.scrollToTop();
+    }
+  }
+
+  private scrollToTop(): void {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  paginatedProducts = computed(() => {
+    const startIndex = (this.currentPage() - 1) * this.itemsPerPage();
+    const endIndex = startIndex + this.itemsPerPage();
+    return this.filteredProducts().slice(startIndex, endIndex);
+  });
+  getPageRange(): number[] {
+    const total = this.totalPages();
+    const current = this.currentPage();
+    const delta = 2;
+    const range = [];
+
+    for (let i = Math.max(2, current - delta); i <= Math.min(total - 1, current + delta); i++) {
+      range.push(i);
+    }
+
+    if (current - delta > 2) {
+      range.unshift(-1);
+    }
+    if (current + delta < total - 1) {
+      range.push(-1);
+    }
+
+    range.unshift(1);
+    if (total > 1) {
+      range.push(total);
+    }
+
+    return range;
   }
 }

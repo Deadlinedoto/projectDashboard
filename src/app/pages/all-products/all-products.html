@@ -23,9 +23,9 @@
   }
   </div>
   <div class="all-products_wrapper">
-    @if (filteredProducts().length > 0) {
+    @if (paginatedProducts().length > 0) {
       <div
-        *ngFor="let product of filteredProducts()"
+        *ngFor="let product of paginatedProducts()"
       >
         <app-product-mini-card
           [product]="product"
@@ -36,12 +36,29 @@
       <div class="no-results">
         <p>По вашему запросу ничего не найдено</p>
       </div>
-    } @else if (products().length === 0) {
+    } @else if (products().length === 0 && !isLoading()) {
       <div class="loading-message">
         <p>Загружаем объявления...</p>
       </div>
     }
   </div>
+  @if (totalPages() > 1) {
+    <div class="page-numbers-wrapper">
+      @for (page of getPageRange(); track page) {
+        @if (page === -1) {
+          <span class="page-dots">...</span>
+        } @else {
+          <button
+            class="page-number {{ page === currentPage() ? 'active' : '' }}"
+            (click)="goToPage(page)"
+          >
+            {{ page }}
+          </button>
+        }
+      }
+    </div>
+  }
+
 </div>
 
 
