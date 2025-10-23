@@ -20,10 +20,6 @@ export class AuthService extends BaseService {
     return !!token;
   }
 
-  getToken() {
-    return this.cookieService.get('token') || null;
-  }
-
   login(payload: AuthInterface) {
     return this.authApiService.getAuth(payload)
       .pipe(
@@ -38,38 +34,4 @@ export class AuthService extends BaseService {
     this.userService.setUser(null);
     this.router.navigate(['/']);
   }
-
-
-
-  // private authApiService = inject(AuthApiService);
-  // userService = inject(UserService);
-  // _token: string | null = null
-  // cookieService = inject(CookieService);
-  // router = inject(Router);
-  //
-  // get isAuth() {
-  //   if(!this._token) {
-  //     this._token = this.cookieService.get('token')
-  //   }
-  //   return !!this._token
-  // }
-  //
-  //
-  // login(payload: AuthInterface): Observable<string> {
-  //   return this.authApiService.getAuth(payload)
-  //     .pipe(
-  //     tap((response: string) => {
-  //       this._token = response;
-  //       this.cookieService.set('token', this._token);
-  //       console.log('ТОКЕН:', this._token)
-  //       this.userService.loadMe()
-  //     })
-  //     )
-  // }
-  // logout() {
-  //   this.cookieService.deleteAll()
-  //   this._token = null;
-  //   this.router.navigate(['/']);
-  // }
-
 }

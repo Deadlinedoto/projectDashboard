@@ -10,7 +10,7 @@ import {BaseService} from '../../../../core/services';
 export class RegisterService extends BaseService{
 
   // getRegister(payload:{ name: string, login: string, password: string}): Observable<RegisterInterface> {
-  //   return this.http.post<RegisterInterface>(`${this.baseApiUrl}Auth/Register`, payload)
+  //   return this.http.post<RegisterInterface>()
   // }
     getRegister(payload: RegisterInterface) {
         return this.postData('Auth/Register', payload)

@@ -43,7 +43,6 @@ export class HeaderComponent implements OnInit {
   items: MenuItem[];
 
 
-  @ViewChild('showAllCategoryMenu') categoryMenu!: ShowAllCategoriesComponent;
   @ViewChild('menu') menu!: Popover;
 
   menuButtonIcon = 'list-nested';

@@ -1,7 +1,8 @@
 <p-dialog
   header="Регистрация"
   (onHide)="onHide()"
-  [(visible)]="visible"
+  [visible]="visible()"
+  (visibleChange)="onHide()"
   [modal]="true"
   [draggable]="false"
   class="login-modal"
@@ -74,7 +75,7 @@
         (click)="togglePasswordVisibility()"
       ></i>
     </div>
-    @if (formRegister.get('password')?.invalid) {
+    @if (formRegister.get('password')?.touched) {
       @if (formRegister.get('password')?.hasError('minlength')) {
         <p-message
           severity="error"

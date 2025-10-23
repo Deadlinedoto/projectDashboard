@@ -31,6 +31,7 @@ export class AllProductsComponent implements OnInit, OnDestroy {
   private apiService = inject(ApiService);
   private loadingModalService = inject(LoadingModalService);
   public searchService = inject(SearchService);
+  private searchSubscription?: Subscription;
 
 
   products = signal<any[]>([]);
@@ -51,10 +52,9 @@ export class AllProductsComponent implements OnInit, OnDestroy {
     return productsArray;
   });
 
-  private searchSubscription?: Subscription;
+
 
   ngOnInit() {
-    this.loadProducts();
 
     this.searchService.selectedCategory$.subscribe(category => {
       this.currentPage.set(1);
@@ -70,7 +70,6 @@ export class AllProductsComponent implements OnInit, OnDestroy {
 
   loadProducts(categoryId?: string) {
     this.loadingModalService.showLoadingModal('Загружаем объявления')
-    this.authStateService.setPageLoading(true);
 
     const selectedCategory = this.searchService.getSelectedCategory();
     const finalCategoryId = categoryId || selectedCategory?.id;
@@ -117,6 +116,7 @@ export class AllProductsComponent implements OnInit, OnDestroy {
     const endIndex = startIndex + this.itemsPerPage();
     return this.filteredProducts().slice(startIndex, endIndex);
   });
+
   getPageRange(): number[] {
     const total = this.totalPages();
     const current = this.currentPage();

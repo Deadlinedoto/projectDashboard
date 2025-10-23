@@ -22,12 +22,7 @@ export class AuthStateService {
       isPageLoading: loading
     }))
   }
-  setLoading(loading: boolean) {
-    this.state.update(current => ({
-      ...current,
-      isLoading: loading
-    }))
-  }
+
 
   getState(): boolean {
     return this.authenticated

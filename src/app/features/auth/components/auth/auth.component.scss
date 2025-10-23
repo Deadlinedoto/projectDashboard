@@ -1,8 +1,14 @@
+:host ::ng-deep  {
+  i {
+    margin-top: 8px;
+  }
+}
+
 .auth-form {
   &_auth-input {
     padding: 12px;
     height: 48px;
-    width: 100%;
+    width: 350px;
     border: 1px solid var(--light-grey-color);
     border-radius: 4px;
     &:focus {
@@ -35,4 +41,32 @@
       cursor: pointer;
     }
   }
+}
+.password-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+  .password-input {
+    width: 100%;
+    padding-right: 40px;
+  }
+
+  .password-toggle {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #6c757d;
+    font-size: 1.1rem;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #495057;
+    }
+  }
+
 }

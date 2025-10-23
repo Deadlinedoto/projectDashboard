@@ -1,7 +1,8 @@
 <p-dialog
   (onHide)="onHide()"
   header="Авторизация"
-  [(visible)]="visible"
+  [visible]="visible()"
+  (visibleChange)="onHide()"
   [modal]="true"
   [draggable]="false"
   class="login-modal"
@@ -21,12 +22,24 @@
       [prefix]='"+7"'
       [dropSpecialCharacters]="false"
     >
-    <input
-      formControlName="password"
-      class="auth-form_auth-input mt16"
-      type="password"
-      placeholder="Пароль"
-    >
+<!--    <input-->
+<!--      formControlName="password"-->
+<!--      class="auth-form_auth-input mt16"-->
+<!--      type="password"-->
+<!--      placeholder="Пароль"-->
+<!--    >-->
+    <div class="password-input-wrapper">
+      <input
+        formControlName="password"
+        placeholder="Пароль"
+        [type]="showPassword() ? 'text' : 'password'"
+        class="mt16 auth-form_auth-input"
+      />
+      <i
+        [class]="showPassword() ? 'pi pi-eye-slash password-toggle' : 'pi pi-eye password-toggle'"
+        (click)="togglePasswordVisibility()"
+      ></i>
+    </div>
     <div class="auth-form_password-menu mt8">
       <div class="auth-form_field-checkbox">
         <p-checkbox

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, inject, Input, Output, signal} from '@angular/core';
+import {Component, EventEmitter, inject, input, Input, output, Output, signal} from '@angular/core';
 import {ButtonComponent} from '../../../../shared/components/ui/button';
 import {Dialog} from 'primeng/dialog';
 import {
@@ -32,8 +32,10 @@ import {MessageService} from 'primeng/api';
   standalone: true,
 })
 export class RegisterComponent {
-  @Input() visible = false;
-  @Output() closeShowPopupRegister = new EventEmitter()
+  visible = input(false);
+  // @Input() visible = false;
+  // @Output() closeShowPopupRegister = new EventEmitter()
+  closeShowPopupRegister = output<boolean>()
 
   registerService = inject(RegisterService)
   authStateService = inject(AuthStateService)

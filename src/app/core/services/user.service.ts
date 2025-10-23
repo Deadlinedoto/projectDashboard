@@ -43,8 +43,5 @@ export class UserService {
     this.userSignal.set(user);
   }
 
-  getUser(user: UserInterface | null) {
-    this.userSignal();
-  }
 
 }

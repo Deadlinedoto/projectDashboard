@@ -62,7 +62,7 @@ export class CategoriesService {
             this._isLoadingChildren.set(false);
           }),
           catchError((error) => {
-            console.error('Error loading child categories:', error);
+            console.error('Ошибка загрузки дочернх категорий', error);
             this._childCategories.set([]);
             this._isLoadingChildren.set(false);
             return of(null);
