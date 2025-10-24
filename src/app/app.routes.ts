@@ -49,7 +49,7 @@ export const routes: Routes = [
       import('../app/pages/user-settings/user-settings.component').then(
         (m) => m.UserSettingsComponent
       ),
-    canActivate: [canActivateAuth]
+    canActivate: [canActivateAuth],
   },
   {
     title: 'Мои объявления',
